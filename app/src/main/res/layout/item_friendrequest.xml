@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvNameFriendRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:text="Trần Hữu Thọ"
+        android:textColor="#0A0B0A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/getUserImgFriendRequest"
+        app:layout_constraintEnd_toEndOf="@+id/imgInforFriendRequest"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toEndOf="@+id/getUserImgFriendRequest"
+        app:layout_constraintTop_toTopOf="@+id/getUserImgFriendRequest"
+        app:layout_constraintVertical_bias="0.391" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/getUserImgFriendRequest"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="110dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imgAvatarFriendRequest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/duck">
+        </ImageView>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imgInforFriendRequest"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNameFriendRequest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNameFriendRequest"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_info" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

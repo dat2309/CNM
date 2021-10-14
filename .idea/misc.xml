@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ChatY/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_activestatus.xml" value="0.1484375" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.14947916666666666" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_border_color_24.xml" value="0.2703125" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.2703125" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_insert_emoticon_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_keyboard_return_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.2703125" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.26615384615384613" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_person_search_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_phone_enabled_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_queue_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_supervised_user_circle_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_supervisor_account_24.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_update_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_dat.xml" value="0.2520833333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_info.xml" value="0.14947916666666666" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_change_password.xml" value="0.15760869565217392" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_chat.xml" value="0.15760869565217392" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_create_profile.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_request_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_suggestions_profile.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_make_friend.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_update_profile.xml" value="0.15760869565217392" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_vetify_otp.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/item_friendrequest.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/item_friendsuggestions.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/item_phonebook.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/itemchat.xml" value="0.264" />
+        <entry key="..\:/ChatY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/ChatY/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
