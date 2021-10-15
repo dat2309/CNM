@@ -1,47 +1,71 @@
 package com.example.chaty;
 
 public class ItemFriendRequest {
-    private int imgAvatarFriendRequest;
+
     private int imgInforFriendRequest;
-    private String tvNameFriendRequest;
+    String name,sex,dob,avatar,reqID;
 
-    public ItemFriendRequest(int imgAvatarFriendRequest, int imgInforFriendRequest, String tvNameFriendRequest) {
-        this.imgAvatarFriendRequest = imgAvatarFriendRequest;
-        this.imgInforFriendRequest = imgInforFriendRequest;
-        this.tvNameFriendRequest = tvNameFriendRequest;
-    }
 
-    public int getImgAvatarFriendRequest() {
-        return imgAvatarFriendRequest;
-    }
-
-    public void setImgAvatarFriendRequest(int imgAvatarFriendRequest) {
-        this.imgAvatarFriendRequest = imgAvatarFriendRequest;
-    }
 
     public int getImgInforFriendRequest() {
         return imgInforFriendRequest;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public ItemFriendRequest() {
+    }
+
+
+
     public void setImgInforFriendRequest(int imgInforFriendRequest) {
         this.imgInforFriendRequest = imgInforFriendRequest;
     }
 
-    public String getTvNameFriendRequest() {
-        return tvNameFriendRequest;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setTvNameFriendRequest(String tvNameFriendRequest) {
-        this.tvNameFriendRequest = tvNameFriendRequest;
-
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "ItemFriendRequest{" +
-                "imgAvatarFriendRequest=" + imgAvatarFriendRequest +
-                ", imgInforFriendRequest=" + imgInforFriendRequest +
-                ", tvNameFriendRequest='" + tvNameFriendRequest + '\'' +
-                '}';
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getReqID() {
+        return reqID;
+    }
+
+    public void setReqID(String reqID) {
+        this.reqID = reqID;
+    }
+
+    public ItemFriendRequest(int imgInforFriendRequest, String name, String sex, String dob, String avatar, String reqID) {
+        this.imgInforFriendRequest = imgInforFriendRequest;
+        this.name = name;
+        this.sex = sex;
+        this.dob = dob;
+        this.avatar = avatar;
+        this.reqID = reqID;
     }
 }

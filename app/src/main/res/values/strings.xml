@@ -6,5 +6,9 @@
     <string name="invalid_name">tên không được để </string>
     <string name="invalid_email">Vui lòng nhập email theo đúng định dạng</string>
     <string name="invalid_dob">Ngày sinh không được để trống</string>
+    <string name="title_activity_friend_home">FriendHome</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

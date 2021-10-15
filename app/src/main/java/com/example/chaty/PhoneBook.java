@@ -15,8 +15,6 @@ import java.util.ArrayList;
 public class PhoneBook extends AppCompatActivity {
     private ItemPhoneBookAdapter adapter;
     RecyclerView rcvListPhoneBook;
-    ArrayList<ItemPhoneBook> itemPhoneBooks;
-    ItemPhoneBookAdapter itemPhoneBookAdapter;
     ImageView imgBackPhoneBook;
     String token,profileId,email,phone;
     @Override

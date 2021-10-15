@@ -76,7 +76,7 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             imgBackFriendSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendSuggestionsProfile.this, MakeFriend.class);
+                Intent intent = new Intent(FriendSuggestionsProfile.this, FriendHome.class);
                 intent.putExtra("token",token);
                 intent.putExtra("profileId",profileId);
                 intent.putExtra("email",email);
@@ -112,7 +112,7 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case DialogInterface.BUTTON_POSITIVE:
-                                        Intent intent = new Intent(FriendSuggestionsProfile.this, MakeFriend.class);
+                                        Intent intent = new Intent(FriendSuggestionsProfile.this, FriendHome.class);
                                         intent.putExtra("token",token);
                                         intent.putExtra("profileId",profileId);
                                         intent.putExtra("email",email);

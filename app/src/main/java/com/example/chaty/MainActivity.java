@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         imgFriendSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MakeFriend.class);
+                Intent intent = new Intent(MainActivity.this, FriendHome.class);
                 intent.putExtra("token",token);
                 intent.putExtra("profileId",profileId);
                 intent.putExtra("email",email);
@@ -159,9 +160,11 @@ public class MainActivity extends AppCompatActivity {
                             if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
                                 imgAvatar.setImageResource(R.drawable.smile);
                             else{
-                            Glide.with(getApplicationContext())
-                                    .load(respObj2.get("avatar"))
-                                    .into(imgAvatar);}
+
+                                Glide.with(getApplicationContext())
+                                        .load(avatar)
+                                        .into( imgAvatar);}
+
 
 
 

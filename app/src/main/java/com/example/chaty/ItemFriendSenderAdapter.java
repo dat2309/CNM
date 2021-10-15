@@ -32,42 +32,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendRequestAdapter.MyViewHolderItemFriendRequest> {
+public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSenderAdapter.MyViewHolderItemFriendSender> {
     private List<ItemFriendRequest> itemFriendRequests;
     private Context context;
     String token,profileId,email,phone;
     View view;
     String reqID;
-    public ItemFriendRequestAdapter(Context context,String profileId,String token,String email, String phone)
+    public ItemFriendSenderAdapter(Context context,String profileId,String token,String email, String phone)
     {
         this.context=context;
         this.profileId=profileId;
         this.token=token;
         this.email = email;
         this.phone = phone;
-        getReqRevice(phone);
+        getReqSender(phone);
     }
 
     @NonNull
     @Override
-    public ItemFriendRequestAdapter.MyViewHolderItemFriendRequest onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(context).inflate(R.layout.item_friendrequest,parent,false);
-        return new MyViewHolderItemFriendRequest(view);
+    public ItemFriendSenderAdapter.MyViewHolderItemFriendSender onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        view = LayoutInflater.from(context).inflate(R.layout.item_friendsender,parent,false);
+        return new ItemFriendSenderAdapter.MyViewHolderItemFriendSender(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolderItemFriendRequest holder, int position) {
-           ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
-           Log.d("ara",itemFriendRequest.toString());
+    public void onBindViewHolder(@NonNull ItemFriendSenderAdapter.MyViewHolderItemFriendSender holder, int position) {
+        ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
+        Log.d("ava",itemFriendRequest.getAvatar());
+
         if(itemFriendRequest.getAvatar().equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
-            holder.imgAvatarFriendRequest.setImageResource(R.drawable.smile);
+            holder.imgAvatarFriendSender.setImageResource(R.drawable.smile);
         else{
             Glide.with(context)
                     .load(itemFriendRequest.getAvatar())
-                    .into(holder.imgAvatarFriendRequest);}
-        holder.imgInfoFriendRequest.setImageResource(itemFriendRequest.getImgInforFriendRequest());
-        holder.tvNameFriendRequest.setText(itemFriendRequest.getName());
-        holder.txtDescription.setText(itemFriendRequest.getDob());
+                    .into(holder.imgAvatarFriendSender);}
+        holder.imgInfoFriendSender.setImageResource(itemFriendRequest.getImgInforFriendRequest());
+        holder.tvNameFriendSender.setText(itemFriendRequest.getName());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +77,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                 intent.putExtra("token",token);
                 intent.putExtra("profileId",profileId);
                 intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
                 intent.putExtra("phone",phone);
                 intent.putExtra("reqID",itemFriendRequest.getReqID());
                 context.startActivity(intent);
@@ -90,22 +91,21 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
         Log.d("size",String.valueOf( itemFriendRequests.size()));
         return itemFriendRequests.size();
     }
-    public class MyViewHolderItemFriendRequest extends RecyclerView.ViewHolder {
+    public class MyViewHolderItemFriendSender extends RecyclerView.ViewHolder {
 
-        ImageView imgAvatarFriendRequest,imgInfoFriendRequest;
-        TextView tvNameFriendRequest,txtDescription;
-        public MyViewHolderItemFriendRequest(@NonNull View itemView) {
+        ImageView imgAvatarFriendSender,imgInfoFriendSender;
+        TextView tvNameFriendSender;
+        public MyViewHolderItemFriendSender(@NonNull View itemView) {
             super(itemView);
-            imgAvatarFriendRequest = itemView.findViewById(R.id.imgAvatarFriendRequest);
-            imgInfoFriendRequest = itemView.findViewById(R.id.imgInforFriendRequest);
-            tvNameFriendRequest = itemView.findViewById(R.id.tvNameFriendRequest);
-            txtDescription = itemView.findViewById(R.id.txtDescription);
+            imgAvatarFriendSender = itemView.findViewById(R.id.imgAvatarFriendSender);
+            imgInfoFriendSender = itemView.findViewById(R.id.imgInforFriendSender);
+            tvNameFriendSender = itemView.findViewById(R.id.tvNameFriendSender);
         }
     }
-    private void getReqRevice(String phone) {
+
+    private void getReqSender(String phone) {
         itemFriendRequests = new ArrayList<>();
-        String url ="https://chaty-api.herokuapp.com/request/receiver/"+phone;
-        Log.d("haha", phone);
+        String url ="https://chaty-api.herokuapp.com/request/sender/"+phone;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
 
@@ -119,43 +119,48 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                             Log.d("find",respObj.toString());
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
-                            if(respObj2.length()>0)
-                                for (int i = respObj2.length() - 1; i >= 0; i--)
-                                {
-                                    JSONObject object =respObj2.getJSONObject(i);
-                                    String description = object.getString("description");
-                                    reqID = object.getString("_id");
-                                    JSONObject sernderJS = object.getJSONObject("sender");
-                                    Log.d("sender",sernderJS.toString());
-                                    String frName = sernderJS.get("name").toString();
-                                    String frSex = sernderJS.get("phone").toString();
-                                    String frAvatar = sernderJS.get("avatar").toString();
-                                    itemFriendRequests.add(new ItemFriendRequest( R.drawable.ic_info, frName, frSex, description, frAvatar,reqID));
-
-
-                                }
-                            else{
-
+                            if(respObj2.length()==0){
                                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
                                             case DialogInterface.BUTTON_POSITIVE:
-
                                                 break;
 
                                         }
                                     }
                                 };
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage("Lêu lêu đồ ko có người yêu lẫn yêu cầu kết bạn").setPositiveButton("oke ", dialogClickListener)
+                                AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
+                                builder2.setMessage("Không có ny đã đành còn không có ai kết bạn ").setPositiveButton("oke ", dialogClickListener)
                                         .show();
+
+
                             }
+//                            Log.d("find",respObj2.toString());}
+                            else{
+                                for (int i = respObj2.length() - 1; i >= 0; i--)
+                                {
+                                    JSONObject object =respObj2.getJSONObject(i);
+                                    String reqID = object.getString("_id");
+                                    JSONObject receiver = object.getJSONObject("receiver");
+                                    Log.d("receiver",receiver.toString());
+                                    String frName = receiver.get("name").toString();
+                                    String frSex = receiver.get("phone").toString();
+                                    String frAvatar = receiver.get("avatar").toString();
+                                    itemFriendRequests.add(new ItemFriendRequest( R.drawable.ic_info, frName, frSex, frAvatar, frAvatar,reqID));
+
+
+                                }}
                             notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+
+
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -163,13 +168,17 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
 
             }
         }){
-                public Map<String, String> getHeaders()
-                {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put("authorization",token );
-                    return headers;
-                }
-            };
+
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization",token );
+                return headers;
+            }
+        };
+
+
         requestQueue.add(jsonObjectRequest);
-        }
+
+    }
 }

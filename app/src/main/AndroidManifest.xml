@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chaty">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/dat"
@@ -11,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatY"
-        android:usesCleartextTraffic="true">>
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".FriendHome"
+            android:exported="true"
+            android:label="@string/title_activity_friend_home" />
         <activity
             android:name=".CreateProfile"
             android:exported="true" />
@@ -21,19 +27,26 @@
         <activity
             android:name=".Register"
             android:exported="true" />
-        <activity android:name=".ChangePassword"
-            android:exported="true"></activity>
-        <activity android:name=".UpdateProfile"
-            android:exported="true"></activity>
-        <activity android:name=".Profile"
-            android:exported="true"></activity>
-        <activity android:name=".Chat"
-            android:exported="true"></activity>
+        <activity
+            android:name=".ChangePassword"
+            android:exported="true" />
+        <activity
+            android:name=".UpdateProfile"
+            android:exported="true" />
+        <activity
+            android:name=".Profile"
+            android:exported="true" />
+        <activity
+            android:name=".Chat"
+            android:exported="true" />
         <activity
             android:name=".FriendSuggestionsProfile"
             android:exported="true" />
         <activity
             android:name=".FriendRequestProfile"
+            android:exported="true" />
+        <activity
+            android:name=".FriendSenderProfile"
             android:exported="true" />
         <activity
             android:name=".MakeFriend"
@@ -55,7 +68,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

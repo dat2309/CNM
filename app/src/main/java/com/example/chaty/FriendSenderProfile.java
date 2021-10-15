@@ -1,6 +1,5 @@
 package com.example.chaty;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,9 +25,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FriendRequestProfile extends AppCompatActivity {
+public class FriendSenderProfile extends AppCompatActivity {
     TextView txtName,txtSex,txtDob;
-    ImageView  imgAvt;
+    ImageView imgAvt;
     ImageView imgBackFriendRequestProfile;
     RecyclerView rcvFriendRequest;
     String token,profileId,phone,email,frPhone,reqID,avatar;
@@ -53,28 +51,31 @@ public class FriendRequestProfile extends AppCompatActivity {
         imgAvt = findViewById(R.id.imgAvatarFriendRequestProfile);
 
         findProfile(frPhone);
-        btnAccept = findViewById(R.id.btnAccept);
-        btnDelete = findViewById(R.id.btnDelete);
+        btnAccept = findViewById(R.id.btnAcceptSender);
+        btnDelete = findViewById(R.id.btnDeleteSender);
         imgBackFriendRequestProfile = findViewById(R.id.imgBackFriendRequest);
 
-            btnAccept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    acceptReq(reqID);
-                }
-            });
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deleteReq(reqID);
-
-                }
-            });
-            imgBackFriendRequestProfile.setOnClickListener(new View.OnClickListener() {
+        btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendRequestProfile.this, FriendHome.class);
+                acceptReq(reqID);
+            }
+        });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteReq(reqID);
 
+            }
+        });
+        imgBackFriendRequestProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendSenderProfile.this, FriendHome.class);
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
                 startActivity(intent);
                 finish();
             }
@@ -156,7 +157,7 @@ public class FriendRequestProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             Log.d("accep",respObj.toString());
-                            Intent intent = new Intent(FriendRequestProfile.this,FriendHome.class);
+                            Intent intent = new Intent(FriendSenderProfile.this,FriendHome.class);
 
                             intent.putExtra("token",token);
                             intent.putExtra("profileId",profileId);
@@ -209,7 +210,7 @@ public class FriendRequestProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             Log.d("delete",respObj.toString());
-                            Intent intent = new Intent(FriendRequestProfile.this,FriendHome.class);
+                            Intent intent = new Intent(FriendSenderProfile.this,FriendHome.class);
 
                             intent.putExtra("token",token);
                             intent.putExtra("profileId",profileId);

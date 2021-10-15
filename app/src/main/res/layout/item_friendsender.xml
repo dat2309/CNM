@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tvNameFriendRequest"
+        android:id="@+id/tvNameFriendSender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -14,15 +14,15 @@
         android:textColor="#0A0B0A"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/getUserImgFriendRequest"
-        app:layout_constraintEnd_toEndOf="@+id/imgInforFriendRequest"
+        app:layout_constraintBottom_toBottomOf="@+id/getUserImgFriendSender"
+        app:layout_constraintEnd_toEndOf="@+id/imgInforFriendSender"
         app:layout_constraintHorizontal_bias="0.089"
-        app:layout_constraintStart_toEndOf="@+id/getUserImgFriendRequest"
-        app:layout_constraintTop_toTopOf="@+id/getUserImgFriendRequest"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/getUserImgFriendSender"
+        app:layout_constraintTop_toTopOf="@+id/getUserImgFriendSender"
+        app:layout_constraintVertical_bias="0.326" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/getUserImgFriendRequest"
+        android:id="@+id/getUserImgFriendSender"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
@@ -33,7 +33,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imgAvatarFriendRequest"
+            android:id="@+id/imgAvatarFriendSender"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -44,27 +44,15 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imgInforFriendRequest"
+        android:id="@+id/imgInforFriendSender"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNameFriendRequest"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNameFriendSender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvNameFriendRequest"
+        app:layout_constraintTop_toTopOf="@+id/tvNameFriendSender"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_info" />
-
-    <TextView
-        android:id="@+id/txtDescription"
-        android:layout_width="195dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="@+id/tvNameFriendRequest"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvNameFriendRequest"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameFriendRequest" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

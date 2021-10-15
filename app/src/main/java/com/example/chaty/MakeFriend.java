@@ -82,16 +82,8 @@ public class MakeFriend extends AppCompatActivity {
 
 
 
-        itemFriendRequests.add(new ItemFriendRequest(R.drawable.brownduck, R.drawable.ic_info,"Ngô Quang Long"));
-        itemFriendRequests.add(new ItemFriendRequest(R.drawable.spiderduck, R.drawable.ic_info,"Lê Tuấn Tú"));
-        itemFriendRequests.add(new ItemFriendRequest(R.drawable.supermanduck, R.drawable.ic_info,"Nguyễn Thế Đạt"));
-        itemFriendRequests.add(new ItemFriendRequest(R.drawable.pinkduck, R.drawable.ic_info,"Lê Tuấn Tú"));
-        itemFriendRequests.add(new ItemFriendRequest(R.drawable.cuteduck, R.drawable.ic_info,"Ngô Quang Long"));
 
-        itemFriendRequestAdapter = new ItemFriendRequestAdapter(itemFriendRequests,this);
-        rcvFriendRequest.setAdapter(itemFriendRequestAdapter);
-        rcvFriendRequest.setLayoutManager(new GridLayoutManager(MakeFriend.this,
-                1));
+
 
         itemFriendSuggestions = new ArrayList<>();
         itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.blueduck, R.drawable.ic_info,"Nguyễn Thế Đạt","0123456789"));
