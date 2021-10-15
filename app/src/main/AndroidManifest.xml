@@ -38,12 +38,12 @@
         <activity
             android:name=".MakeFriend"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".FriendProfile"-->
-<!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name=".PhoneBook"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".FriendProfile"
+            android:exported="true" />
+        <activity
+            android:name=".PhoneBook"
+            android:exported="true" />
         <activity
             android:name=".Login"
             android:exported="true">

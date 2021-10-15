@@ -31,6 +31,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MakeFriend extends AppCompatActivity {
 
@@ -40,8 +43,8 @@ public class MakeFriend extends AppCompatActivity {
     ItemFriendRequestAdapter itemFriendRequestAdapter;
     ArrayList<ItemFriendSuggestions> itemFriendSuggestions;
     ItemFriendSuggestionsAdapter itemFriendSuggestionsAdapter;
-    String token,profileId,email;
-    String phone;
+    String token,profileId,email,phone;
+
     EditText edtFind;
     private AwesomeValidation awesomeValidation;
     @Override
@@ -62,7 +65,20 @@ public class MakeFriend extends AppCompatActivity {
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.edtSearchFriend, "^[0-9]{10}$", R.string.invalid_phone);
         itemFriendRequests = new ArrayList<>();
-        getReqSender(phone);
+        new Timer().scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run(){
+                getReqRevice(phone);
+            }
+        },0,10000);
+
+        new Timer().scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run(){
+                getReqSender(phone);
+            }
+        },0,10000);
+
 
 
 
@@ -123,7 +139,7 @@ public class MakeFriend extends AppCompatActivity {
                     builder.setMessage("Không thể tìm số điện thoại của bạn nhé ahihi đồ ngốc").setPositiveButton("oke ", dialogClickListener)
                             .show();
                 }
-                if(awesomeValidation.validate()) {
+                else if(awesomeValidation.validate()) {
                 findProfile(edtFind.getText().toString());}
 
             }
@@ -224,9 +240,9 @@ public class MakeFriend extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
 
     }
-    private void getReqSender(String phone) {
-        String url ="https://chaty-api.herokuapp.com/request/sender/"+phone;
-
+    private void getReqRevice(String phone) {
+        String url ="https://chaty-api.herokuapp.com/request/receiver/"+phone;
+        Log.d("haha", phone);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
 
@@ -237,24 +253,127 @@ public class MakeFriend extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
+                            Log.d("find",respObj.toString());
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
-                            Log.d("find",respObj2.getJSONObject(0).toString());
+                            if(respObj2.length()>0)
                             for (int i = respObj2.length() - 1; i >= 0; i--)
                             {
                                 JSONObject object =respObj2.getJSONObject(i);
+                                String reqID = object.getString("_id");
+                                JSONObject sernderJS = object.getJSONObject("sender");
+                                Log.d("sender",sernderJS.toString());
+                                Intent intent = new Intent(MakeFriend.this,FriendRequestProfile.class);
+                                intent.putExtra("sender",sernderJS.toString());
+                                intent.putExtra("token",token);
+                                intent.putExtra("profileId",profileId);
+                                intent.putExtra("email",email);
+                                intent.putExtra("phone",phone);
+                                intent.putExtra("reqID",reqID);
+                                startActivity(intent);
+                                finish();
 
                             }
 //                            Log.d("find",respObj2.toString());
-//                            Intent intent = new Intent(MakeFriend.this,FriendSuggestionsProfile.class);
-//                            intent.putExtra("respObj2",respObj2.toString());
-//                            intent.putExtra("token",token);
-//                            intent.putExtra("profileId",profileId);
-//                            intent.putExtra("email",email);
-//                            intent.putExtra("phone",phone);
-//                            intent.putExtra("phone2",edtFind.getText().toString());
-//                            startActivity(intent);
-//                            finish();
+                            else{
+                                Toast.makeText(MakeFriend.this, "Lêu lêu đồ ko có yêu cầu kết bạn", Toast.LENGTH_SHORT).show();
+//                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        switch (which){
+//                                            case DialogInterface.BUTTON_POSITIVE:
+//
+//                                                break;
+//
+//                                        }
+//                                    }
+//                                };
+//
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(MakeFriend.this);
+//                                builder.setMessage("Lêu lêu đồ ko có yêu cầu kết bạn").setPositiveButton("oke ", dialogClickListener)
+//                                        .show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization",token );
+                return headers;
+            }
+        };
+
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
+    private void getReqSender(String phone) {
+        String url ="https://chaty-api.herokuapp.com/request/sender/"+phone;
+        Log.d("haha", phone);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JSONObject object = new JSONObject();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            JSONObject respObj = new JSONObject(String.valueOf(response));
+                            Log.d("find",respObj.toString());
+                            JSONArray respObj2 = new JSONArray(respObj.getString("data"));
+
+                            if(respObj2.length()==0){
+//                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        switch (which){
+//                                            case DialogInterface.BUTTON_POSITIVE:
+//                                                break;
+//
+//                                        }
+//                                    }
+//                                };
+//
+//                                AlertDialog.Builder builder2 = new AlertDialog.Builder(MakeFriend.this);
+//                                builder2.setMessage("Hãy gửi yêu cầu kết bạn").setPositiveButton("oke ", dialogClickListener)
+//                                        .show();
+                                Toast.makeText(MakeFriend.this, "Hãy gửi yêu cầu kết bạn", Toast.LENGTH_SHORT).show();
+
+                                }
+//                            Log.d("find",respObj2.toString());}
+                            else{
+                            for (int i = respObj2.length() - 1; i >= 0; i--)
+                            {
+                                JSONObject object =respObj2.getJSONObject(i);
+                                String reqID = object.getString("_id");
+                                JSONObject receiver = object.getJSONObject("receiver");
+                                Log.d("receiver",receiver.toString());
+//                                    Intent intent = new IntentRev(MakeFriend.this,FriendRequestProfile.class);
+//                                    intent.putExtra("sender",receiver.toString());
+//                                    intent.putExtra("token",token);
+//                                    intent.putExtra("profileId",profileId);
+//                                    intent.putExtra("email",email);
+//                                    intent.putExtra("phone",phone);
+//                                    intent.putExtra("reqID",reqID);
+//                                    startActivity(intent);
+//                                    finish();
+
+                            }}
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

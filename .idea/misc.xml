@@ -31,18 +31,20 @@
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_change_password.xml" value="0.15760869565217392" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_chat.xml" value="0.15760869565217392" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_create_profile.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_profile.xml" value="0.15833333333333333" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_request_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_suggestions_profile.xml" value="0.2" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_make_friend.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_phone_book.xml" value="0.15833333333333333" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_update_profile.xml" value="0.15760869565217392" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_vetify_otp.xml" value="0.2" />
         <entry key="..\:/ChatY/app/src/main/res/layout/item_friendrequest.xml" value="0.13333333333333333" />
         <entry key="..\:/ChatY/app/src/main/res/layout/item_friendsuggestions.xml" value="0.13333333333333333" />
-        <entry key="..\:/ChatY/app/src/main/res/layout/item_phonebook.xml" value="0.13333333333333333" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/item_phonebook.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/itemchat.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/ChatY/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />

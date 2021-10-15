@@ -113,14 +113,19 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        imgPhoneBook.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, PhoneBook.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        imgPhoneBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PhoneBook.class);
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
+                startActivity(intent);
+                finish();
+                ;
+            }
+        });
         imgFriendSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,4 +188,5 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
+
 }
