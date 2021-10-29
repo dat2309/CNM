@@ -3,11 +3,12 @@ import static com.example.chaty.FriendHome.phone;
 import static com.example.chaty.FriendHome.email;
 import static com.example.chaty.FriendHome.profileId;
 import static com.example.chaty.FriendHome.token;
-
+import static com.example.chaty.Login.mobileArray;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,12 +32,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.chaty.FriendProfile;
 import com.example.chaty.FriendSuggestionsProfile;
-import com.example.chaty.ItemFriendRequest;
-import com.example.chaty.ItemFriendRequestAdapter;
-import com.example.chaty.ItemFriendSuggestions;
 import com.example.chaty.ItemFriendSuggestionsAdapter;
-import com.example.chaty.MakeFriend;
 import com.example.chaty.R;
 import com.example.chaty.databinding.FragmentHomeBinding;
 
@@ -44,40 +43,31 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    ArrayList<ItemFriendRequest> itemFriendRequests;
-    ItemFriendRequestAdapter itemFriendRequestAdapter;
-    ArrayList<ItemFriendSuggestions> itemFriendSuggestions;
+
     ItemFriendSuggestionsAdapter itemFriendSuggestionsAdapter;
     EditText edtFind;
     ImageView imageView;
+    RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Log.d("list",mobileArray.toString());
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        itemFriendSuggestions = new ArrayList<>();
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.blueduck, R.drawable.ic_info, "Nguyễn Thế Đạt", "0123456789"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.brownduck, R.drawable.ic_info, "Ngô Quang Long", "0111122222"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.spiderduck, R.drawable.ic_info, "Lê Tuấn Tú", "0987654321"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.supermanduck, R.drawable.ic_info, "Nguyễn Thế Đạt", "0123459876"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.pinkduck, R.drawable.ic_info, "Lê Tuấn Tú", "0123456798"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.cuteduck, R.drawable.ic_info, "Ngô Quang Long", "0135798642"));
         edtFind = binding.editTextTextPersonName;
-
-
-        final RecyclerView recyclerView = binding.rcvFriendSuggestions;
-        itemFriendSuggestionsAdapter = new ItemFriendSuggestionsAdapter(itemFriendSuggestions, root.getContext());
+        recyclerView = binding.rcvFriendSuggestions;
+        itemFriendSuggestionsAdapter = new ItemFriendSuggestionsAdapter(root.getContext(),profileId,token,email,phone,mobileArray);
         recyclerView.setAdapter(itemFriendSuggestionsAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(root.getContext(),
                 1));
@@ -130,6 +120,8 @@ public class HomeFragment extends Fragment {
                             JSONObject respObj2 = new JSONObject(respObj.get("data").toString());
                             Log.d("find",response.toString());
                             Log.d("find",respObj2.toString());
+                            Log.d("isF",respObj2.get("isFriend").toString());
+                            if(respObj2.get("isFriend").toString().equals("false")){
                             Intent intent = new Intent(context,FriendSuggestionsProfile.class);
                             intent.putExtra("respObj2",respObj2.toString());
                             intent.putExtra("token",token);
@@ -137,7 +129,26 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("email",email);
                             intent.putExtra("phone",phone);
                             intent.putExtra("receiver",receiver);
-                            startActivity(intent);
+                            startActivity(intent);}
+                            else{
+                                String frSex;
+                                Intent intent = new Intent(context, FriendProfile.class);
+                                intent.putExtra("frAvater",respObj2.get("avatar").toString());
+                                intent.putExtra("frName",respObj2.get("name").toString());
+                                if (respObj2.get("sex").equals(true)) {
+                                    frSex = "Nam";
+                                } else {
+                                    frSex = "Nữ";
+                                }
+                                intent.putExtra("frSex",frSex);
+                                intent.putExtra("frDob",respObj2.get("dob").toString());
+                                intent.putExtra("frID",respObj2.get("_id").toString());
+                                intent.putExtra("token",token);
+                                intent.putExtra("profileId",profileId);
+                                intent.putExtra("email",email);
+                                intent.putExtra("phone",phone);
+                                startActivity(intent);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

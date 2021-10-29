@@ -7,7 +7,7 @@
     tools:context=".FriendProfile">
 
     <Button
-        android:id="@+id/btnAddFriend"
+        android:id="@+id/btnDelFriend"
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginTop="84dp"
@@ -89,10 +89,10 @@
         android:backgroundTint="@color/green"
         android:text="Chặn"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnAddFriend"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddFriend"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDelFriend"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelFriend"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnAddFriend"
+        app:layout_constraintTop_toTopOf="@+id/btnDelFriend"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView

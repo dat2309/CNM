@@ -1,5 +1,10 @@
 package com.example.chaty;
 
+import static com.example.chaty.FriendHome.email;
+import static com.example.chaty.FriendHome.phone;
+import static com.example.chaty.FriendHome.profileId;
+import static com.example.chaty.FriendHome.token;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,10 +35,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imgAvatar,imgLogOut,imgPhoneBook,imgFriendSuggestion;
+    ImageView imgAvatar,imgLogOut,imgPhoneBook,imgFriendSuggestion,imgAdd;
     RecyclerView rcvItemChat;
     ArrayList<ItemChat> itemChats;
     ItemChatAdapter itemChatAdapter;
+    public static String namePr;
     TextView txtName;
     String token,profileId,phone,email;
     @Override
@@ -47,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         rcvItemChat = findViewById(R.id.rcvItemChat);
         imgPhoneBook = findViewById(R.id.imgPhoneBook);
         imgFriendSuggestion = findViewById(R.id.imgFriendSuggestion);
+        imgAdd = findViewById(R.id.imgAddPerson);
+
         //nhận dữ liệu
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
@@ -59,32 +67,23 @@ public class MainActivity extends AppCompatActivity {
         getProfile(profileId);
 
 
-        itemChats = new ArrayList<>();
-        itemChats.add(new ItemChat(R.drawable.blueduck, "Văn Nam", "Xong deadline chưa", "20:00"));
-        itemChats.add(new ItemChat(R.drawable.cuteduck, "Văn Tèo", "Mai xong", "21:00"));
-        itemChats.add(new ItemChat(R.drawable.pinkduck, "Văn Tí", "Lại hẹn à", "22:00"));
-        itemChats.add(new ItemChat(R.drawable.supermanduck, "Văn Teo", "Chắc chắc mai luôn", "23:00"));
-        itemChats.add(new ItemChat(R.drawable.spiderduck, "Văn Tẹo", "Alo xong chưa", "8:00"));
-        itemChats.add(new ItemChat(R.drawable.brownduck, "Văn Téo", "Mai nữa đi", "10:00"));
-        itemChats.add(new ItemChat(R.drawable.blueduck, "Văn Nam", "Xong deadline chưa", "20:00"));
-        itemChats.add(new ItemChat(R.drawable.cuteduck, "Văn Tèo", "Mai xong", "21:00"));
-        itemChats.add(new ItemChat(R.drawable.pinkduck, "Văn Tí", "Lại hẹn à", "22:00"));
-        itemChats.add(new ItemChat(R.drawable.supermanduck, "Văn Teo", "Chắc chắc mai luôn", "23:00"));
-        itemChats.add(new ItemChat(R.drawable.spiderduck, "Văn Tẹo", "Alo xong chưa", "8:00"));
-        itemChats.add(new ItemChat(R.drawable.brownduck, "Văn Téo", "Mai nữa đi", "10:00"));
 
-        itemChats.add(new ItemChat(R.drawable.blueduck, "Văn Nam", "Xong deadline chưa", "20:00"));
-        itemChats.add(new ItemChat(R.drawable.cuteduck, "Văn Tèo", "Mai xong", "21:00"));
-        itemChats.add(new ItemChat(R.drawable.pinkduck, "Văn Tí", "Lại hẹn à", "22:00"));
-        itemChats.add(new ItemChat(R.drawable.supermanduck, "Văn Teo", "Chắc chắc mai luôn", "23:00"));
-        itemChats.add(new ItemChat(R.drawable.spiderduck, "Văn Tẹo", "Alo xong chưa", "8:00"));
-        itemChats.add(new ItemChat(R.drawable.brownduck, "Văn Téo", "Mai nữa đi", "10:00"));
-
-        itemChatAdapter = new ItemChatAdapter(itemChats,this);
-
+        itemChatAdapter = new ItemChatAdapter(MainActivity.this,profileId,token,email,phone);
         rcvItemChat.setAdapter(itemChatAdapter);
         rcvItemChat.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
-
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FriendHome.class);
+                //gửi dữ liệu
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
+                startActivity(intent);
+                finish();
+            }
+        });
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void getProfile(String profileID) {
-        String url ="https://chaty-api.herokuapp.com/profile/"+profileID;
+        String url =BuildConfig.API+"profile/"+profileID;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -155,9 +154,10 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
 //                            imgAvatar.setImageResource(Integer.parseInt(respObj2.get("avatar").toString()));
                             txtName.setText(respObj2.get("name").toString());
+                            namePr= respObj2.get("name").toString();
                             String avatar = respObj2.get("avatar").toString();
                             //load ảnh từ db
-                            if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+                            if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                                 imgAvatar.setImageResource(R.drawable.smile);
                             else{
 

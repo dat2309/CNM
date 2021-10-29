@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,7 +75,10 @@ public class FriendRequestProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FriendRequestProfile.this, FriendHome.class);
-
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
                 startActivity(intent);
                 finish();
             }
@@ -82,7 +86,7 @@ public class FriendRequestProfile extends AppCompatActivity {
 
     }
     private void findProfile(String receiver) {
-        String url ="https://chaty-api.herokuapp.com/profile?phone="+receiver;
+        String url =BuildConfig.API+"profile?phone="+receiver;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -105,7 +109,7 @@ public class FriendRequestProfile extends AppCompatActivity {
                                 txtSex.setText("Nữ");
                             }
                             avatar = respObj2.get("avatar").toString();
-                            if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+                            if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                                 imgAvt.setImageResource(R.drawable.smile);
                             else{
                                 Glide.with(getApplicationContext())
@@ -143,7 +147,7 @@ public class FriendRequestProfile extends AppCompatActivity {
 
     }
     private void acceptReq(String requestId) {
-        String url ="https://chaty-api.herokuapp.com/request/"+requestId;
+        String url =BuildConfig.API+"request/"+requestId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -196,7 +200,7 @@ public class FriendRequestProfile extends AppCompatActivity {
 
     }
     private void deleteReq(String requestId) {
-        String url ="https://chaty-api.herokuapp.com/request/"+requestId;
+        String url =BuildConfig.API+"request/"+requestId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -210,7 +214,6 @@ public class FriendRequestProfile extends AppCompatActivity {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             Log.d("delete",respObj.toString());
                             Intent intent = new Intent(FriendRequestProfile.this,FriendHome.class);
-
                             intent.putExtra("token",token);
                             intent.putExtra("profileId",profileId);
                             intent.putExtra("email",email);

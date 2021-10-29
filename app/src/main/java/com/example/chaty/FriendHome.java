@@ -2,6 +2,7 @@ package com.example.chaty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -26,6 +27,7 @@ public class FriendHome extends AppCompatActivity {
 
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
+        Log.d("prID",profileId);
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         binding = ActivityFriendHomeBinding.inflate(getLayoutInflater());

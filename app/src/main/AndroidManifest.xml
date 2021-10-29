@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/dat"
@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatY"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ChangePassForgot"
+            android:exported="true" />
+        <activity
+            android:name=".ForgotPass"
+            android:exported="true" />
         <activity
             android:name=".FriendHome"
             android:exported="true"
@@ -47,9 +53,6 @@
             android:exported="true" />
         <activity
             android:name=".FriendSenderProfile"
-            android:exported="true" />
-        <activity
-            android:name=".MakeFriend"
             android:exported="true" />
         <activity
             android:name=".FriendProfile"

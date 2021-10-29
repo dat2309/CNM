@@ -59,7 +59,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
     public void onBindViewHolder(@NonNull MyViewHolderItemFriendRequest holder, int position) {
            ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
            Log.d("ara",itemFriendRequest.toString());
-        if(itemFriendRequest.getAvatar().equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+        if(itemFriendRequest.getAvatar().equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             holder.imgAvatarFriendRequest.setImageResource(R.drawable.smile);
         else{
             Glide.with(context)
@@ -103,8 +103,9 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
         }
     }
     private void getReqRevice(String phone) {
+        //nhận
         itemFriendRequests = new ArrayList<>();
-        String url ="https://chaty-api.herokuapp.com/request/receiver/"+phone;
+        String url =BuildConfig.API+"request/receiver/"+phone;
         Log.d("haha", phone);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
@@ -123,6 +124,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                                 for (int i = respObj2.length() - 1; i >= 0; i--)
                                 {
                                     JSONObject object =respObj2.getJSONObject(i);
+                                    if(object.getString("status").toString().equals("false")){
                                     String description = object.getString("description");
                                     reqID = object.getString("_id");
                                     JSONObject sernderJS = object.getJSONObject("sender");
@@ -133,7 +135,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                                     itemFriendRequests.add(new ItemFriendRequest( R.drawable.ic_info, frName, frSex, description, frAvatar,reqID));
 
 
-                                }
+                                }}
                             else{
 
                                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

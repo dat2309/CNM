@@ -50,6 +50,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="48dp"
-        android:src="@drawable/ic_baseline_person_add_alt_1_24" />
+        android:src="@drawable/ic_baseline_person_search_24" />
 
 </RelativeLayout>

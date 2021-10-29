@@ -3,8 +3,7 @@ package com.example.chaty;
 public class ItemPhoneBook {
         private int imgActiveStatus,imgInfoPhoneBook;
 
-        String name,sex,dob,avatar;
-
+        String name,sex,dob,avatar,frID;
 
 
     public int getImgActiveStatus() {
@@ -31,6 +30,9 @@ public class ItemPhoneBook {
         return avatar;
     }
 
+    public String getFrID() {
+        return frID;
+    }
 
     public void setImgActiveStatus(int imgActiveStatus) {
         this.imgActiveStatus = imgActiveStatus;
@@ -56,13 +58,18 @@ public class ItemPhoneBook {
         this.avatar = avatar;
     }
 
-    public ItemPhoneBook(int imgActiveStatus, int imgInfoPhoneBook, String name, String sex, String dob, String avatar) {
+    public void setFrID(String frID) {
+        this.frID = frID;
+    }
+
+    public ItemPhoneBook(int imgActiveStatus, int imgInfoPhoneBook, String name, String sex, String dob, String avatar, String frID) {
         this.imgActiveStatus = imgActiveStatus;
         this.imgInfoPhoneBook = imgInfoPhoneBook;
         this.name = name;
         this.sex = sex;
         this.dob = dob;
         this.avatar = avatar;
+        this.frID = frID;
     }
 
     public ItemPhoneBook() {
@@ -71,13 +78,13 @@ public class ItemPhoneBook {
     @Override
     public String toString() {
         return "ItemPhoneBook{" +
-
-                ", imgActiveStatus=" + imgActiveStatus +
+                "imgActiveStatus=" + imgActiveStatus +
                 ", imgInfoPhoneBook=" + imgInfoPhoneBook +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", dob='" + dob + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", frID='" + frID + '\'' +
                 '}';
     }
 }

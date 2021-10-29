@@ -1,23 +1,24 @@
 package com.example.chaty;
 
 public class ItemFriendSuggestions {
-    private int imgFriendSuggestions, imgInforFriendSuggestions;
-    private String tvNameFriendSuggestions;
-    private String tvPhoneNumberFriendSuggestions;
+    private int  imgInforFriendSuggestions;
+    private String tvNameFriendSuggestions,imgFriendSuggestions;
+    private String tvPhoneNumberFriendSuggestions,obj,phone;
 
-    public ItemFriendSuggestions(int imgFriendSuggestions, int imgInforFriendSuggestions, String tvNameFriendSuggestions, String tvPhoneNumberFriendSuggestions) {
-        this.imgFriendSuggestions = imgFriendSuggestions;
-        this.imgInforFriendSuggestions = imgInforFriendSuggestions;
-        this.tvNameFriendSuggestions = tvNameFriendSuggestions;
-        this.tvPhoneNumberFriendSuggestions = tvPhoneNumberFriendSuggestions;
-    }
-
-    public int getImgFriendSuggestions() {
+    public String getImgFriendSuggestions() {
         return imgFriendSuggestions;
     }
 
-    public void setImgFriendSuggestions(int imgFriendSuggestions) {
+    public void setImgFriendSuggestions(String imgFriendSuggestions) {
         this.imgFriendSuggestions = imgFriendSuggestions;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getImgInforFriendSuggestions() {
@@ -44,13 +45,35 @@ public class ItemFriendSuggestions {
         this.tvPhoneNumberFriendSuggestions = tvPhoneNumberFriendSuggestions;
     }
 
+    public String getObj() {
+        return obj;
+    }
+
+    public void setObj(String obj) {
+        this.obj = obj;
+    }
+
+    public ItemFriendSuggestions(String imgFriendSuggestions, int imgInforFriendSuggestions, String tvNameFriendSuggestions, String tvPhoneNumberFriendSuggestions, String obj,String phone) {
+        this.imgFriendSuggestions = imgFriendSuggestions;
+        this.imgInforFriendSuggestions = imgInforFriendSuggestions;
+        this.tvNameFriendSuggestions = tvNameFriendSuggestions;
+        this.tvPhoneNumberFriendSuggestions = tvPhoneNumberFriendSuggestions;
+        this.obj = obj;
+        this.phone= phone;
+    }
+
+    public ItemFriendSuggestions() {
+    }
+
     @Override
     public String toString() {
         return "ItemFriendSuggestions{" +
-                "imgFriendSuggestions=" + imgFriendSuggestions +
-                ", imgInforFriendSuggestions=" + imgInforFriendSuggestions +
+                "imgInforFriendSuggestions=" + imgInforFriendSuggestions +
                 ", tvNameFriendSuggestions='" + tvNameFriendSuggestions + '\'' +
+                ", imgFriendSuggestions='" + imgFriendSuggestions + '\'' +
                 ", tvPhoneNumberFriendSuggestions='" + tvPhoneNumberFriendSuggestions + '\'' +
+                ", obj='" + obj + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

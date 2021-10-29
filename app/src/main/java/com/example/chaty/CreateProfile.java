@@ -112,7 +112,7 @@ public class CreateProfile extends AppCompatActivity {
 
     }
     private void postProfile(Object _id, String name, boolean sex, String dob , String token ) {
-        String url ="https://chaty-api.herokuapp.com/profile";
+        String url =BuildConfig.API+"profile";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -169,8 +169,7 @@ public class CreateProfile extends AppCompatActivity {
     {
         if(editDOB.length() == 0)
         {
-            Toast.makeText(getApplicationContext(), "Ngày sinh không được để trống", Toast.LENGTH_SHORT).show();
-            editDOB.setError("");
+            editDOB.setError("Ngày sinh không được để trống");
             return false;
         }
         editDOB.setError(null);

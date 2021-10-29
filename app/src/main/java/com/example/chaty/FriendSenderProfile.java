@@ -37,7 +37,7 @@ public class FriendSenderProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_request_profile);
+        setContentView(R.layout.activity_friend_sender_proflie);
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
         email= getIntent().getStringExtra("email");
@@ -45,22 +45,13 @@ public class FriendSenderProfile extends AppCompatActivity {
         reqID = getIntent().getStringExtra("reqID");
         frPhone = getIntent().getStringExtra("frPhone");
 
-        txtName = findViewById(R.id.tvNameFriendRequestProfile);
-        txtSex = findViewById(R.id.tvSexFriendRequestProfile);
-        txtDob = findViewById(R.id.tvDateFriendRequestProfile);
-        imgAvt = findViewById(R.id.imgAvatarFriendRequestProfile);
-
+        txtName = findViewById(R.id.tvNameFriendSenderProfile);
+        txtSex = findViewById(R.id.tvSexFriendSenderProfile);
+        txtDob = findViewById(R.id.tvDateFriendSenderProfile);
+        imgAvt = findViewById(R.id.imgAvatarFriendSenderProfile);
         findProfile(frPhone);
-        btnAccept = findViewById(R.id.btnAcceptSender);
         btnDelete = findViewById(R.id.btnDeleteSender);
-        imgBackFriendRequestProfile = findViewById(R.id.imgBackFriendRequest);
-
-        btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                acceptReq(reqID);
-            }
-        });
+        imgBackFriendRequestProfile = findViewById(R.id.imgBackFriendSender);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +74,7 @@ public class FriendSenderProfile extends AppCompatActivity {
 
     }
     private void findProfile(String receiver) {
-        String url ="https://chaty-api.herokuapp.com/profile?phone="+receiver;
+        String url =BuildConfig.API+"profile?phone="+receiver;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -106,7 +97,7 @@ public class FriendSenderProfile extends AppCompatActivity {
                                 txtSex.setText("Nữ");
                             }
                             avatar = respObj2.get("avatar").toString();
-                            if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+                            if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                                 imgAvt.setImageResource(R.drawable.smile);
                             else{
                                 Glide.with(getApplicationContext())
@@ -144,7 +135,7 @@ public class FriendSenderProfile extends AppCompatActivity {
 
     }
     private void acceptReq(String requestId) {
-        String url ="https://chaty-api.herokuapp.com/request/"+requestId;
+        String url =BuildConfig.API+"request/"+requestId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -197,7 +188,7 @@ public class FriendSenderProfile extends AppCompatActivity {
 
     }
     private void deleteReq(String requestId) {
-        String url ="https://chaty-api.herokuapp.com/request/"+requestId;
+        String url =BuildConfig.API+"request/"+requestId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();

@@ -10,14 +10,14 @@
         android:id="@+id/btnAddFriend"
         android:layout_width="130dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="64dp"
         android:backgroundTint="@color/green"
         android:text="Kết Bạn"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSexFriendSuggestionsProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/edtDescription" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/getUserImgFriendSuggestionsProfile"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvSexFriendSuggestionsProfile" />
 
     <Button
-        android:id="@+id/btnBlockFriend"
+        android:id="@+id/btnBlockFriendSugges"
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginEnd="40dp"
@@ -140,6 +140,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_keyboard_return_24" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:text="Mô tả"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edtDescription"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/edtDescription"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Mô tả"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tvSexFriendSuggestionsProfile"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvSexFriendSuggestionsProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvSexFriendSuggestionsProfile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,7 +65,7 @@ public class Register extends AppCompatActivity {
 
     }
     private void postDataUsingVolley(String phone,String email ,String password ) {
-        String url ="https://chaty-api.herokuapp.com/site/signup";
+        String url =BuildConfig.API+"site/signup";
         Number status = 0;
         JSONObject object = new JSONObject();
         try {
@@ -125,7 +125,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void postIDaccount(Object _id ) {
-        String url2 ="https://chaty-api.herokuapp.com/site/active";
+        String url2 =BuildConfig.API+"site/active";
         JSONObject object = new JSONObject();
         try {
             object.put("_id", _id);

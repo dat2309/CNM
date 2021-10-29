@@ -39,14 +39,6 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        itemFriendSuggestions = new ArrayList<>();
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.blueduck, R.drawable.ic_info,"Nguyễn Thế Đạt","0123456789"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.brownduck, R.drawable.ic_info,"Ngô Quang Long","0111122222"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.spiderduck, R.drawable.ic_info,"Lê Tuấn Tú","0987654321"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.supermanduck, R.drawable.ic_info,"Nguyễn Thế Đạt","0123459876"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.pinkduck, R.drawable.ic_info,"Lê Tuấn Tú","0123456798"));
-        itemFriendSuggestions.add(new ItemFriendSuggestions(R.drawable.cuteduck, R.drawable.ic_info,"Ngô Quang Long","0135798642"));
-
 
         recyclerView= binding.rcvFriendSender;
         adapter = new ItemFriendSenderAdapter(root.getContext(),profileId,token,email,phone);

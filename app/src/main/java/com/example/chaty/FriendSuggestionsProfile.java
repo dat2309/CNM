@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +31,8 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
 
     TextView txtName,txtSex,txtDob;
     ImageView imgBackFriendSuggestion, imgAvt;
-    String token,profileId,phone,email,avatar,phone2;
+    String token,profileId,phone,email,avatar,phone2,frID;
+    EditText description;
     Button btnAdd,btnBlock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,18 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         phone2 = getIntent().getStringExtra("receiver");
+        Log.d("ahihi",token);
+        Log.d("ahihi",profileId);
+        Log.d("ahihi",email);
+        Log.d("ahihi",phone);
+        Log.d("ahihi",phone2);
+        description = findViewById(R.id.edtDescription);
         txtDob = findViewById(R.id.tvDateFriendSuggestionsProfile);
         txtName = findViewById(R.id.tvNameFriendSuggestionsProfile);
         txtSex = findViewById(R.id.tvSexFriendSuggestionsProfile);
         imgAvt = findViewById(R.id.getAvatarFriendSuggestionsProfile);
         btnAdd = findViewById(R.id.btnAddFriend);
-        btnBlock = findViewById(R.id.btnBlockFriend);
+        btnBlock = findViewById(R.id.btnBlockFriendSugges);
         imgBackFriendSuggestion = findViewById(R.id.imgBackFriendSuggestionsProfile);
         try {
             JSONObject respObj2 = new JSONObject(getIntent().getStringExtra("respObj2"));
@@ -60,7 +67,9 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
                 txtSex.setText("Nữ");
             }
             avatar = respObj2.get("avatar").toString();
-            if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+            frID=respObj2.get("_id").toString();
+            Log.d("_id",frID);
+            if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                 imgAvt.setImageResource(R.drawable.smile);
             else{
                 Glide.with(getApplicationContext())
@@ -70,7 +79,17 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendRequestAdd(phone,phone2);
+                    Log.d("hgj","hgjk");
+                    sendRequestAdd(phone,phone2,description.getText().toString());
+                }
+            });
+            btnBlock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(btnBlock.getText().toString().equals("Chặn"))
+                        blockFriend(profileId,frID);
+                    else
+                        delblockFriend(profileId,frID);
                 }
             });
             imgBackFriendSuggestion.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +108,8 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void sendRequestAdd(String sender,String receiver ) {
-        String url ="https://chaty-api.herokuapp.com/request";
+    private void sendRequestAdd(String sender,String receiver,String description) {
+        String url =BuildConfig.API+"request";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
@@ -98,7 +117,8 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             //input your API parameters
             object.put("sender", sender);
             object.put("receiver",receiver);
-
+            object.put("description",description);
+            Log.d("obketc",object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -148,5 +168,85 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
 
     }
+    private void blockFriend(String profile_id,String frId ) {
+        String url =BuildConfig.API+"account/friend/block/"+profile_id;
+        JSONObject object = new JSONObject();
+        try {
+            //input your API parameters
+            object.put("blockId",frId);
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // Enter the correct url for your api service site
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            JSONObject respObj = new JSONObject(String.valueOf(response));
+                            String data= respObj.getString("data");
+                            Log.d("chawnj",data);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization",token );
+                return headers;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    private void delblockFriend(String profile_id,String frID ) {
+        String url =BuildConfig.API+"account/friend/block/"+profile_id+"?blockId="+frID;
+        JSONObject object = new JSONObject();
+        // Enter the correct url for your api service site
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            JSONObject respObj = new JSONObject(String.valueOf(response));
+                            String data= respObj.getString("data");
+                            Log.d("chawnj",data);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("erorr","loi");
+            }
+        }){
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization",token );
+                return headers;
+            }
+        };
+        Log.d("frId",profile_id);
+        Log.d("put",object.toString());
+        Log.d("",token);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+
+    }
 }

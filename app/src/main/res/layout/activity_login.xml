@@ -137,4 +137,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPassLogin" />
+
+    <TextView
+        android:id="@+id/txtForgotPass"
+        android:layout_width="194dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
+        android:text="Quên mật khẩu"
+        android:textColor="#0d6efd"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

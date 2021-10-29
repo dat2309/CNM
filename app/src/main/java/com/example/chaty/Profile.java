@@ -92,7 +92,7 @@ public class Profile extends AppCompatActivity {
 
     }
     private void getProfile(String profileID) {
-        String url ="https://chaty-api.herokuapp.com/profile/"+profileID;
+        String url =BuildConfig.API+"profile/"+profileID;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -118,7 +118,7 @@ public class Profile extends AppCompatActivity {
                                 txtSex.setText("Nữ");
                                 sex="Nữ";}
                                 avatar = respObj2.get("avatar").toString();
-                            if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+                            if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                                 imgAvatar.setImageResource(R.drawable.smile);
                             else{
                                 Glide.with(getApplicationContext())

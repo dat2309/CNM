@@ -60,7 +60,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
         ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
         Log.d("ava",itemFriendRequest.getAvatar());
 
-        if(itemFriendRequest.getAvatar().equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+        if(itemFriendRequest.getAvatar().equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             holder.imgAvatarFriendSender.setImageResource(R.drawable.smile);
         else{
             Glide.with(context)
@@ -72,7 +72,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, FriendRequestProfile.class);
+                Intent intent = new Intent(context, FriendSenderProfile.class);
                 intent.putExtra("frPhone",itemFriendRequest.getSex());
                 intent.putExtra("token",token);
                 intent.putExtra("profileId",profileId);
@@ -104,8 +104,9 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
     }
 
     private void getReqSender(String phone) {
+        //gửi
         itemFriendRequests = new ArrayList<>();
-        String url ="https://chaty-api.herokuapp.com/request/sender/"+phone;
+        String url =BuildConfig.API+"request/sender/"+phone;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
 
@@ -132,7 +133,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                 };
 
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                                builder2.setMessage("Không có ny đã đành còn không có ai kết bạn ").setPositiveButton("oke ", dialogClickListener)
+                                builder2.setMessage("Không có ny đã đành còn không có ai để kết bạn ").setPositiveButton("oke ", dialogClickListener)
                                         .show();
 
 
@@ -142,15 +143,17 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                 for (int i = respObj2.length() - 1; i >= 0; i--)
                                 {
                                     JSONObject object =respObj2.getJSONObject(i);
-                                    String reqID = object.getString("_id");
-                                    JSONObject receiver = object.getJSONObject("receiver");
-                                    Log.d("receiver",receiver.toString());
-                                    String frName = receiver.get("name").toString();
-                                    String frSex = receiver.get("phone").toString();
-                                    String frAvatar = receiver.get("avatar").toString();
-                                    itemFriendRequests.add(new ItemFriendRequest( R.drawable.ic_info, frName, frSex, frAvatar, frAvatar,reqID));
+                                    if(object.getString("status").toString().equals("false")) {
+                                        String reqID = object.getString("_id");
+                                        JSONObject sender = object.getJSONObject("sender");
+                                        JSONObject receiver = object.getJSONObject("receiver");
+                                        Log.d("receiver", receiver.toString());
+                                        String frName = receiver.get("name").toString();
+                                        String frSex = receiver.get("phone").toString();
+                                        String frAvatar = receiver.get("avatar").toString();
+                                        itemFriendRequests.add(new ItemFriendRequest(R.drawable.ic_info, frName, frSex, frAvatar, frAvatar, reqID));
 
-
+                                    }
                                 }}
                             notifyDataSetChanged();
                         } catch (JSONException e) {

@@ -69,7 +69,7 @@ public class VetifyOTP extends AppCompatActivity {
 
     }
     private void postOTP(Object _id , String otp) {
-        String url2 ="https://chaty-api.herokuapp.com/site/auth";
+        String url2 =BuildConfig.API+"site/auth";
         JSONObject object = new JSONObject();
         try {
             object.put("_id", _id);
@@ -87,7 +87,7 @@ public class VetifyOTP extends AppCompatActivity {
                         try {
                             String data =new String( response.getString("data"));
                             if(data.equalsIgnoreCase("Failed"))
-                                txtWrongOTP.setText("Failed");
+                                txtWrongOTP.setText("Vui lòng nhập lại OTP");
                             else{
                                 Intent intent = new Intent(VetifyOTP.this, Login.class);
                                 startActivity(intent);
@@ -108,7 +108,7 @@ public class VetifyOTP extends AppCompatActivity {
 
     }
     private void postIDaccount(Object _id ) {
-        String url2 ="https://chaty-api.herokuapp.com/site/active";
+        String url2 =BuildConfig.API+"site/active";
         JSONObject object = new JSONObject();
         try {
             object.put("_id", _id);

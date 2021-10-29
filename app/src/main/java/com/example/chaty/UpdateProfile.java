@@ -89,7 +89,7 @@ public class UpdateProfile extends AppCompatActivity {
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         avt = findViewById(R.id.imgAvatarProfile);
-        if(avatar.equalsIgnoreCase("http://chaty-api.herokuapp.com/file/avatar/smile.png"))
+        if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             avt.setImageResource(R.drawable.smile);
         else{
             Glide.with(getApplicationContext())
@@ -215,7 +215,7 @@ public class UpdateProfile extends AppCompatActivity {
     // chuyển ảnh thành byte nén lại gửi
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,20 , byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,30 , byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
 
     }
@@ -223,17 +223,17 @@ public class UpdateProfile extends AppCompatActivity {
         Drawable drawable = ContextCompat.getDrawable(context, id);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
     public static byte[] getFileDataFromDrawable2(Context context, Drawable drawable) {
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
     private void uploadBitmap(final Bitmap bitmap, String profileId, String name, boolean sex, String dob , String token,String email,String phone) {
-        String url ="https://chaty-api.herokuapp.com/profile/"+profileId;
+        String url =BuildConfig.API+"profile/"+profileId;
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.PUT, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override
