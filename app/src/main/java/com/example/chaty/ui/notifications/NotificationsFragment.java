@@ -4,7 +4,6 @@ import static com.example.chaty.FriendHome.email;
 import static com.example.chaty.FriendHome.profileId;
 import static com.example.chaty.FriendHome.token;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chaty.ItemFriendRequest;
-import com.example.chaty.ItemFriendRequestAdapter;
-import com.example.chaty.ItemFriendSuggestions;
-import com.example.chaty.ItemFriendSuggestionsAdapter;
-import com.example.chaty.ItemPhoneBookAdapter;
-import com.example.chaty.R;
+import com.example.chaty.Adapter.ItemFriendRequestAdapter;
+import com.example.chaty.Item.ItemFriendSuggestions;
 import com.example.chaty.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;

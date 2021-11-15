@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTimeAddToGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="2 giờ trước"
+        android:textColor="#0A0B0A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/getUserImgAddToGroup"
+        app:layout_constraintStart_toStartOf="@+id/tvNameFriendAddToGroup"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameFriendAddToGroup"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvNameFriendAddToGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:text="Trần Hữu Thọ"
+        android:textColor="#0A0B0A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/getUserImgAddToGroup"
+        app:layout_constraintTop_toTopOf="@+id/getUserImgAddToGroup" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/getUserImgAddToGroup"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="110dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgAvatarFriendAddToGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/duck"></ImageView>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <CheckBox
+        android:id="@+id/radAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNameFriendAddToGroup" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

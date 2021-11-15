@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChatY</string>
+    <string name="app_name">CHATY</string>
     <string name="invalid_phone">Số điện thoại phải có 10 số</string>
     <string name="invalid_password">Mật khẩu phải ít nhất 6 chữ số, không chứa ký tự đặc biệt</string>
     <string name="invalid_confirm_password">mật khẩu không trùng nhau</string>

@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
@@ -58,7 +59,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
             if (params != null && params.size() > 0) {
                 textParse(dos, params, getParamsEncoding());
             }
-
             // populate data byte payload
             Map<String, DataPart> data = getByteData();
             if (data != null && data.size() > 0) {
@@ -67,7 +67,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
 
             // close multipart form data after text and file data
             dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-            Log.d("encode",getParamsEncoding());
             return bos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +76,9 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
 
 
     protected Map<String, DataPart> getByteData() throws AuthFailureError {
+        return null;
+    }
+    protected Map<String, JSONArray> getObject() throws AuthFailureError {
         return null;
     }
 
@@ -105,12 +107,14 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     private void textParse(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
+
                 buildTextPart(dataOutputStream, entry.getKey(), entry.getValue());
             }
         } catch (UnsupportedEncodingException uee) {
             throw new RuntimeException("Encoding not supported: " + encoding, uee);
         }
     }
+
 
 
     private void dataParse(DataOutputStream dataOutputStream, Map<String, DataPart> data) throws IOException {
@@ -123,8 +127,10 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     private void buildTextPart(DataOutputStream dataOutputStream, String parameterName, String parameterValue) throws IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + parameterName + "\"" + lineEnd);
+
         dataOutputStream.writeBytes(lineEnd);
         dataOutputStream.writeBytes(parameterValue + lineEnd);
+        Log.d("ahihi",dataOutputStream.toString());
     }
 
 

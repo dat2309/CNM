@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuChat">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/getUserImgMenuChat"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        app:cardCornerRadius="130dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/getAvatarMenuChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/duck">
+        </ImageView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtNameMenuChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Trần Hữu Thọ"
+        android:textColor="#CF0C0C"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/getUserImgMenuChat"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="@+id/getUserImgMenuChat"
+        app:layout_constraintTop_toBottomOf="@+id/getUserImgMenuChat" />
+
+    <TextView
+        android:id="@+id/tvLeaveGroup"
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="26dp"
+        android:drawableLeft="@drawable/ic_baseline_logout_24"
+        android:text=" Rời group"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvRemovePerson"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdmin" />
+
+    <TextView
+        android:id="@+id/tvAddPerson"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/ic_baseline_person_add_24"
+        android:text=" Thêm thành viên"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtSeeMem"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtSeeMem"
+        app:layout_constraintTop_toBottomOf="@+id/txtSeeMem" />
+
+    <TextView
+        android:id="@+id/tvRemovePerson"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/ic_baseline_person_remove_24"
+        android:text=" Xóa thành viên"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvAddPerson"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvAddPerson"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddPerson" />
+
+    <ImageView
+        android:id="@+id/imgBackMenuChat"
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_keyboard_return_24" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Tùy chọn"
+        android:textColor="@color/green"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imgBackMenuChat"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvChangeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/ic_baseline_border_color_24"
+        android:text=" Đổi tên cuộc trò chuyện"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameMenuChat" />
+
+    <TextView
+        android:id="@+id/tvChangeAvatar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/ic_baseline_filter_24"
+        android:text=" Đổi ảnh trò chuyện"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvChangeName"
+        app:layout_constraintStart_toStartOf="@+id/tvChangeName"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeName" />
+
+    <EditText
+        android:id="@+id/editNameGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/getUserImgMenuChat"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/getUserImgMenuChat"
+        app:layout_constraintTop_toBottomOf="@+id/getUserImgMenuChat" />
+
+    <Button
+        android:id="@+id/btnChangeMenu"
+        android:layout_width="77dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="xong"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/txtNameMenuChat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtNameMenuChat"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnSeePro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="176dp"
+        android:text="Xem thông tin"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getUserImgMenuChat" />
+
+    <TextView
+        android:id="@+id/txtSeeMem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/ic_baseline_supervisor_account_24"
+        android:text=" Xem thành viên"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvChangeAvatar"
+        app:layout_constraintStart_toStartOf="@+id/tvChangeAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeAvatar"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Đổi chủ phòng"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvRemovePerson"
+        app:layout_constraintStart_toStartOf="@+id/tvRemovePerson"
+        app:layout_constraintTop_toBottomOf="@+id/tvRemovePerson" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

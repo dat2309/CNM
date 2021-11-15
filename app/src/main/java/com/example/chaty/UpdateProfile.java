@@ -62,7 +62,7 @@ public class UpdateProfile extends AppCompatActivity {
     private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
     ImageView back,avt;
-    Button btnSaveProfile;
+    Button btnSaveProfile,huy;
     String token,profileId,avatar,name,sex,dob,email,phone;
     EditText edtName;
     TextView editDOB;
@@ -80,6 +80,7 @@ public class UpdateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
         btnSaveProfile= findViewById(R.id.btnSaveProfile);
         back =findViewById(R.id.imgReturnUpdateProfile);
+        huy = findViewById(R.id.btnCancelProfileUpdate);
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
         avatar= getIntent().getStringExtra("avatar");
@@ -106,7 +107,7 @@ public class UpdateProfile extends AppCompatActivity {
 
         else
             radioNu.setChecked(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -170,6 +171,18 @@ public class UpdateProfile extends AppCompatActivity {
                 finish();
             }
         });
+        huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UpdateProfile.this, Profile.class);
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
+                startActivity(intent);
+                finish();
+            }
+        });
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.edtHoTenUpdate, RegexTemplate.NOT_EMPTY, R.string.invalid_name);
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +201,7 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
     }
-    private void showFileChooser() {
+    public void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/jpeg");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -239,6 +252,7 @@ public class UpdateProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         Log.d("res", String.valueOf(response));
+                        Toast.makeText(UpdateProfile.this,"Cập nhật thông tin thành công",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(UpdateProfile.this, Profile.class);
                         intent.putExtra("token",token);
                         intent.putExtra("profileId",profileId);
@@ -274,6 +288,7 @@ public class UpdateProfile extends AppCompatActivity {
                 Map<String, VolleyMultipartRequest.DataPart> params = new HashMap<>();
                 if(bitmap != null ) {
                     params.put("avatar", new DataPart( "avatar"+".jpeg", getFileDataFromDrawable(bitmap),"image/jpeg"));
+                    Log.d("avatar", String.valueOf(new DataPart( "avatar"+".jpeg", getFileDataFromDrawable(bitmap),"image/jpeg")));
                 }
                 else
                     params.put("avatar", new DataPart("avatar"+".jpeg",getFileDataFromDrawable2(UpdateProfile.this,avt.getDrawable()), "image/jpeg"));
@@ -293,7 +308,5 @@ public class UpdateProfile extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
     }
-
-
 
 }

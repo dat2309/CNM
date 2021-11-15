@@ -41,13 +41,13 @@
 
     <ImageView
         android:id="@+id/imgInfoPhoneBook"
-        android:layout_width="40dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="92dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtNamePhoneBook"
-        app:layout_constraintStart_toEndOf="@+id/txtNamePhoneBook"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtNamePhoneBook"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.307"
         app:srcCompat="@drawable/ic_info" />
 
     <ImageView

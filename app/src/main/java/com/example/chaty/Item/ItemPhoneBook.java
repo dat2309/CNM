@@ -1,4 +1,4 @@
-package com.example.chaty;
+package com.example.chaty.Item;
 
 public class ItemPhoneBook {
         private int imgActiveStatus,imgInfoPhoneBook;

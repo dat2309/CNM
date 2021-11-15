@@ -49,6 +49,7 @@ public class Profile extends AppCompatActivity {
         profileId = getIntent().getStringExtra("profileId");
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
+
         getProfile(profileId);
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +72,14 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, ChangePassword.class);
+                intent.putExtra("avatar",avatar);
+                intent.putExtra("name",name);
+                intent.putExtra("token",token);
+                intent.putExtra("email",email);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("phone",phone);
                 startActivity(intent);
+
                 finish();
             }
         });

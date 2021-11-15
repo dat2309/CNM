@@ -7,6 +7,16 @@
 
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn bè"
+        app:layout_constraintBottom_toBottomOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="@+id/imgPhoneBook"
+        app:layout_constraintStart_toStartOf="@+id/imgPhoneBook"
+        app:layout_constraintTop_toTopOf="@+id/textView28" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/getUserImage"
         android:layout_width="70dp"
@@ -23,8 +33,7 @@
             android:id="@+id/imgAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            ></ImageView>
+            android:scaleType="centerCrop"></ImageView>
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -32,43 +41,45 @@
         android:layout_width="99dp"
         android:layout_height="41dp"
         android:layout_marginStart="20dp"
-        android:text="ten"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="5dp"
+        android:textAlignment="inherit"
 
-        app:layout_constraintBottom_toBottomOf="@+id/imgPhoneBook"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imgPhoneBook"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/getUserImage"
         app:layout_constraintTop_toTopOf="@+id/imgPhoneBook"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imgLogout"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_logout_24" />
+
     <ImageView
         android:id="@+id/imgPhoneBook"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgFriendSuggestion"
         app:layout_constraintEnd_toStartOf="@+id/imgFriendSuggestion"
         app:layout_constraintTop_toTopOf="@+id/imgFriendSuggestion"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_account_box_24" />
+
     <ImageView
         android:id="@+id/imgFriendSuggestion"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgLogout"
         app:layout_constraintEnd_toStartOf="@+id/imgLogout"
         app:layout_constraintTop_toTopOf="@+id/imgLogout"
@@ -77,14 +88,17 @@
 
     <EditText
         android:id="@+id/edtSearch"
-        android:layout_width="190dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="239dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
         android:ems="10"
+        android:hint="name"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="@+id/imgAddPerson"
         app:layout_constraintEnd_toStartOf="@+id/imgAddPerson"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imgAddPerson"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -93,33 +107,21 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAddPersonGroup"
-        app:layout_constraintEnd_toStartOf="@+id/imgAddPersonGroup"
-        app:layout_constraintTop_toTopOf="@+id/imgAddPersonGroup"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCreatePersonGroup"
+        app:layout_constraintEnd_toStartOf="@+id/imgCreatePersonGroup"
+        app:layout_constraintTop_toTopOf="@+id/imgCreatePersonGroup"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_person_add_alt_1_24" />
 
     <ImageView
-        android:id="@+id/imgAddPersonGroup"
+        android:id="@+id/imgCreatePersonGroup"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogout"
-        app:srcCompat="@drawable/ic_baseline_supervisor_account_24" />
-
-    <ImageView
-        android:id="@+id/imgPersonSearch"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
-        app:layout_constraintEnd_toStartOf="@+id/edtSearch"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edtSearch"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_person_search_24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView30"
+        app:srcCompat="@drawable/ic_baseline_group_add_24" />
 
     <View
         android:id="@+id/SplitLine_hor1"
@@ -143,5 +145,24 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSearch" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Đăng xuất"
+        app:layout_constraintEnd_toEndOf="@+id/imgLogout"
+        app:layout_constraintStart_toStartOf="@+id/imgLogout"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogout" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kết bạn"
+        app:layout_constraintBottom_toBottomOf="@+id/textView27"
+        app:layout_constraintStart_toStartOf="@+id/imgFriendSuggestion"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

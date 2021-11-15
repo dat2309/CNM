@@ -54,7 +54,7 @@
         android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_baseline_border_color_24"
         android:fontFamily="@font/noto_sans"
-        android:text="Chỉnh sửa thông tin"
+        android:text="Tạo thông tin"
         android:textColor="#D81010"
         android:textColorHint="#FFFFFF"
         android:textSize="18sp"
@@ -152,8 +152,8 @@
 
     <Button
         android:id="@+id/btnLuuHoSo"
-        android:layout_width="147dp"
-        android:layout_height="0dp"
+        android:layout_width="164dp"
+        android:layout_height="62dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/noto_sans"

@@ -23,7 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
         android:text="Bạn bè"
-        android:textColor="@color/green"
+        android:textColor="@color/blue"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgBackPhoneBook"

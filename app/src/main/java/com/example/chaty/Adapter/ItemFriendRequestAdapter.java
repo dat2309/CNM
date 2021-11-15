@@ -1,4 +1,4 @@
-package com.example.chaty;
+package com.example.chaty.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.chaty.BuildConfig;
+import com.example.chaty.FriendRequestProfile;
+import com.example.chaty.Item.ItemFriendRequest;
+import com.example.chaty.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -151,7 +154,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                                 };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage("Lêu lêu đồ ko có người yêu lẫn yêu cầu kết bạn").setPositiveButton("oke ", dialogClickListener)
+                                builder.setMessage("Không nhận được lời mời kết bạn nào ").setPositiveButton("oke ", dialogClickListener)
                                         .show();
                             }
                             notifyDataSetChanged();

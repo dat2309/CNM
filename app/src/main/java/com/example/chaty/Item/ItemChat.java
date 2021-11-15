@@ -1,4 +1,6 @@
-package com.example.chaty;
+package com.example.chaty.Item;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -9,9 +11,9 @@ public class ItemChat {
     private String message;
     private String time,id,admin;
     private int size;
-    List member;
+    JSONArray member;
 
-    public ItemChat(String imgAvatar, String name, String message, String time, String id,String admin,int size, List member) {
+    public ItemChat(String imgAvatar, String name, String message, String time, String id,String admin,int size, JSONArray member) {
         this.imgAvatar = imgAvatar;
         this.name = name;
         this.message = message;
@@ -78,11 +80,11 @@ public class ItemChat {
         this.size = size;
     }
 
-    public List getMember() {
+    public JSONArray getMember() {
         return member;
     }
 
-    public void setMember(List member) {
+    public void setMember(JSONArray member) {
         this.member = member;
     }
 }

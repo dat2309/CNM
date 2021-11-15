@@ -1,4 +1,4 @@
-package com.example.chaty;
+package com.example.chaty.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.chaty.BuildConfig;
+import com.example.chaty.FriendSenderProfile;
+import com.example.chaty.Item.ItemFriendRequest;
+import com.example.chaty.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSenderAdapter.MyViewHolderItemFriendSender> {
-    private List<ItemFriendRequest> itemFriendRequests;
+    private List<ItemFriendRequest> itemFriendSenders;
     private Context context;
     String token,profileId,email,phone;
     View view;
@@ -57,7 +60,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
 
     @Override
     public void onBindViewHolder(@NonNull ItemFriendSenderAdapter.MyViewHolderItemFriendSender holder, int position) {
-        ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
+        ItemFriendRequest itemFriendRequest = itemFriendSenders.get(position);
         Log.d("ava",itemFriendRequest.getAvatar());
 
         if(itemFriendRequest.getAvatar().equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
@@ -68,6 +71,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                     .into(holder.imgAvatarFriendSender);}
         holder.imgInfoFriendSender.setImageResource(itemFriendRequest.getImgInforFriendRequest());
         holder.tvNameFriendSender.setText(itemFriendRequest.getName());
+        holder.tvDecripstion.setText(itemFriendRequest.getDob());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,24 +92,26 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
 
     @Override
     public int getItemCount() {
-        Log.d("size",String.valueOf( itemFriendRequests.size()));
-        return itemFriendRequests.size();
+        Log.d("size",String.valueOf( itemFriendSenders.size()));
+        return itemFriendSenders.size();
     }
     public class MyViewHolderItemFriendSender extends RecyclerView.ViewHolder {
 
         ImageView imgAvatarFriendSender,imgInfoFriendSender;
-        TextView tvNameFriendSender;
+        TextView tvNameFriendSender,tvDecripstion;
         public MyViewHolderItemFriendSender(@NonNull View itemView) {
             super(itemView);
             imgAvatarFriendSender = itemView.findViewById(R.id.imgAvatarFriendSender);
             imgInfoFriendSender = itemView.findViewById(R.id.imgInforFriendSender);
             tvNameFriendSender = itemView.findViewById(R.id.tvNameFriendSender);
+            tvDecripstion = itemView.findViewById(R.id.txtDes);
+
         }
     }
 
     private void getReqSender(String phone) {
         //gửi
-        itemFriendRequests = new ArrayList<>();
+        itemFriendSenders = new ArrayList<>();
         String url =BuildConfig.API+"request/sender/"+phone;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
@@ -133,7 +139,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                 };
 
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                                builder2.setMessage("Không có ny đã đành còn không có ai để kết bạn ").setPositiveButton("oke ", dialogClickListener)
+                                builder2.setMessage("Chưa gửi lời mời kết bạn nào").setPositiveButton("oke ", dialogClickListener)
                                         .show();
 
 
@@ -143,6 +149,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                 for (int i = respObj2.length() - 1; i >= 0; i--)
                                 {
                                     JSONObject object =respObj2.getJSONObject(i);
+                                    String description = object.getString("description");
                                     if(object.getString("status").toString().equals("false")) {
                                         String reqID = object.getString("_id");
                                         JSONObject sender = object.getJSONObject("sender");
@@ -151,7 +158,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                         String frName = receiver.get("name").toString();
                                         String frSex = receiver.get("phone").toString();
                                         String frAvatar = receiver.get("avatar").toString();
-                                        itemFriendRequests.add(new ItemFriendRequest(R.drawable.ic_info, frName, frSex, frAvatar, frAvatar, reqID));
+                                        itemFriendSenders.add(new ItemFriendRequest(R.drawable.ic_info, frName, frSex, description, frAvatar, reqID));
 
                                     }
                                 }}

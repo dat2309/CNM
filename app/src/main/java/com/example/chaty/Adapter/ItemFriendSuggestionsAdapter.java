@@ -1,9 +1,4 @@
-package com.example.chaty;
-
-import static com.example.chaty.FriendHome.email;
-import static com.example.chaty.FriendHome.phone;
-import static com.example.chaty.FriendHome.profileId;
-import static com.example.chaty.FriendHome.token;
+package com.example.chaty.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.chaty.BuildConfig;
+import com.example.chaty.FriendSuggestionsProfile;
+import com.example.chaty.Item.ItemFriendSuggestions;
+import com.example.chaty.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,8 +131,6 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
         try {
             //input your API parameters
             object.put("suggestion", types);
-//            object.put("avatar",null);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -177,7 +174,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
                                 };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage("lêu lêu đồ ko có bạn ").setPositiveButton("oke ", dialogClickListener)
+                                builder.setMessage("Không có đề xuất kết bạn nào ").setPositiveButton("oke ", dialogClickListener)
                                         .show();
                             }
                             notifyDataSetChanged();

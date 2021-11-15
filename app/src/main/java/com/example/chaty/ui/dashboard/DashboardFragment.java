@@ -14,12 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chaty.ItemFriendRequest;
-import com.example.chaty.ItemFriendRequestAdapter;
-import com.example.chaty.ItemFriendSenderAdapter;
-import com.example.chaty.ItemFriendSuggestions;
-import com.example.chaty.ItemFriendSuggestionsAdapter;
-import com.example.chaty.R;
+import com.example.chaty.Adapter.ItemFriendSenderAdapter;
+import com.example.chaty.Item.ItemFriendSuggestions;
+import com.example.chaty.Adapter.ItemFriendSuggestionsAdapter;
 import com.example.chaty.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;

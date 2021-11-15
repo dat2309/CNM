@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/getUserImgMessage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="110dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imgAvatarMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            android:src="@drawable/duck"></ImageView>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvMessageChat"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Hello Hello Hello Hello"
+        android:visibility="invisible"
+        android:textColor="#040404"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/getUserImgMessage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTimeMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="20h:30 pm"
+        android:textColor="#020202"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvMessageChat"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessageChat" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/getUserImgMessage2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        app:cardCornerRadius="110dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/getUserImgMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/getUserImgMessage"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imgAvatarMessage2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            android:src="@drawable/duck"></ImageView>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvMessageChat2"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="16dp"
+        android:text="Hello Hello Hello Hello"
+        android:textAlignment="viewEnd"
+        android:textColor="#040404"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/getUserImgMessage2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTimeMessage2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:visibility="invisible"
+        android:textAlignment="viewEnd"
+        android:text="20h:30 pm"
+        android:textColor="#020202"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvMessageChat2"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessageChat2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

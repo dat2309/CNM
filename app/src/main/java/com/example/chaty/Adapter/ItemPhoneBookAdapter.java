@@ -1,4 +1,4 @@
-package com.example.chaty;
+package com.example.chaty.Adapter;
 import static  com.example.chaty.MainActivity.namePr;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +22,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.chaty.BuildConfig;
+import com.example.chaty.Chat;
+import com.example.chaty.FriendProfile;
+import com.example.chaty.Item.ItemPhoneBook;
+import com.example.chaty.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +44,7 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
     String token,profileId,email,phone;
     View view;
     List<String> a;
+    JSONArray description=new JSONArray();
     public ItemPhoneBookAdapter(Context context,String profileId,String token,String email, String phone)
     {
         this.context=context;
@@ -72,8 +77,8 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context,FriendProfile.class);
-                intent.putExtra("frAvater",itemPhoneBook.getAvatar());
+                Intent intent = new Intent(context, FriendProfile.class);
+                intent.putExtra("frAvatar",itemPhoneBook.getAvatar());
                 intent.putExtra("frName",itemPhoneBook.getName());
                 intent.putExtra("frSex",itemPhoneBook.getSex());
                 intent.putExtra("frDob",itemPhoneBook.getDob());
@@ -88,20 +93,10 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
     view.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, Chat.class);
-//            intent.putExtra("frAvater",itemPhoneBook.getAvatar());
-//            intent.putExtra("frName",itemPhoneBook.getName());
-//            intent.putExtra("frSex",itemPhoneBook.getSex());
-//            intent.putExtra("frDob",itemPhoneBook.getDob());
-//            intent.putExtra("frID",itemPhoneBook.getFrID());
-//            intent.putExtra("token",token);
-//            intent.putExtra("profileId",profileId);
-//            intent.putExtra("email",email);
-//            intent.putExtra("phone",phone);
-            creatConversation(profileId,itemPhoneBook.getFrID(),namePr);
-            context.startActivity(intent);
-            Log.d("ahihiighjkl","met");
+
+            creatConversation1(profileId,itemPhoneBook.getFrID(),namePr,itemPhoneBook);
+
+
         }
     });
     }
@@ -190,86 +185,45 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
 
         requestQueue.add(jsonObjectRequest);
     }
-    private void create(String id1,String id2,String name) {
-       a = new ArrayList<>();
-       a.add(id1);
-       a.add(id2);
-        String url =BuildConfig.API+"conversation/";
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JSONArray description=new JSONArray();
-        description.put(id1);
-        description.put(id2);
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-
-                    JSONObject respObj = new JSONObject(response);
-                    Log.d("json", response);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("loi","loicc");
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("name", name);
-                params.put("admin", id1);
-                params.put("participant", a.toString());
-//                params.put("avatar",BuildConfig.API+"file/avatar/smile.png");
-                Log.d("pã ",params.toString());
-                return params;
-            }
-            public Map<String, String> getHeaders()
-            {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("authorization",token );
-                return headers;
-            }
-        };
-
-        requestQueue.add(request);
-    }
-    private void creatConversation(String id1,String id2,String name) {
+    private void creatConversation1(String id1,String id2,String name,ItemPhoneBook itemPhoneBook) {
         String url =BuildConfig.API+"conversation/";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        a = new ArrayList<>();
-        a.add(id1);
-        a.add(id2);
 
-        JSONArray description=new JSONArray();
         description.put(id1);
         description.put(id2);
         JSONObject object = new JSONObject();
         try {
-            //input your API parameters
             object.put("name", name);
             object.put("admin",id1);
             object.put("participant",description);
-//            object.put("avatar",null);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("duma",object.toString());
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("data",response.toString());
+
+                        try {
+
+                            Intent intent = new Intent(context, Chat.class);
+                            intent.putExtra("frAvatar",itemPhoneBook.getAvatar());
+                            intent.putExtra("frName",itemPhoneBook.getName());
+                            intent.putExtra("frID",response.getString("data"));
+                            intent.putExtra("token",token);
+                            intent.putExtra("profileId",profileId);
+                            intent.putExtra("email",email);
+                            intent.putExtra("phone",phone);
+                            intent.putExtra("admin",profileId);
+                            intent.putExtra("participant",description.toString());
+                            intent.putExtra("size","2");
+                            context.startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 }, new Response.ErrorListener() {

@@ -1,17 +1,16 @@
 package com.example.chaty;
 
-import static com.example.chaty.FriendHome.email;
-import static com.example.chaty.FriendHome.phone;
-import static com.example.chaty.FriendHome.profileId;
-import static com.example.chaty.FriendHome.token;
-
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.chaty.Adapter.ItemChatAdapter;
+import com.example.chaty.Item.ItemChat;
 
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,13 +35,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imgAvatar,imgLogOut,imgPhoneBook,imgFriendSuggestion,imgAdd;
+    ImageView imgAvatar,imgLogOut,imgPhoneBook,imgFriendSuggestion,imgAdd,imgCreatePersonGroup;
     RecyclerView rcvItemChat;
     ArrayList<ItemChat> itemChats;
     ItemChatAdapter itemChatAdapter;
     public static String namePr;
     TextView txtName;
     String token,profileId,phone,email;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         rcvItemChat = findViewById(R.id.rcvItemChat);
         imgPhoneBook = findViewById(R.id.imgPhoneBook);
         imgFriendSuggestion = findViewById(R.id.imgFriendSuggestion);
+        imgCreatePersonGroup = findViewById(R.id.imgCreatePersonGroup);
         imgAdd = findViewById(R.id.imgAddPerson);
 
         //nhận dữ liệu
@@ -84,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        imgCreatePersonGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateGroupChat.class);
+                //gửi dữ liệu
+                intent.putExtra("token",token);
+                intent.putExtra("profileId",profileId);
+                intent.putExtra("email",email);
+                intent.putExtra("phone",phone);
+                intent.putExtra("name",namePr);
+                startActivity(intent);
+                finish();
+            }
+        });
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,9 +124,27 @@ public class MainActivity extends AppCompatActivity {
         imgLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-                finish();
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Intent intent = new Intent(MainActivity.this, Login.class);
+                                startActivity(intent);
+                                finish();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Xác nhận đăng xuất ").setPositiveButton("Đồng ý ", dialogClickListener)
+                        .setNegativeButton("Không", dialogClickListener).show();
+
             }
         });
         imgPhoneBook.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("profileId",profileId);
                 intent.putExtra("email",email);
                 intent.putExtra("phone",phone);
+
                 startActivity(intent);
                 finish();
             }

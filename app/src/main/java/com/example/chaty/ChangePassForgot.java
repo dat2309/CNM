@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +32,7 @@ public class ChangePassForgot extends AppCompatActivity {
     Button btnXacNhan;
     ImageView imgBack;
     String email,phone;
+    CheckBox ckShow;
     private AwesomeValidation awesomeValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +43,26 @@ public class ChangePassForgot extends AppCompatActivity {
         edtPass2 = findViewById(R.id.edtMKForgot2);
         edtCode = findViewById(R.id.edtMKCode);
         btnXacNhan = findViewById(R.id.btnXacNhanTaoMK);
+        ckShow = findViewById(R.id.checkBox3);
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(ChangePassForgot.this,R.id.edtMKForgot,"^[A-Za-z0-9]{6,}$",R.string.invalid_password);
         awesomeValidation.addValidation(this, R.id.edtMKForgot2, R.id.edtMKForgot, R.string.invalid_confirm_password);
-        awesomeValidation.addValidation(this, R.id.edtMKForgot2, R.id.edtMKForgot, R.string.invalid_confirm_password);
         awesomeValidation.addValidation(this, R.id.edtMKCode, "[0-9]{6}$", R.string.invalid_code);
+        ckShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    edtPass1.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    edtPass2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else{
+                    edtPass1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    edtPass2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

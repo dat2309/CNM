@@ -24,10 +24,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FriendProfile extends AppCompatActivity {
@@ -35,21 +38,24 @@ public class FriendProfile extends AppCompatActivity {
     ImageView  imgAvt;
     Button btnBlock,btnHuy;
     ImageView imgBackFriendProfile;
-    String token,profileId,phone,email,frAvater,frName,frDob,frSex,frID;
+    String token,profileId,phone,email,frAvatar,frName,frDob,frSex,frID, blockIDList = "";
+    private List<Object> blockID = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_profile);
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
+        frID = getIntent().getStringExtra("frID");
+        getListBlock(profileId,frID);
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
-        frAvater = getIntent().getStringExtra("frAvater");
+        frAvatar = getIntent().getStringExtra("frAvatar");
         frName = getIntent().getStringExtra("frName");
         frDob = getIntent().getStringExtra("frDob");
         frSex = getIntent().getStringExtra("frSex");
-        frID = getIntent().getStringExtra("frID");
-        Log.d("frID",frID);
+
+
         txtName = findViewById(R.id.tvNameFriendProfile);
         txtDob = findViewById(R.id.tvDateFriendProfile);
         txtSex = findViewById(R.id.tvSexFriendProfile);
@@ -60,12 +66,13 @@ public class FriendProfile extends AppCompatActivity {
         txtDob.setText(frDob);
         txtName.setText(frName);
         txtSex.setText(frSex);
-        if(frAvater.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
+        if(frAvatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             imgAvt.setImageResource(R.drawable.smile);
         else{
             Glide.with(getApplicationContext())
-                    .load(frAvater)
+                    .load(frAvatar)
                     .into(imgAvt);}
+
         btnHuy.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -119,6 +126,52 @@ public class FriendProfile extends AppCompatActivity {
 
 
     }
+
+
+    private void getListBlock(String profileID,String frID) {
+
+        String url =BuildConfig.API+"account/friend/block/"+profileID;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject respObj = new JSONObject(response);
+                            JSONArray data =respObj.getJSONArray("data");
+                            Log.d("datalis",data.toString());
+                            for(int i =1; i<data.length();i++){
+                                JSONObject object = data.getJSONObject(i);
+                                blockID.add("1");
+                                if(frID.equals(object.getString("_id"))){
+                                    Log.d("frid",frID);
+                                    Log.d("frid2",object.getString("_id"));
+                                    btnBlock.setText("Hủy chặn");}
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                })
+        {
+            //token
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization",token );
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsonObjectRequest);
+    }
     private void blockFriend(String profile_id,String frId ) {
         String url =BuildConfig.API+"account/friend/block/"+profile_id;
         JSONObject object = new JSONObject();
@@ -140,6 +193,7 @@ public class FriendProfile extends AppCompatActivity {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
                             Log.d("chawnj",data);
+                            btnBlock.setText("Hủy chặn");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -175,6 +229,7 @@ public class FriendProfile extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
+                            btnBlock.setText("Chặn");
                             Log.d("chawnj",data);
                         } catch (JSONException e) {
                             e.printStackTrace();

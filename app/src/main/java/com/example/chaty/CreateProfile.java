@@ -129,7 +129,7 @@ public class CreateProfile extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(CreateProfile.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateProfile.this,"Tạo thông tin thành công",Toast.LENGTH_LONG).show();
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));

@@ -83,7 +83,7 @@ public class VetifyOTP extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(VetifyOTP.this,"send",Toast.LENGTH_LONG).show();
+                        Toast.makeText(VetifyOTP.this,"Kích hoạt thành công",Toast.LENGTH_LONG).show();
                         try {
                             String data =new String( response.getString("data"));
                             if(data.equalsIgnoreCase("Failed"))

@@ -9,9 +9,13 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,10 +47,11 @@ public class Login extends AppCompatActivity {
 
     EditText edtPhoneNumberLogin, edtPassLogin;
     Button btnDangNhap;
+    CheckBox ckShow;
     TextView txtTaoTK, txtWrong,txtForgot;
     private AwesomeValidation awesomeValidation;
     public static final int REQUEST_READ_CONTACTS = 79;
-    public static List<String> mobileArray;
+    public static List<String> mobileArray =new ArrayList<>();
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +61,14 @@ public class Login extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
             mobileArray = getAllContacts();
+            for(int i = 0 ; i < mobileArray.size(); i++)
+                for( int j = i+1 ; j< mobileArray.size()-1;j++ )
+                    if(mobileArray.get(i).equals(mobileArray.get(j)))
+                        mobileArray.remove(j);
         } else {
             requestPermission();
         }
+        ckShow = findViewById(R.id.checkBox);
         edtPhoneNumberLogin = findViewById(R.id.edtPhoneNumberLogin);
         edtPassLogin = findViewById(R.id.edtPassLogin);
         btnDangNhap = findViewById(R.id.btnDangNhap);
@@ -69,7 +79,15 @@ public class Login extends AppCompatActivity {
         //kiểm tra
         awesomeValidation.addValidation(this, R.id.edtPhoneNumberLogin, "^[0-9]{10}$", R.string.invalid_phone);
         awesomeValidation.addValidation(this,R.id.edtPassLogin,"^[A-Za-z0-9]{6,}$",R.string.invalid_password);
-
+        ckShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked)
+                    edtPassLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                else
+                    edtPassLogin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+        });
         txtTaoTK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +135,10 @@ public class Login extends AppCompatActivity {
             case REQUEST_READ_CONTACTS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mobileArray = getAllContacts();
+                    for(int i = 0 ; i < mobileArray.size(); i++)
+                        for( int j = i+1 ; j< mobileArray.size()-1;j++ )
+                            if(mobileArray.get(i).equals(mobileArray.get(j)))
+                                mobileArray.remove(j);
                 } else {
                     // permission denied,Disable the
                     // functionality that depends on this permission.

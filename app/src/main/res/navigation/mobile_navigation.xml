@@ -13,12 +13,12 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.chaty.ui.dashboard.DashboardFragment"
-        android:label="Lời mời kết bạn đã gửi"
+        android:label="Yêu cầu kết bạn đã gửi"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.chaty.ui.notifications.NotificationsFragment"
-        android:label="Yêu cầu kết bạn"
+        android:label="Yêu cầu kết bạn đã nhận "
         tools:layout="@layout/fragment_notifications" />
 </navigation>
