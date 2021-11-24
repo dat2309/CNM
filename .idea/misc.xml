@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ChatY/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/bg_blue_16.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/bg_button_blue.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/bg_edit_gray.xml" value="0.2703125" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/bg_white_conner_16.xml" value="0.26614583333333336" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/bg_yellow_16.xml" value="0.26614583333333336" />
         <entry key="..\:/ChatY/app/src/main/res/drawable/edit_text.xml" value="0.1546875" />
         <entry key="..\:/ChatY/app/src/main/res/drawable/ic_activestatus.xml" value="0.1484375" />
         <entry key="..\:/ChatY/app/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.14947916666666666" />
@@ -35,11 +40,13 @@
         <entry key="..\:/ChatY/app/src/main/res/drawable/ic_dat.xml" value="0.2520833333333333" />
         <entry key="..\:/ChatY/app/src/main/res/drawable/ic_info.xml" value="0.14947916666666666" />
         <entry key="..\:/ChatY/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26205128205128203" />
+        <entry key="..\:/ChatY/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.190625" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_add_to_group.xml" value="0.2" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_change_pass_forgot.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_change_password.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_chat.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_create_profile.xml" value="0.2" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_delete_account.xml" value="0.25" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_forgot_pass.xml" value="0.21422101449275363" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_home.xml" value="0.23278985507246377" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_friend_profile.xml" value="0.15833333333333333" />
@@ -53,7 +60,7 @@
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_phone_book.xml" value="0.15833333333333333" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_register.xml" value="0.2" />
-        <entry key="..\:/ChatY/app/src/main/res/layout/activity_update_profile.xml" value="0.15760869565217392" />
+        <entry key="..\:/ChatY/app/src/main/res/layout/activity_update_profile.xml" value="0.264" />
         <entry key="..\:/ChatY/app/src/main/res/layout/activity_vetify_otp.xml" value="0.2" />
         <entry key="..\:/ChatY/app/src/main/res/layout/fragment_dashboard.xml" value="0.23278985507246377" />
         <entry key="..\:/ChatY/app/src/main/res/layout/fragment_home.xml" value="0.23278985507246377" />

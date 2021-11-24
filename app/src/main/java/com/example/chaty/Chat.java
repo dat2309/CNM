@@ -53,11 +53,6 @@ public class Chat extends AppCompatActivity {
     ItemMessageAdapter itemMessageAdapter;
     private Socket mSocket;
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +140,7 @@ public class Chat extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
+                    if(edtChat.getText().toString().length()!=0 ){
                     chat = edtChat.getText().toString();
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
                     String date = df.format(Calendar.getInstance().getTime());
@@ -169,7 +165,7 @@ public class Chat extends AppCompatActivity {
                     edtChat.setText("");
                     edtChat.clearFocus();
                     hideKeyboard(v);
-                }
+                }}
             });
             imgMenuChat.setOnClickListener(new View.OnClickListener() {
                 @Override

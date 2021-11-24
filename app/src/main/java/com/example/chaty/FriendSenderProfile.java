@@ -134,59 +134,6 @@ public class FriendSenderProfile extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
 
     }
-    private void acceptReq(String requestId) {
-        String url =BuildConfig.API+"request/"+requestId;
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JSONObject object = new JSONObject();
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("accep",respObj.toString());
-                            Intent intent = new Intent(FriendSenderProfile.this,FriendHome.class);
-
-                            intent.putExtra("token",token);
-                            intent.putExtra("profileId",profileId);
-                            intent.putExtra("email",email);
-                            intent.putExtra("phone",phone);
-                            startActivity(intent);
-                            finish();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-
-            }
-        }){
-
-            public Map<String, String> getHeaders()
-            {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("authorization",token );
-                return headers;
-            }
-        };
-
-
-        requestQueue.add(jsonObjectRequest);
-
-    }
     private void deleteReq(String requestId) {
         String url =BuildConfig.API+"request/"+requestId;
 

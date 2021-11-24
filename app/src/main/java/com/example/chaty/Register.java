@@ -109,11 +109,13 @@ public class Register extends AppCompatActivity {
                             if(data.equals("Account was exists")){
                                 Toast.makeText(Register.this,"Account đã tồn tại",Toast.LENGTH_LONG).show();
                                 edtPhoneNumber.setText("");
+                                edtPhoneNumber.setError("Số điện thoại đã được đăng ký ");
                                 edtPhoneNumber.requestFocus();
         }
                       else if(data.equalsIgnoreCase("Email was exists")){
                                 Toast.makeText(Register.this,"Email khoản đã tồn tại",Toast.LENGTH_LONG).show();
                                 edtEmail.setText("");
+                                edtPhoneNumber.setError("Email đã được đăng ký");
                                 edtEmail.requestFocus();
                             }
                             else{

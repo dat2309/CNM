@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_white_conner_16">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_blue_16"
+        android:fontFamily="@font/noto_sans"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Xóa tài khoản "
+        android:textColor="@android:color/black"
+        android:textSize="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:text="Vui lòng nhập mật khẩu "/>
+
+        <EditText
+            android:id="@+id/edtMKDelete"
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:layout_height="54dp"
+            android:background="@drawable/bg_edit_gray"
+            android:hint="mật khẩu" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnHuyDelete"
+            android:layout_width="164dp"
+            android:layout_height="62dp"
+            android:text="Hủy "
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:background="@drawable/bg_button_blue"
+           />
+        <Button
+            android:id="@+id/btnDeleteAc"
+            android:layout_width="164dp"
+            android:layout_height="62dp"
+            android:text="Xác nhận"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:background="@drawable/bg_button_blue"
+            />
+    </LinearLayout>
+</LinearLayout>

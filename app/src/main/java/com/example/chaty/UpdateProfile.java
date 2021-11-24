@@ -107,14 +107,6 @@ public class UpdateProfile extends AppCompatActivity {
 
         else
             radioNu.setChecked(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + getPackageName()));
-            finish();
-            startActivity(intent);
-            return;}
         avt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

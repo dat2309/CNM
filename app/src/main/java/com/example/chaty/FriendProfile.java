@@ -192,7 +192,7 @@ public class FriendProfile extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("chawnj",data);
+                            Log.d("chặn thành công",data);
                             btnBlock.setText("Hủy chặn");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -230,7 +230,7 @@ public class FriendProfile extends AppCompatActivity {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
                             btnBlock.setText("Chặn");
-                            Log.d("chawnj",data);
+                            Log.d("hủy chặn thành công",data);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

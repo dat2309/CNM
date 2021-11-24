@@ -55,7 +55,8 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
         this.admin = admin;
         itemFriendLists = new ArrayList<>();
         for(int i = 0 ; i< member.size();i++)
-            getFriend(member.get(i).toString());
+            if(!profileId.equals(member.get(i).toString()))
+                getFriend(member.get(i).toString());
 
     }
 

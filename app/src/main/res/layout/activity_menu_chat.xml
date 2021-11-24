@@ -43,9 +43,9 @@
 
     <TextView
         android:id="@+id/tvLeaveGroup"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginTop="25dp"
         android:drawableLeft="@drawable/ic_baseline_logout_24"
         android:text=" Rời group"
         android:textColor="#000000"
@@ -57,7 +57,7 @@
         android:id="@+id/tvAddPerson"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="25dp"
         android:drawableLeft="@drawable/ic_baseline_person_add_24"
         android:text=" Thêm thành viên"
         android:textColor="#000000"
@@ -71,13 +71,13 @@
         android:id="@+id/tvRemovePerson"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="25dp"
         android:drawableLeft="@drawable/ic_baseline_person_remove_24"
         android:text=" Xóa thành viên"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/tvAddPerson"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tvAddPerson"
         app:layout_constraintTop_toBottomOf="@+id/tvAddPerson" />
 
@@ -124,7 +124,7 @@
         android:id="@+id/tvChangeAvatar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="25dp"
         android:drawableLeft="@drawable/ic_baseline_filter_24"
         android:text=" Đổi ảnh trò chuyện"
         android:textColor="#000000"
@@ -153,18 +153,20 @@
         android:layout_height="51dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/blue"
+
         android:text="xong"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/txtNameMenuChat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtNameMenuChat"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnSeePro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="176dp"
+        android:backgroundTint="@color/blue"
         android:text="Xem thông tin"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +177,7 @@
         android:id="@+id/txtSeeMem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="25dp"
         android:drawableLeft="@drawable/ic_baseline_supervisor_account_24"
         android:text=" Xem thành viên"
         android:textColor="#000000"
@@ -189,12 +191,25 @@
         android:id="@+id/txtAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="25dp"
         android:text="Đổi chủ phòng"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/tvRemovePerson"
         app:layout_constraintStart_toStartOf="@+id/tvRemovePerson"
         app:layout_constraintTop_toBottomOf="@+id/tvRemovePerson" />
+
+    <Button
+        android:id="@+id/btnhuyU"
+        android:layout_width="77dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="Hủy"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/btnChangeMenu"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnChangeMenu"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeMenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

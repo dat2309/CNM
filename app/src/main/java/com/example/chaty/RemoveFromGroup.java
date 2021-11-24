@@ -80,7 +80,7 @@ public class RemoveFromGroup extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     itemFriendRemoveFormGroupAdapter.delete();
-                    Intent intent = new Intent(RemoveFromGroup.this, MainActivity.class);
+                    Intent intent = new Intent(RemoveFromGroup.this, MenuChat.class);
                     intent.putExtra("token", token);
                     intent.putExtra("profileId", profileId);
                     intent.putExtra("email", email);

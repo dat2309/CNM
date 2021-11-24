@@ -1,9 +1,13 @@
 package com.example.chaty;
 
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ItemChat> itemChats;
     ItemChatAdapter itemChatAdapter;
     public static String namePr;
+    public static List<String> mobileArray =new ArrayList<>();
+    public static final int REQUEST_READ_CONTACTS = 79;
     TextView txtName;
     String token,profileId,phone,email;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -47,7 +55,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+            mobileArray = getAllContacts();
 
+            for(int i = 0 ; i < mobileArray.size()-1; i++)
+                for( int j = i+1 ; j< mobileArray.size()-1;j++ )
+                    if(mobileArray.get(i).equals(mobileArray.get(j)))
+                    {
+                        mobileArray.remove(j);
+
+                    }
+        } else {
+            requestPermission();
+        }
         imgAvatar =  findViewById(R.id.imgAvatar);
         imgLogOut = findViewById(R.id.imgLogout);
         txtName = findViewById(R.id.txtName);
@@ -129,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
+                                mobileArray.clear();
                                 Intent intent = new Intent(MainActivity.this, Login.class);
                                 startActivity(intent);
                                 finish();
@@ -226,5 +248,73 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
+    public void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
+            // show UI part if you want here to show some rationale !!!
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    REQUEST_READ_CONTACTS);
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    REQUEST_READ_CONTACTS);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_READ_CONTACTS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mobileArray = getAllContacts();
+                    for(int i = 0 ; i < mobileArray.size(); i++)
+                        for( int j = i+1 ; j< mobileArray.size()-1;j++ )
+                            if(mobileArray.get(i).equals(mobileArray.get(j)))
+                                mobileArray.remove(j);
+                } else {
+                }
+                return;
+            }
+        }
+    }
+    public List<String> getAllContacts() {
+        List<String> nameList = new ArrayList<>();
+        ContentResolver cr = getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+        if ((cur != null ? cur.getCount() : 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
+                String id = cur.getString(
+                        cur.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = cur.getString(cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME));
 
+                if (cur.getInt(cur.getColumnIndex( ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                    Cursor pCur = cr.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            new String[]{id}, null);
+                    while (pCur.moveToNext()) {
+                        String phoneNo = pCur.getString(pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        Boolean kq = false;
+                        for(int i = 0 ; i <nameList.size(); i++)
+                            if(nameList.get(i).equals(phoneNo))
+                                kq = true;
+                        if(!kq)
+                            nameList.add(phoneNo);
+
+                    }
+                    pCur.close();
+                }
+            }
+        }
+        if (cur != null) {
+            cur.close();
+        }
+        return nameList;
+    }
 }

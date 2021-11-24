@@ -3,7 +3,7 @@ import static com.example.chaty.FriendHome.phone;
 import static com.example.chaty.FriendHome.email;
 import static com.example.chaty.FriendHome.profileId;
 import static com.example.chaty.FriendHome.token;
-import static com.example.chaty.Login.mobileArray;
+import static com.example.chaty.MainActivity.mobileArray;
 
 import android.content.Context;
 import android.content.DialogInterface;

@@ -1,6 +1,7 @@
 package com.example.chaty;
 
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,7 +55,7 @@ public class Login extends AppCompatActivity {
     TextView txtTaoTK, txtWrong,txtForgot;
     private AwesomeValidation awesomeValidation;
     public static final int REQUEST_READ_CONTACTS = 79;
-    public static List<String> mobileArray =new ArrayList<>();
+    private static final int REQUEST_PERMISSIONS = 100;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +64,24 @@ public class Login extends AppCompatActivity {
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
-            mobileArray = getAllContacts();
-            for(int i = 0 ; i < mobileArray.size(); i++)
-                for( int j = i+1 ; j< mobileArray.size()-1;j++ )
-                    if(mobileArray.get(i).equals(mobileArray.get(j)))
-                        mobileArray.remove(j);
         } else {
             requestPermission();
+        }
+        if ((ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_PERMISSIONS);
+            }
+        } else {
+            Log.e("Else", "Else");
+
         }
         ckShow = findViewById(R.id.checkBox);
         edtPhoneNumberLogin = findViewById(R.id.edtPhoneNumberLogin);
@@ -86,6 +101,38 @@ public class Login extends AppCompatActivity {
                     edtPassLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 else
                     edtPassLogin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+        });
+        edtPhoneNumberLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                txtWrong.setText("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                txtWrong.setText("");
+            }
+        });
+        edtPassLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                txtWrong.setText("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                txtWrong.setText("");
             }
         });
         txtTaoTK.setOnClickListener(new View.OnClickListener() {
@@ -133,53 +180,27 @@ public class Login extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_READ_CONTACTS: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mobileArray = getAllContacts();
-                    for(int i = 0 ; i < mobileArray.size(); i++)
-                        for( int j = i+1 ; j< mobileArray.size()-1;j++ )
-                            if(mobileArray.get(i).equals(mobileArray.get(j)))
-                                mobileArray.remove(j);
+                if ((ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                    if ((ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+                    } else {
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                                REQUEST_PERMISSIONS);
+                    }
                 } else {
-                    // permission denied,Disable the
-                    // functionality that depends on this permission.
+                    Log.e("Else", "Else");
+
                 }
                 return;
             }
         }
     }
-    public List<String> getAllContacts() {
-        List<String> nameList = new ArrayList<>();
-        ContentResolver cr = getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
-        if ((cur != null ? cur.getCount() : 0) > 0) {
-            while (cur != null && cur.moveToNext()) {
-                String id = cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME));
 
-                if (cur.getInt(cur.getColumnIndex( ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                    Cursor pCur = cr.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        String phoneNo = pCur.getString(pCur.getColumnIndex(
-                                ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        nameList.add(phoneNo);
-                        Log.d("ahihi",nameList.toString());
-                    }
-                    pCur.close();
-                }
-            }
-        }
-        if (cur != null) {
-            cur.close();
-        }
-        return nameList;
-    }
     private void postDataLogin(String phone, String password) {
 
         String url = BuildConfig.API+"site/signin";

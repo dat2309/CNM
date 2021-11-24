@@ -54,7 +54,7 @@ public class MenuChat extends AppCompatActivity {
     String token, profileId, email, phone, frAvatar, frName, frID, size, idRoom, admin,memID;
     ImageView imgAvt;
     EditText edtName;
-    Button btnPro;
+    Button btnPro,btnhuy;
     public static Bitmap bitmap;
     public static String RomID;
     private String filePath;
@@ -79,6 +79,7 @@ public class MenuChat extends AppCompatActivity {
         txtSeeMem = findViewById(R.id.txtSeeMem);
         btnPro = findViewById(R.id.btnSeePro);
         txtAdmin = findViewById(R.id.txtAdmin);
+        btnhuy = findViewById(R.id.btnhuyU);
         try {
             JSONArray participant = new JSONArray(getIntent().getStringExtra("member"));
 
@@ -151,8 +152,6 @@ public class MenuChat extends AppCompatActivity {
             btnPro.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                    getProfile(memID);
                 }
             });
@@ -235,6 +234,7 @@ public class MenuChat extends AppCompatActivity {
                     edtName.setVisibility(View.VISIBLE);
                     edtName.requestFocus();
                     btnChange.setVisibility(View.VISIBLE);
+                    btnhuy.setVisibility(View.VISIBLE);
                     btnChange.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -243,21 +243,24 @@ public class MenuChat extends AppCompatActivity {
                             txtName.setVisibility(View.VISIBLE);
                             edtName.setVisibility(View.INVISIBLE);
                             btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
                             frName = edtName.getText().toString();
+                        }
+                    });
+                    btnhuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            txtName.setText(frName);
+                            txtName.setVisibility(View.VISIBLE);
+                            edtName.setVisibility(View.INVISIBLE);
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
                         }
                     });
 
                 }
             });
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + getPackageName()));
-                finish();
-                startActivity(intent);
-                return;
-            }
+
             txtChangeAva.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -278,13 +281,35 @@ public class MenuChat extends AppCompatActivity {
                         showFileChooser();
                     }
                     btnChange.setVisibility(View.VISIBLE);
+                    btnhuy.setVisibility(View.VISIBLE);
+
                     btnChange.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             updateConAva(bitmap, idRoom);
                             RomID += idRoom;
                             Log.d("roo", RomID);
+
                             btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    btnhuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                            if (bitmap != null && RomID != null && RomID.equals(getIntent().getStringExtra("frID")))
+                                imgAvt.setImageBitmap(bitmap);
+
+                            else if (frAvatar.equalsIgnoreCase(BuildConfig.API + "file/avatar/smile.png"))
+                                imgAvt.setImageResource(R.drawable.smile);
+                            else {
+                                Glide.with(v)
+                                        .load(frAvatar)
+                                        .into(imgAvt);
+                            }
                         }
                     });
 

@@ -228,6 +228,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("data", response.toString());
+                        notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
