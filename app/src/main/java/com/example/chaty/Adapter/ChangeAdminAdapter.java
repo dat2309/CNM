@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
 import com.example.chaty.Item.ItemFriendAddToGroup;
+import com.example.chaty.Item.ItemPhoneBook;
 import com.example.chaty.MainActivity;
 import com.example.chaty.R;
 
@@ -252,5 +253,8 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
     }
 
 
-
+    public void filterList(List<ItemFriendAddToGroup> filteredList){
+        itemFriendLists = filteredList;
+        notifyDataSetChanged();
+    }
 }

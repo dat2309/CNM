@@ -1,9 +1,14 @@
 package com.example.chaty;
 
+import static com.example.chaty.Adapter.ItemRemoveMemFromGroupAdapter.itemFriendRemoveFormGroupLists;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chaty.Adapter.ItemFriendAddToGroupAdapter;
 import com.example.chaty.Adapter.ItemRemoveMemFromGroupAdapter;
 import com.example.chaty.Item.ItemFriendAddToGroup;
 
@@ -22,7 +28,8 @@ import java.util.List;
 
 public class RemoveFromGroup extends AppCompatActivity {
     RecyclerView rcvListFriend;
-    ArrayList<ItemFriendAddToGroup> itemFriendRemoveFormGroups;
+    EditText edtSearch;
+
     ItemRemoveMemFromGroupAdapter itemFriendRemoveFormGroupAdapter;
     ImageView imgBackRemoveGroup;
     String token, profileId, email, phone, frAvatar, frName, size, admin, frID;
@@ -54,10 +61,30 @@ public class RemoveFromGroup extends AppCompatActivity {
             imgBackRemoveGroup = findViewById(R.id.imgBackAddToGroup);
             btnRemove = findViewById(R.id.btnCreateRoomChat);
             btnRemove.setText("xóa khỏi phòng");
-            itemFriendRemoveFormGroups = new ArrayList<>();
-            itemFriendRemoveFormGroupAdapter = new ItemRemoveMemFromGroupAdapter(RemoveFromGroup.this, profileId, token, frID, admin, member);
-            rcvListFriend.setAdapter(itemFriendRemoveFormGroupAdapter);
-            rcvListFriend.setLayoutManager(new GridLayoutManager(RemoveFromGroup.this, 1));
+            initView();
+            edtSearch = findViewById(R.id.edtSearchAddToGroup);
+
+            edtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(s.length()==0)
+                        initView();
+                    else
+                        filter(s.toString());
+                }
+            });
+
+
             imgBackRemoveGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,17 +107,28 @@ public class RemoveFromGroup extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     itemFriendRemoveFormGroupAdapter.delete();
-                    Intent intent = new Intent(RemoveFromGroup.this, MenuChat.class);
-                    intent.putExtra("token", token);
-                    intent.putExtra("profileId", profileId);
-                    intent.putExtra("email", email);
-                    intent.putExtra("phone", phone);
-                    startActivity(intent);
-                    finish();
+
                 }
             });
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    public void filter(String text) {
+        List<ItemFriendAddToGroup> filteredList = new ArrayList<>();
+        for (ItemFriendAddToGroup item : itemFriendRemoveFormGroupLists) {
+            if(item.getTvNameFriendAddToGroup().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        itemFriendRemoveFormGroupAdapter.filterList(filteredList);
+        itemFriendRemoveFormGroupAdapter.notifyDataSetChanged();
+
+    }
+    public void initView() {
+
+        itemFriendRemoveFormGroupAdapter = new ItemRemoveMemFromGroupAdapter(RemoveFromGroup.this, profileId, frAvatar,frName,token, frID, admin, member);
+        rcvListFriend.setAdapter(itemFriendRemoveFormGroupAdapter);
+        rcvListFriend.setLayoutManager(new GridLayoutManager(RemoveFromGroup.this, 1));
     }
 }

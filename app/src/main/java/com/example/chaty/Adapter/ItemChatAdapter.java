@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
 import com.example.chaty.Chat;
 import com.example.chaty.Item.ItemChat;
+import com.example.chaty.Item.ItemFriendAddToGroup;
 import com.example.chaty.R;
 
 import org.json.JSONArray;
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyViewHolder> {
 
-    private List<ItemChat> itemChats;
+    public static List<ItemChat> itemChats;
     private Context context;
     String token, profileId, email, phone;
     View view;
@@ -303,5 +304,9 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
 
         requestQueue.add(jsonObjectRequest);
 
+    }
+    public void filterList(List<ItemChat> filteredList){
+        itemChats = filteredList;
+        notifyDataSetChanged();
     }
 }

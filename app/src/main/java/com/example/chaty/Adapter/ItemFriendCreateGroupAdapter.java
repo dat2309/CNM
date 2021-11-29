@@ -233,7 +233,7 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("data",response.toString());
-
+                        notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -275,5 +275,8 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
         return byteArrayOutputStream.toByteArray();
     }
 
-
+    public void filterList(List<ItemFriendAddToGroup> filteredList){
+        itemFriendCreateToGroupLists = filteredList;
+        notifyDataSetChanged();
+    }
 }

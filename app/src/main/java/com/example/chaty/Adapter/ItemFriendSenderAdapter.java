@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
 import com.example.chaty.FriendSenderProfile;
+import com.example.chaty.Item.ItemFriendAddToGroup;
 import com.example.chaty.Item.ItemFriendRequest;
 import com.example.chaty.R;
 
@@ -36,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSenderAdapter.MyViewHolderItemFriendSender> {
-    private List<ItemFriendRequest> itemFriendSenders;
+    public static List<ItemFriendRequest> itemFriendSenders;
     private Context context;
     String token,profileId,email,phone;
     View view;
@@ -127,21 +129,8 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
                             if(respObj2.length()==0){
-                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which){
-                                            case DialogInterface.BUTTON_POSITIVE:
-                                                break;
 
-                                        }
-                                    }
-                                };
-
-                                AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                                builder2.setMessage("Chưa gửi lời mời kết bạn nào").setPositiveButton("oke ", dialogClickListener)
-                                        .show();
-
+                                Toast.makeText(context, "Chưa gửi lời mời kết bạn nào ", Toast.LENGTH_SHORT).show();
 
                             }
 //                            Log.d("find",respObj2.toString());}
@@ -190,5 +179,9 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
 
         requestQueue.add(jsonObjectRequest);
 
+    }
+    public void filterList(List<ItemFriendRequest> filteredList){
+        itemFriendSenders = filteredList;
+        notifyDataSetChanged();
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,7 +25,10 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
 import com.example.chaty.FriendSuggestionsProfile;
+import com.example.chaty.Item.ItemFriendAddToGroup;
+import com.example.chaty.Item.ItemFriendRequest;
 import com.example.chaty.Item.ItemFriendSuggestions;
+import com.example.chaty.Login;
 import com.example.chaty.R;
 
 import org.json.JSONArray;
@@ -38,7 +42,7 @@ import java.util.Map;
 
 public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFriendSuggestionsAdapter.MyViewHolderItemFriendSuggestions> {
 
-    private List<ItemFriendSuggestions> itemFriendSuggestionss;
+    public static List<ItemFriendSuggestions> itemFriendSuggestionss;
     private Context context;
     String token,profileId,email,phone;
     View view;
@@ -161,21 +165,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
                                     itemFriendSuggestionss.add(new ItemFriendSuggestions(frAvatar,R.drawable.ic_info , frName,frDob,object.toString(),frPhone));
                                 } }
                             else {
-                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which){
-                                            case DialogInterface.BUTTON_POSITIVE:
-
-                                                break;
-
-                                        }
-                                    }
-                                };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage("Không có đề xuất kết bạn nào ").setPositiveButton("oke ", dialogClickListener)
-                                        .show();
+                                Toast.makeText(context, "Không có đề xuất  kết bạn nào ", Toast.LENGTH_SHORT).show();
                             }
                             notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -197,5 +187,9 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
         };
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(0,-1,0));
         requestQueue.add(jsonObjectRequest);
+    }
+    public void filterList(List<ItemFriendSuggestions> filteredList){
+        itemFriendSuggestionss = filteredList;
+        notifyDataSetChanged();
     }
 }

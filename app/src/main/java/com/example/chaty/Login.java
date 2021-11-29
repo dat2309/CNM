@@ -43,19 +43,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.common.collect.Range;
+
 public class Login extends AppCompatActivity {
 
     EditText edtPhoneNumberLogin, edtPassLogin;
     Button btnDangNhap;
     CheckBox ckShow;
-    TextView txtTaoTK, txtWrong,txtForgot;
+    TextView txtTaoTK, txtWrong, txtForgot;
     private AwesomeValidation awesomeValidation;
     public static final int REQUEST_READ_CONTACTS = 79;
     private static final int REQUEST_PERMISSIONS = 100;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +96,11 @@ public class Login extends AppCompatActivity {
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         //kiểm tra
         awesomeValidation.addValidation(this, R.id.edtPhoneNumberLogin, "^[0-9]{10}$", R.string.invalid_phone);
-        awesomeValidation.addValidation(this,R.id.edtPassLogin,"^[A-Za-z0-9]{6,}$",R.string.invalid_password);
+        awesomeValidation.addValidation(this, R.id.edtPassLogin, "^[A-Za-z0-9]{6,}$", R.string.invalid_password);
         ckShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked)
+                if (!isChecked)
                     edtPassLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 else
                     edtPassLogin.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -146,10 +149,11 @@ public class Login extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(awesomeValidation.validate()){
+                if (awesomeValidation.validate()) {
                     //call api
                     postDataLogin(edtPhoneNumberLogin.getText().toString(), edtPassLogin.getText().toString());
-                }}
+                }
+            }
         });
         txtForgot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +165,7 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
     public void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
             // show UI part if you want here to show some rationale !!!
@@ -174,6 +179,7 @@ public class Login extends AppCompatActivity {
                     REQUEST_READ_CONTACTS);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -203,8 +209,8 @@ public class Login extends AppCompatActivity {
 
     private void postDataLogin(String phone, String password) {
 
-        String url = BuildConfig.API+"site/signin";
-
+        String url = BuildConfig.API + "site/signin";
+        Log.d("ủl", url);
         RequestQueue queue = Volley.newRequestQueue(Login.this);
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -215,52 +221,51 @@ public class Login extends AppCompatActivity {
 
                     JSONObject respObj = new JSONObject(response);
                     Log.d("json", response);
-                    String data =new String( respObj.getString("data"));
+                    String data = new String(respObj.getString("data"));
 
-                    if(data.equalsIgnoreCase("Phone or password was wrong"))
+                    if (data.equalsIgnoreCase("Phone or password was wrong"))
                         txtWrong.setText("Bạn nhập sai số điện thoại hoặc mật khẩu vui lòng nhập lại");
-                    else{
-                    JSONObject respObj3 = new JSONObject(respObj.getString("data"));
-                    String status = new String(respObj3.getString("status"));
-                     if(status.equalsIgnoreCase("0")){
-                        Toast.makeText(Login.this, "Bạn chưa active vui lòng active", Toast.LENGTH_SHORT).show();
-                        //call api
-                        postIDaccount(respObj3.get("_id"));
-                        Intent intent = new Intent(Login.this, VetifyOTP.class);
-                         // gửi dữ liệu qua acti
-                        intent.putExtra("respObj2",respObj3.toString());
-                        startActivity(intent);
-                    }
                     else {
-                         txtWrong.setText("");
-                         JSONObject respObj2 = new JSONObject(respObj.getString("data"));
-                         Log.d("json", String.valueOf(respObj2));
+                        JSONObject respObj3 = new JSONObject(respObj.getString("data"));
+                        String status = new String(respObj3.getString("status"));
+                        if (status.equalsIgnoreCase("0")) {
+                            Toast.makeText(Login.this, "Bạn chưa active vui lòng active", Toast.LENGTH_SHORT).show();
+                            //call api
+                            postIDaccount(respObj3.get("_id"));
+                            Intent intent = new Intent(Login.this, VetifyOTP.class);
+                            // gửi dữ liệu qua acti
+                            intent.putExtra("respObj2", respObj3.toString());
+                            startActivity(intent);
+                        } else {
+                            txtWrong.setText("");
+                            JSONObject respObj2 = new JSONObject(respObj.getString("data"));
+                            Log.d("json", String.valueOf(respObj2));
 //                        String token =new String( respObj2.getString("token"));
 //                        Log.d("string", token);
-                         String profileId = new String(respObj2.getString("profileId"));
-                         Log.d("string", profileId);
-                         Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                         if (profileId.equals("null")) {
-                             Intent intent = new Intent(Login.this, CreateProfile.class);
-                             // gửi dữ liệu qua acti
-                             intent.putExtra("respObj2", respObj2.toString());
-                             intent.putExtra("email", respObj2.getString("email"));
-                             intent.putExtra("phone", respObj2.getString("phone"));
-                             startActivity(intent);
-                         } else {
-                             String token = respObj2.get("token").toString();
-                             Intent intent = new Intent(Login.this, MainActivity.class);
-                             // gửi dữ liệu qua acti
-                             intent.putExtra("respObj2", respObj2.toString());
-                             intent.putExtra("token", token);
-                             Log.d("token", token);
-                             intent.putExtra("profileId", respObj2.get("profileId").toString());
-                             intent.putExtra("email", respObj2.getString("email"));
-                             intent.putExtra("phone", respObj2.getString("phone"));
-                             startActivity(intent);
-                         }
+                            String profileId = new String(respObj2.getString("profileId"));
+                            Log.d("string", profileId);
+                            Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            if (profileId.equals("null")) {
+                                Intent intent = new Intent(Login.this, CreateProfile.class);
+                                // gửi dữ liệu qua acti
+                                intent.putExtra("respObj2", respObj2.toString());
+                                intent.putExtra("email", respObj2.getString("email"));
+                                intent.putExtra("phone", respObj2.getString("phone"));
+                                startActivity(intent);
+                            } else {
+                                String token = respObj2.get("token").toString();
+                                Intent intent = new Intent(Login.this, MainActivity.class);
+                                // gửi dữ liệu qua acti
+                                intent.putExtra("respObj2", respObj2.toString());
+                                intent.putExtra("token", token);
+                                Log.d("token", token);
+                                intent.putExtra("profileId", respObj2.get("profileId").toString());
+                                intent.putExtra("email", respObj2.getString("email"));
+                                intent.putExtra("phone", respObj2.getString("phone"));
+                                startActivity(intent);
+                            }
 
-                     }
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -270,7 +275,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if(error.networkResponse.statusCode == 400)
+                if (error.networkResponse.statusCode == 400)
                     txtWrong.setText("Bạn nhập sai số điện thoại hoặc mật khẩu vui lòng nhập lại");
 
 
@@ -290,8 +295,9 @@ public class Login extends AppCompatActivity {
 
         queue.add(request);
     }
-    private void postIDaccount(Object _id ) {
-        String url2 =BuildConfig.API+"site/active";
+
+    private void postIDaccount(Object _id) {
+        String url2 = BuildConfig.API + "site/active";
         JSONObject object = new JSONObject();
         try {
             object.put("_id", _id);
@@ -302,7 +308,7 @@ public class Login extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(Login.this,"send OTP",Toast.LENGTH_LONG).show();
+                        Toast.makeText(Login.this, "send OTP", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
             @Override

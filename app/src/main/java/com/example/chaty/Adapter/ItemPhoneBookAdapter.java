@@ -208,11 +208,19 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                     public void onResponse(JSONObject response) {
 
                         try {
+                            JSONObject respObj = new JSONObject(String.valueOf(response));
 
+                            Log.d("chat",respObj.toString());
+//                            respObj.getString("data").chatgetClass().getName();
+
+                            Log.d("name ",respObj.getString("data").getClass().getName());
+                            try{
+                            JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             Intent intent = new Intent(context, Chat.class);
+
                             intent.putExtra("frAvatar",itemPhoneBook.getAvatar());
                             intent.putExtra("frName",itemPhoneBook.getName());
-                            intent.putExtra("frID",response.getString("data"));
+                            intent.putExtra("frID",respObj2.getString("_id"));
                             intent.putExtra("token",token);
                             intent.putExtra("profileId",profileId);
                             intent.putExtra("email",email);
@@ -220,7 +228,21 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                             intent.putExtra("admin",profileId);
                             intent.putExtra("participant",description.toString());
                             intent.putExtra("size","2");
-                            context.startActivity(intent);
+                            context.startActivity(intent);}
+                            catch (JSONException e){
+                                Intent intent = new Intent(context, Chat.class);
+                                intent.putExtra("frAvatar",itemPhoneBook.getAvatar());
+                                intent.putExtra("frName",itemPhoneBook.getName());
+                                intent.putExtra("frID",respObj.getString("data"));
+                                intent.putExtra("token",token);
+                                intent.putExtra("profileId",profileId);
+                                intent.putExtra("email",email);
+                                intent.putExtra("phone",phone);
+                                intent.putExtra("admin",profileId);
+                                intent.putExtra("participant",description.toString());
+                                intent.putExtra("size","2");
+                                context.startActivity(intent);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

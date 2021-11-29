@@ -147,6 +147,9 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
     }
 
 
-
+    public void filterList(List<ItemFriendAddToGroup> filteredList){
+        itemMemberGroupLists = filteredList;
+        notifyDataSetChanged();
+    }
 
 }

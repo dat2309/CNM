@@ -1,6 +1,7 @@
 package com.example.chaty.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
 import com.example.chaty.Item.ItemFriendAddToGroup;
+import com.example.chaty.MenuChat;
 import com.example.chaty.R;
 
 import org.json.JSONArray;
@@ -37,17 +39,19 @@ import java.util.Map;
 public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemoveMemFromGroupAdapter.MyViewHolderItemFriendRemoveFromGroup> {
     public static List<ItemFriendAddToGroup> itemFriendRemoveFormGroupLists ;
     private Context context;
-    String token, profileId, email, phone, frID, admin;
+    String token, profileId, email, phone, frID, admin,frAvatar, frName;
     View view;
     List<Object> sumCreate = new ArrayList();
     List member = new ArrayList();
 
-    public ItemRemoveMemFromGroupAdapter(Context context, String profileId, String token, String frID, String admin, List member) {
+    public ItemRemoveMemFromGroupAdapter(Context context, String profileId, String frAvatar,String frName,String token, String frID, String admin, List member) {
         this.context = context;
         this.profileId = profileId;
         Log.d("profile",profileId);
         this.token = token;
         this.frID = frID;
+        this.frAvatar = frAvatar;
+        this.frName = frName;
         Log.d("roomId", frID);
         this.member = member;
         Log.d("size", String.valueOf(member.size()));
@@ -176,8 +180,25 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
 
 
     public void delete(){
-        for(int i = 0 ; i< sumCreate.size();i++)
+        for(int i = 0 ; i< sumCreate.size();i++){
             deleteMemberFromGroup(sumCreate.get(i).toString(),frID);
+            for(int j = 0 ; j<member.size(); j++)
+                if(member.get(j).equals(sumCreate.get(i)))
+                    member.remove(j);
+        }
+        notifyDataSetChanged();
+        Intent intent = new Intent(context, MenuChat.class);
+        intent.putExtra("frID", frID);
+        intent.putExtra("frAvatar", frAvatar);
+        intent.putExtra("frName", frName);
+        intent.putExtra("member", String.valueOf(member));
+        intent.putExtra("token", token);
+        intent.putExtra("profileId", profileId);
+        intent.putExtra("email", email);
+        intent.putExtra("phone", phone);
+        intent.putExtra("size", String.valueOf(member.size()));
+        intent.putExtra("admin", admin);
+        context.startActivity(intent);
     }
     public void deleteMemberFromGroup(String deleteID, String conID) {
         JSONArray description = new JSONArray();
@@ -212,6 +233,10 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
 
         requestQueue.add(jsonObjectRequest);
 
+    }
+    public void filterList(List<ItemFriendAddToGroup> filteredList){
+        itemFriendRemoveFormGroupLists = filteredList;
+        notifyDataSetChanged();
     }
 
 }

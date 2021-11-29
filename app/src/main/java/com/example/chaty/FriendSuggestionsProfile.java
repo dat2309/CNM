@@ -110,7 +110,8 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
     }
     private void sendRequestAdd(String sender,String receiver,String description) {
         String url =BuildConfig.API+"request";
-
+        if(description.length()==0)
+            description = "Xin chào!";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
         try {

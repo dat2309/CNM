@@ -213,7 +213,7 @@ public class Chat extends AppCompatActivity {
                     JSONObject data = (JSONObject) args[0];
                     Log.d("datadd",data.toString());
                     try {
-                        String cName = data.getString("name");
+                        String cName = data.getString("sendAt");
                         String cChat = data.get("data").toString();
                         String cSender = data.get("id").toString();
                         String cAvatar = data.get("avatar").toString();

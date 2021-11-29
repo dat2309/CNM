@@ -1,9 +1,14 @@
 package com.example.chaty;
 
+import static com.example.chaty.Adapter.MemberGroupAdapter.itemMemberGroupLists;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chaty.Adapter.ItemRemoveMemFromGroupAdapter;
 import com.example.chaty.Adapter.MemberGroupAdapter;
 import com.example.chaty.Item.ItemFriendAddToGroup;
 
@@ -22,7 +28,7 @@ import java.util.List;
 
 public class MemberGroup extends AppCompatActivity {
     RecyclerView rcvListFriend;
-    ArrayList<ItemFriendAddToGroup> itemMemberGroups;
+    EditText edtSearch;
     MemberGroupAdapter itemMemberAdapter;
     ImageView imgBackMemberGroup;
     String token, profileId, email, phone, frAvatar, frName, size, admin, frID;
@@ -54,10 +60,29 @@ public class MemberGroup extends AppCompatActivity {
             imgBackMemberGroup = findViewById(R.id.imgBackAddToGroup);
             btnRemove = findViewById(R.id.btnCreateRoomChat);
             btnRemove.setVisibility(View.INVISIBLE);
-            itemMemberGroups = new ArrayList<>();
-            itemMemberAdapter = new MemberGroupAdapter(MemberGroup.this, profileId, token, frID, admin, member);
-            rcvListFriend.setAdapter(itemMemberAdapter);
-            rcvListFriend.setLayoutManager(new GridLayoutManager(MemberGroup.this, 1));
+            initView();
+            edtSearch = findViewById(R.id.edtSearchAddToGroup);
+
+            edtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(s.length()==0)
+                        initView();
+                    else
+                        filter(s.toString());
+                }
+            });
+
             imgBackMemberGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,5 +105,22 @@ public class MemberGroup extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    public void filter(String text) {
+        List<ItemFriendAddToGroup> filteredList = new ArrayList<>();
+        for (ItemFriendAddToGroup item : itemMemberGroupLists) {
+            if(item.getTvNameFriendAddToGroup().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        itemMemberAdapter.filterList(filteredList);
+        itemMemberAdapter.notifyDataSetChanged();
+
+    }
+    public void initView() {
+
+        itemMemberAdapter = new MemberGroupAdapter(MemberGroup.this, profileId, token, frID, admin, member);
+        rcvListFriend.setAdapter(itemMemberAdapter);
+        rcvListFriend.setLayoutManager(new GridLayoutManager(MemberGroup.this, 1));
     }
     }

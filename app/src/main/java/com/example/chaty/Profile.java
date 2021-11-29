@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -148,7 +149,7 @@ public class Profile extends AppCompatActivity {
                 if (edtMK.getText().length() == 0)
                     edtMK.setError("vui lòng nhập mật khẩu");
                 else
-                    deleteAccount(profileId, edtMK.getText().toString());
+                    deleteAccount(profileId, edtMK.getText().toString(),edtMK);
             }
         });
         dialog.show();
@@ -211,17 +212,11 @@ public class Profile extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void deleteAccount(String profileId, String pass) {
+    private void deleteAccount(String profileId, String pass, EditText  edtMK) {
         String url = BuildConfig.API + "account/" + profileId + "?password=" + pass;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject object = new JSONObject();
-//        try {
-//            object.put("password",pass);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -229,10 +224,16 @@ public class Profile extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("delll", respObj.toString());
+                            String data = new String(respObj.getString("data"));
+                            if(data.equalsIgnoreCase("Wrong password")){
+                                edtMK.setError("Mật khẩu sai, vui lòng nhập mật khẩu");
+                                Toast.makeText(Profile.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else{
                             Intent intent = new Intent(Profile.this, Login.class);
                             startActivity(intent);
-                            finish();
+                            finish();}
 
 
                         } catch (JSONException e) {

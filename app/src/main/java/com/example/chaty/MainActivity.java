@@ -1,5 +1,7 @@
 package com.example.chaty;
 
+import static com.example.chaty.Adapter.ItemChatAdapter.itemChats;
+
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,8 +10,11 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +33,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.Adapter.ItemChatAdapter;
+import com.example.chaty.Adapter.ItemPhoneBookAdapter;
 import com.example.chaty.Item.ItemChat;
+import com.example.chaty.Item.ItemPhoneBook;
 
 
 import org.json.JSONException;
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgAvatar,imgLogOut,imgPhoneBook,imgFriendSuggestion,imgAdd,imgCreatePersonGroup;
     RecyclerView rcvItemChat;
-    ArrayList<ItemChat> itemChats;
+    EditText edtSearch;
     ItemChatAdapter itemChatAdapter;
     public static String namePr;
     public static List<String> mobileArray =new ArrayList<>();
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         imgFriendSuggestion = findViewById(R.id.imgFriendSuggestion);
         imgCreatePersonGroup = findViewById(R.id.imgCreatePersonGroup);
         imgAdd = findViewById(R.id.imgAddPerson);
+        edtSearch = findViewById(R.id.edtSearch);
 
         //nhận dữ liệu
         token= getIntent().getStringExtra("token");
@@ -90,10 +98,8 @@ public class MainActivity extends AppCompatActivity {
         getProfile(profileId);
 
 
+        initView();
 
-        itemChatAdapter = new ItemChatAdapter(MainActivity.this,profileId,token,email,phone);
-        rcvItemChat.setAdapter(itemChatAdapter);
-        rcvItemChat.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +111,26 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("phone",phone);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()==0)
+                    initView();
+                else
+                    filter(s.toString());
             }
         });
         imgCreatePersonGroup.setOnClickListener(new View.OnClickListener() {
@@ -316,5 +342,21 @@ public class MainActivity extends AppCompatActivity {
             cur.close();
         }
         return nameList;
+    }
+    public void filter(String text) {
+        List<ItemChat> filteredList = new ArrayList<>();
+        for (ItemChat item : itemChats) {
+            if(item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        itemChatAdapter.filterList(filteredList);
+        itemChatAdapter.notifyDataSetChanged();
+
+    }
+    public void initView() {
+        itemChatAdapter = new ItemChatAdapter(MainActivity.this,profileId,token,email,phone);
+        rcvItemChat.setAdapter(itemChatAdapter);
+        rcvItemChat.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
     }
 }

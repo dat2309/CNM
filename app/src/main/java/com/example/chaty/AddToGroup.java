@@ -1,16 +1,23 @@
 package com.example.chaty;
 
+import static com.example.chaty.Adapter.ItemFriendAddToGroupAdapter.itemFriendAddToGroupLists;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chaty.Adapter.ItemChatAdapter;
 import com.example.chaty.Adapter.ItemFriendAddToGroupAdapter;
+import com.example.chaty.Item.ItemChat;
 import com.example.chaty.Item.ItemFriendAddToGroup;
 
 import org.json.JSONArray;
@@ -21,9 +28,9 @@ import java.util.List;
 
 public class AddToGroup extends AppCompatActivity {
     RecyclerView rcvListFriend;
-    ArrayList<ItemFriendAddToGroup> itemFriendAddToGroups;
     ItemFriendAddToGroupAdapter itemFriendAddToGroupAdapter;
     ImageView imgBackAddToGroup;
+    EditText edtSearch;
     String token, profileId, email, phone, frAvatar, frName, size, admin, frID;
     Button btnAdd;
     List member = new ArrayList();
@@ -49,10 +56,28 @@ public class AddToGroup extends AppCompatActivity {
             rcvListFriend = findViewById(R.id.rcvListFriendRemove);
             imgBackAddToGroup = findViewById(R.id.imgBackAddToGroup);
             btnAdd = findViewById(R.id.btnCreateRoomChat);
-            itemFriendAddToGroups = new ArrayList<>();
-            itemFriendAddToGroupAdapter = new ItemFriendAddToGroupAdapter(AddToGroup.this, profileId, token, frID, admin, member);
-            rcvListFriend.setAdapter(itemFriendAddToGroupAdapter);
-            rcvListFriend.setLayoutManager(new GridLayoutManager(AddToGroup.this, 1));
+            initView();
+            edtSearch = findViewById(R.id.edtSearchAddToGroup);
+
+            edtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(s.length()==0)
+                        initView();
+                    else
+                        filter(s.toString());
+                }
+            });
             imgBackAddToGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,17 +100,27 @@ public class AddToGroup extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     itemFriendAddToGroupAdapter.addMemberToGroup();
-                    Intent intent = new Intent(AddToGroup.this, MainActivity.class);
-                    intent.putExtra("token", token);
-                    intent.putExtra("profileId", profileId);
-                    intent.putExtra("email", email);
-                    intent.putExtra("phone", phone);
-                    startActivity(intent);
-                    finish();
                 }
             });
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    public void filter(String text) {
+        List<ItemFriendAddToGroup> filteredList = new ArrayList<>();
+        for (ItemFriendAddToGroup item : itemFriendAddToGroupLists) {
+            if(item.getTvNameFriendAddToGroup().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        itemFriendAddToGroupAdapter.filterList(filteredList);
+        itemFriendAddToGroupAdapter.notifyDataSetChanged();
+
+    }
+    public void initView() {
+
+        itemFriendAddToGroupAdapter = new ItemFriendAddToGroupAdapter(AddToGroup.this, profileId,frAvatar,frName, token, frID, admin, member);
+        rcvListFriend.setAdapter(itemFriendAddToGroupAdapter);
+        rcvListFriend.setLayoutManager(new GridLayoutManager(AddToGroup.this, 1));
     }
 }
