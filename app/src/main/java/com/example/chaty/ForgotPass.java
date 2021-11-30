@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +28,7 @@ public class ForgotPass extends AppCompatActivity {
     EditText edtPhone,edtEmail;
     Button btnXacNhan;
     ImageView imgBack;
+    private AwesomeValidation awesomeValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +37,14 @@ public class ForgotPass extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtForgotEmail);
         btnXacNhan = findViewById(R.id.btnXacNhanForgot);
         imgBack = findViewById(R.id.imgBackForgot);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation.addValidation(this, R.id.edtForgorPhone, "^[0-9]{10}$", R.string.invalid_phone);
+        awesomeValidation.addValidation(this, R.id.edtForgotEmail, Patterns.EMAIL_ADDRESS, R.string.invalid_email);
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getKeyForgotPass(edtPhone.getText().toString(),edtEmail.getText().toString());
+                if(awesomeValidation.validate()) {
+                getKeyForgotPass(edtPhone.getText().toString(),edtEmail.getText().toString());}
             }
         });
         imgBack.setOnClickListener(new View.OnClickListener() {

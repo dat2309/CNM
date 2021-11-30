@@ -2,9 +2,9 @@
     <string name="app_name">CHATY</string>
     <string name="invalid_phone">Số điện thoại phải có 10 số</string>
     <string name="invalid_password">Mật khẩu phải ít nhất 6 chữ số, không chứa ký tự đặc biệt</string>
-    <string name="invalid_confirm_password">mật khẩu không trùng nhau</string>
-    <string name="invalid_code">code phải có 6 số</string>
-    <string name="invalid_name">tên không được để </string>
+    <string name="invalid_confirm_password">Mật khẩu không trùng nhau</string>
+    <string name="invalid_code">Mã phải có 6 số</string>
+    <string name="invalid_name">Tên không được để trống</string>
     <string name="invalid_email">Vui lòng nhập email theo đúng định dạng</string>
     <string name="invalid_dob">Ngày sinh không được để trống</string>
     <string name="title_activity_friend_home">FriendHome</string>

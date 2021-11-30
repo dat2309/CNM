@@ -16,7 +16,7 @@
         android:layout_marginEnd="24dp"
         android:gravity="center_horizontal"
         android:padding="20dp"
-        android:text="Vui lòng nhập mã OTP bạn đã nhận"
+        android:text="Vui lòng nhập mã OTP bạn đã nhận trong email của bạn"
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="20sp"

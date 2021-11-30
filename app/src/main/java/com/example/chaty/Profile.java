@@ -1,6 +1,7 @@
 package com.example.chaty;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -149,7 +151,27 @@ public class Profile extends AppCompatActivity {
                 if (edtMK.getText().length() == 0)
                     edtMK.setError("vui lòng nhập mật khẩu");
                 else
-                    deleteAccount(profileId, edtMK.getText().toString(),edtMK);
+                {
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    deleteAccount(profileId, edtMK.getText().toString(),edtMK);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
+                    builder.setMessage("Xác nhận xóa tài khoản ").setPositiveButton("Đồng ý ", dialogClickListener)
+                            .setNegativeButton("Không", dialogClickListener).show();
+                   }
             }
         });
         dialog.show();
@@ -231,6 +253,7 @@ public class Profile extends AppCompatActivity {
 
                             }
                             else{
+                                Toast.makeText(Profile.this, "Xóa tài khoản thành công ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Profile.this, Login.class);
                             startActivity(intent);
                             finish();}

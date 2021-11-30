@@ -1,6 +1,7 @@
 package com.example.chaty;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -41,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -155,6 +159,96 @@ public class MenuChat extends AppCompatActivity {
                    getProfile(memID);
                 }
             });
+            txtChangeName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txtName.setVisibility(View.INVISIBLE);
+                    edtName.setVisibility(View.VISIBLE);
+                    edtName.requestFocus();
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnhuy.setVisibility(View.VISIBLE);
+                    btnChange.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateConName(edtName.getText().toString(), idRoom);
+                            txtName.setText(edtName.getText().toString());
+                            txtName.setVisibility(View.VISIBLE);
+                            edtName.setVisibility(View.INVISIBLE);
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                            frName = edtName.getText().toString();
+                            hideKeyboard(v);
+
+                        }
+                    });
+                    btnhuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            txtName.setText(frName);
+                            txtName.setVisibility(View.VISIBLE);
+                            edtName.setVisibility(View.INVISIBLE);
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                        }
+                    });
+
+                }
+            });
+
+            txtChangeAva.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if ((ContextCompat.checkSelfPermission(getApplicationContext(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getApplicationContext(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                        if ((ActivityCompat.shouldShowRequestPermissionRationale(MenuChat.this,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(MenuChat.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+                        } else {
+                            ActivityCompat.requestPermissions(MenuChat.this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    REQUEST_PERMISSIONS);
+                        }
+                    } else {
+                        Log.e("Else", "Else");
+                        showFileChooser();
+                    }
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnhuy.setVisibility(View.VISIBLE);
+
+                    btnChange.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateConAva(bitmap, idRoom);
+                            RomID += idRoom;
+                            Log.d("roo", RomID);
+
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    btnhuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            btnChange.setVisibility(View.INVISIBLE);
+                            btnhuy.setVisibility(View.INVISIBLE);
+                            if (bitmap != null && RomID != null && RomID.equals(getIntent().getStringExtra("frID")))
+                                imgAvt.setImageBitmap(bitmap);
+
+                            else if (frAvatar.equalsIgnoreCase(BuildConfig.API + "file/avatar/smile.png"))
+                                imgAvt.setImageResource(R.drawable.smile);
+                            else {
+                                Glide.with(v)
+                                        .load(frAvatar)
+                                        .into(imgAvt);
+                            }
+                        }
+                    });
+
+                }
+            });
             txtSeeMem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -227,94 +321,7 @@ public class MenuChat extends AppCompatActivity {
                     finish();
                 }
             });
-            txtChangeName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    txtName.setVisibility(View.INVISIBLE);
-                    edtName.setVisibility(View.VISIBLE);
-                    edtName.requestFocus();
-                    btnChange.setVisibility(View.VISIBLE);
-                    btnhuy.setVisibility(View.VISIBLE);
-                    btnChange.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            updateConName(edtName.getText().toString(), idRoom);
-                            txtName.setText(edtName.getText().toString());
-                            txtName.setVisibility(View.VISIBLE);
-                            edtName.setVisibility(View.INVISIBLE);
-                            btnChange.setVisibility(View.INVISIBLE);
-                            btnhuy.setVisibility(View.INVISIBLE);
-                            frName = edtName.getText().toString();
-                        }
-                    });
-                    btnhuy.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            txtName.setText(frName);
-                            txtName.setVisibility(View.VISIBLE);
-                            edtName.setVisibility(View.INVISIBLE);
-                            btnChange.setVisibility(View.INVISIBLE);
-                            btnhuy.setVisibility(View.INVISIBLE);
-                        }
-                    });
 
-                }
-            });
-
-            txtChangeAva.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if ((ContextCompat.checkSelfPermission(getApplicationContext(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getApplicationContext(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-                        if ((ActivityCompat.shouldShowRequestPermissionRationale(MenuChat.this,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(MenuChat.this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE))) {
-
-                        } else {
-                            ActivityCompat.requestPermissions(MenuChat.this,
-                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    REQUEST_PERMISSIONS);
-                        }
-                    } else {
-                        Log.e("Else", "Else");
-                        showFileChooser();
-                    }
-                    btnChange.setVisibility(View.VISIBLE);
-                    btnhuy.setVisibility(View.VISIBLE);
-
-                    btnChange.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            updateConAva(bitmap, idRoom);
-                            RomID += idRoom;
-                            Log.d("roo", RomID);
-
-                            btnChange.setVisibility(View.INVISIBLE);
-                            btnhuy.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                    btnhuy.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            btnChange.setVisibility(View.INVISIBLE);
-                            btnhuy.setVisibility(View.INVISIBLE);
-                            if (bitmap != null && RomID != null && RomID.equals(getIntent().getStringExtra("frID")))
-                                imgAvt.setImageBitmap(bitmap);
-
-                            else if (frAvatar.equalsIgnoreCase(BuildConfig.API + "file/avatar/smile.png"))
-                                imgAvt.setImageResource(R.drawable.smile);
-                            else {
-                                Glide.with(v)
-                                        .load(frAvatar)
-                                        .into(imgAvt);
-                            }
-                        }
-                    });
-
-                }
-            });
             txtLeave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -457,7 +464,15 @@ public class MenuChat extends AppCompatActivity {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        Log.d("res", String.valueOf(response));
+                        try {
+                            String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                            JSONObject respObj = new JSONObject(json);
+                            JSONObject respObj3 = new JSONObject(respObj.getString("data"));
+                            frAvatar = respObj3.get("avatarRoom").toString();
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -585,5 +600,9 @@ public class MenuChat extends AppCompatActivity {
         };
 
         requestQueue.add(jsonObjectRequest);
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -146,21 +147,7 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                                 itemPhoneBooks.add(new ItemPhoneBook(R.drawable.ic_activestatus, R.drawable.ic_info, frName, frSex, frDob, frAvatar, object.get("_id").toString()));
                             } }
                             else {
-                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which){
-                                            case DialogInterface.BUTTON_POSITIVE:
-
-                                                break;
-
-                                        }
-                                    }
-                                };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage("lêu lêu đồ ko có bạn ").setPositiveButton("oke ", dialogClickListener)
-                                        .show();
+                                Toast.makeText(context, "Chưa có bạn hãy kết nối với mọi người ", Toast.LENGTH_SHORT).show();
                             }
                             notifyDataSetChanged();
                         } catch (JSONException e) {

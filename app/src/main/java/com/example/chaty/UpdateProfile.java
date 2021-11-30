@@ -189,7 +189,9 @@ public class UpdateProfile extends AppCompatActivity {
                     else{
                         sex2 = false;
                     }
-               uploadBitmap(bitmap,profileId,edtName.getText().toString(),sex2, editDOB.getText().toString(),token,email,phone);
+                    if(awesomeValidation.validate())
+                        uploadBitmap(bitmap,profileId,edtName.getText().toString(),sex2, editDOB.getText().toString(),token,email,phone);
+
             }
         });
     }

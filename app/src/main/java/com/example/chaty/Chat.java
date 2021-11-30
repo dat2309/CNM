@@ -44,7 +44,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class Chat extends AppCompatActivity {
-    String token, profileId, email, phone, frAvatar, frName, frID, size, idRoom, admin, chat;
+    String token, profileId, email, phone, frAvatar, frName, frID, size, idRoom, admin, chat,date;
     ImageView imgReturnChat, imgAva, imgMenuChat, imgSend;
     EditText edtChat;
     TextView txtName;
@@ -143,7 +143,7 @@ public class Chat extends AppCompatActivity {
                     if(edtChat.getText().toString().length()!=0 ){
                     chat = edtChat.getText().toString();
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-                    String date = df.format(Calendar.getInstance().getTime());
+                     date = df.format(Calendar.getInstance().getTime());
                     JSONObject object = new JSONObject();
 
                     try {
@@ -164,6 +164,7 @@ public class Chat extends AppCompatActivity {
                     mSocket.emit("client-send-mess", object);
                     edtChat.setText("");
                     edtChat.clearFocus();
+                    itemMessageAdapter.notifyDataSetChanged();
                     hideKeyboard(v);
                 }}
             });
@@ -213,15 +214,15 @@ public class Chat extends AppCompatActivity {
                     JSONObject data = (JSONObject) args[0];
                     Log.d("datadd",data.toString());
                     try {
-                        String cName = data.getString("sendAt");
+                        String cName = date;
                         String cChat = data.get("data").toString();
                         String cSender = data.get("id").toString();
                         String cAvatar = data.get("avatar").toString();
+
                         itemMessageAdapter.sendnewMess(cAvatar,cChat,cName,cSender);
                         rcvMessage.scrollToPosition(itemMessageAdapter.getItemMessages().size()-1);
                         Log.d("halo",cAvatar);
                         Log.d("halo",cChat);
-                        Log.d("halo",cName);
                         Log.d("halo",cSender);
 
                     } catch (JSONException e) {

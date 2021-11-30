@@ -46,8 +46,8 @@ public class Register extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         checkBox = findViewById(R.id.checkBoxRegis);
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        awesomeValidation.addValidation(this, R.id.edtEmail, Patterns.EMAIL_ADDRESS, R.string.invalid_email);
         awesomeValidation.addValidation(this, R.id.edtPhoneNumberLogin, "^[0-9]{10}$", R.string.invalid_phone);
+        awesomeValidation.addValidation(this, R.id.edtEmail, Patterns.EMAIL_ADDRESS, R.string.invalid_email);
         awesomeValidation.addValidation(this,R.id.edtPassLogin,"^[A-Za-z0-9]{6,}$",R.string.invalid_password);
         awesomeValidation.addValidation(this, R.id.edtRepass, R.id.edtPassLogin, R.string.invalid_confirm_password);
         txtCoTK.setOnClickListener(new View.OnClickListener() {
