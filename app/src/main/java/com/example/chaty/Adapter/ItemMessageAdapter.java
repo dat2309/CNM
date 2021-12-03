@@ -73,15 +73,33 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
                 Glide.with(context)
                         .load(itemMessage.getImgAvatarMessage())
                         .into(  holder.imgAvatarMessage2);}
-            holder.tvMessageChat2.setText(itemMessage.getTvMessageChat());
+            if(itemMessage.getTvMessageChat().contains(BuildConfig.API+"file/")&&(itemMessage.getTvMessageChat().contains(".jpg")||
+                    itemMessage.getTvMessageChat().contains(".JPG")||
+                    itemMessage.getTvMessageChat().contains(".PNG")||
+                    itemMessage.getTvMessageChat().contains(".png"))){
+                holder.imgMess2.setVisibility(View.VISIBLE);
+                Glide.with(context)
+                        .load(itemMessage.getTvMessageChat())
+                        .into(  holder.imgMess2);
+                holder.tvMessageChat2.setVisibility(View.INVISIBLE);
+                holder.tvTimeMessage2.setVisibility(View.INVISIBLE);
+            }
+            else{
+                holder.tvMessageChat2.setText(itemMessage.getTvMessageChat());
+                holder.tvMessageChat2.setVisibility(View.VISIBLE);
+                holder.imgMess2.setVisibility(View.GONE);
+                holder.tvTimeMessage2.setVisibility(View.VISIBLE);
+            }
+
             holder.tvTimeMessage2.setText(itemMessage.getTvTimeMessage());
             holder.imgAvatarMessage2.setVisibility(View.VISIBLE);
-            holder.tvMessageChat2.setVisibility(View.VISIBLE);
-            holder.tvTimeMessage2.setVisibility(View.VISIBLE);
+
+
             holder.cardView2.setVisibility(View.VISIBLE);
             holder.imgAvatarMessage.setVisibility(View.INVISIBLE);
             holder.tvMessageChat.setVisibility(View.INVISIBLE);
             holder.tvTimeMessage.setVisibility(View.INVISIBLE);
+            holder.imgMess.setVisibility(View.GONE);
             holder.cardView.setVisibility(View.INVISIBLE);
 
         }
@@ -92,16 +110,32 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
             Glide.with(context)
                     .load(itemMessage.getImgAvatarMessage())
                     .into(  holder.imgAvatarMessage);}
-        holder.tvMessageChat.setText(itemMessage.getTvMessageChat());
-        holder.tvTimeMessage.setText(itemMessage.getTvTimeMessage());
+            if(itemMessage.getTvMessageChat().contains(BuildConfig.API+"file/")&&(itemMessage.getTvMessageChat().contains(".jpg")||
+                    itemMessage.getTvMessageChat().contains(".JPG")||
+                    itemMessage.getTvMessageChat().contains(".PNG")||
+                    itemMessage.getTvMessageChat().contains(".png"))){
+                holder.imgMess.setVisibility(View.VISIBLE);
+                Glide.with(context)
+                        .load(itemMessage.getTvMessageChat())
+                        .into(holder.imgMess);
+                holder.tvMessageChat.setVisibility(View.INVISIBLE);
+                holder.tvTimeMessage.setVisibility(View.INVISIBLE);
+            }
+            else{
+                holder.tvMessageChat.setText(itemMessage.getTvMessageChat());
+                holder.tvMessageChat.setVisibility(View.VISIBLE);
+                holder.tvTimeMessage.setVisibility(View.VISIBLE);
+                holder.imgMess.setVisibility(View.GONE);
+            }
+            holder.tvTimeMessage.setText(itemMessage.getTvTimeMessage());
             holder.imgAvatarMessage.setVisibility(View.VISIBLE);
-            holder.tvMessageChat.setVisibility(View.VISIBLE);
-            holder.tvTimeMessage.setVisibility(View.VISIBLE);
+
             holder.cardView.setVisibility(View.VISIBLE);
             holder.imgAvatarMessage2.setVisibility(View.INVISIBLE);
             holder.tvMessageChat2.setVisibility(View.INVISIBLE);
             holder.tvTimeMessage2.setVisibility(View.INVISIBLE);
             holder.cardView2.setVisibility(View.INVISIBLE);
+            holder.imgMess2.setVisibility(View.GONE);
 
     }}
 
@@ -112,7 +146,7 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
 
     public class MyViewHolderItemMessage extends RecyclerView.ViewHolder {
         CardView cardView,cardView2;
-        ImageView imgAvatarMessage,imgAvatarMessage2;
+        ImageView imgAvatarMessage,imgAvatarMessage2,imgMess,imgMess2;
         TextView tvMessageChat,tvTimeMessage,tvMessageChat2,tvTimeMessage2;
         public MyViewHolderItemMessage(@NonNull View itemView) {
             super(itemView);
@@ -120,9 +154,11 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
             tvMessageChat = itemView.findViewById(R.id.tvMessageChat);
             tvTimeMessage = itemView.findViewById(R.id.tvTimeMessage);
             cardView = itemView.findViewById(R.id.getUserImgMessage);
+            imgMess = itemView.findViewById(R.id.imageMess);
             imgAvatarMessage2 = itemView.findViewById(R.id.imgAvatarMessage2);
             tvMessageChat2 = itemView.findViewById(R.id.tvMessageChat2);
             tvTimeMessage2 = itemView.findViewById(R.id.tvTimeMessage2);
+            imgMess2 = itemView.findViewById(R.id.imageMess2);
             cardView2 = itemView.findViewById(R.id.getUserImgMessage2);
         }
 

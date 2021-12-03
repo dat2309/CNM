@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.chaty.BuildConfig;
 import com.example.chaty.FriendProfile;
 import com.example.chaty.FriendSuggestionsProfile;
 import com.example.chaty.Adapter.ItemFriendSuggestionsAdapter;
@@ -86,7 +87,7 @@ public class HomeFragment extends Fragment {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(root.getContext());
-                    builder.setMessage("Không thể tìm số điện thoại của bạn nhé ahihi đồ ngốc").setPositiveButton("oke ", dialogClickListener)
+                    builder.setMessage("Không thể tìm số điện thoại của bạn").setPositiveButton("oke ", dialogClickListener)
                             .show();
                 }
                 else if(validData(root.getContext())){
@@ -100,7 +101,7 @@ public class HomeFragment extends Fragment {
 
     }
     private void findProfile(String receiver , Context context) {
-        String url ="https://chaty-api.herokuapp.com/profile?phone="+receiver;
+        String url = BuildConfig.API+"profile?phone="+receiver;
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();

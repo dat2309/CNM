@@ -84,15 +84,7 @@ public class CreateGroupChat extends AppCompatActivity {
         btnCreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemFriendCreateGroupAdapter.creatConversationGroup();
-                Intent intent = new Intent(CreateGroupChat.this, MainActivity.class);
-                intent.putExtra("token", token);
-                intent.putExtra("profileId", profileId);
-                intent.putExtra("email", email);
-                intent.putExtra("phone", phone);
-                itemFriendCreateGroupAdapter.notifyDataSetChanged();
-                startActivity(intent);
-                finish();
+                itemFriendCreateGroupAdapter.createGroupChat();
             }
         });
     }

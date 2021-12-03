@@ -2,6 +2,7 @@ package com.example.chaty.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -28,7 +30,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
+import com.example.chaty.ChangePassForgot;
+import com.example.chaty.ChangePassword;
+import com.example.chaty.CreateGroupChat;
 import com.example.chaty.Item.ItemFriendAddToGroup;
+import com.example.chaty.MainActivity;
 import com.example.chaty.R;
 
 import org.json.JSONArray;
@@ -169,7 +175,8 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
                                             case DialogInterface.BUTTON_POSITIVE:
-
+                                                dialog.dismiss();
+                                                dialog.cancel();
                                                 break;
 
                                         }
@@ -204,7 +211,30 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
 
         requestQueue.add(jsonObjectRequest);
     }
+    public void createGroupChat(){
+        if(sumCreate.size()<=2){
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            dialog.dismiss();
+                            dialog.cancel();
+                            break;
 
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("nhóm phải có ít nhất 3 người ").setPositiveButton("oke ", dialogClickListener)
+                    .show();
+            Toast.makeText(context,"nhóm phải có ít nhất 3 người ",Toast.LENGTH_LONG).show();
+        }
+        else
+            creatConversationGroup();
+
+    }
 
     public void creatConversationGroup() {
         String url =BuildConfig.API+"conversation/";
@@ -233,7 +263,13 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("data",response.toString());
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.putExtra("token", token);
+                        intent.putExtra("profileId", profileId);
+                        intent.putExtra("email", email);
+                        intent.putExtra("phone", phone);
                         notifyDataSetChanged();
+                        context.startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
             @Override
