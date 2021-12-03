@@ -76,7 +76,9 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
             if(itemMessage.getTvMessageChat().contains(BuildConfig.API+"file/")&&(itemMessage.getTvMessageChat().contains(".jpg")||
                     itemMessage.getTvMessageChat().contains(".JPG")||
                     itemMessage.getTvMessageChat().contains(".PNG")||
-                    itemMessage.getTvMessageChat().contains(".png"))){
+                    itemMessage.getTvMessageChat().contains(".png") ||
+                    itemMessage.getTvMessageChat().contains(".JPEG")||
+                    itemMessage.getTvMessageChat().contains(".jpeg"))){
                 holder.imgMess2.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(itemMessage.getTvMessageChat())
