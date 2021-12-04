@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ public class VetifyOTP extends AppCompatActivity {
     Button btnOTP ;
     TextView txtWrongOTP, txtSendOTP;
     EditText edtOTP;
+    private AwesomeValidation awesomeValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +38,12 @@ public class VetifyOTP extends AppCompatActivity {
         txtWrongOTP = findViewById(R.id.txtWrongOTP);
         edtOTP = findViewById(R.id.edtGetOTP);
         txtSendOTP = findViewById(R.id.txtSendOTP);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation.addValidation(this,R.id.edtGetOTP, "[0-9]{6}$", R.string.invalid_code);
         btnOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(awesomeValidation.validate()){
                 try {
                     JSONObject respObj2 = new JSONObject(getIntent().getStringExtra("respObj2"));
                     try {
@@ -49,8 +55,9 @@ public class VetifyOTP extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }
+            }}
         });
+
         edtOTP.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,6 +77,7 @@ public class VetifyOTP extends AppCompatActivity {
         txtSendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 try {
                     JSONObject respObj2 = new JSONObject(getIntent().getStringExtra("respObj2"));
                     try {
@@ -101,12 +109,13 @@ public class VetifyOTP extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(VetifyOTP.this,"Kích hoạt thành công",Toast.LENGTH_LONG).show();
+
                         try {
                             String data =new String( response.getString("data"));
                             if(data.equalsIgnoreCase("Failed"))
                                 txtWrongOTP.setText("Vui lòng nhập lại OTP");
                             else{
+                                Toast.makeText(VetifyOTP.this,"Kích hoạt thành công",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(VetifyOTP.this, Login.class);
                                 startActivity(intent);
                             }

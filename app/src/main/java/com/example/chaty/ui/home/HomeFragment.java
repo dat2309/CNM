@@ -203,7 +203,7 @@ public class HomeFragment extends Fragment {
         if(edtFind.length() !=10)
         {
             Toast.makeText( context,"Số điện thoại không được để trống", Toast.LENGTH_SHORT).show();
-            edtFind.setError("");
+            edtFind.setError("Số điện thoại không được để trống");
             edtFind.requestFocus();
             return false;
         }

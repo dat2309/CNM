@@ -65,7 +65,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="email"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/edtForgorPhone"
         app:layout_constraintHorizontal_bias="0.0"

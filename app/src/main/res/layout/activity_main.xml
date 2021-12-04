@@ -93,7 +93,7 @@
         android:layout_marginEnd="8dp"
         android:drawableLeft="@drawable/ic_baseline_search_24"
         android:ems="10"
-        android:hint="name"
+        android:hint="Tên"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/imgAddPerson"
         app:layout_constraintEnd_toStartOf="@+id/imgAddPerson"

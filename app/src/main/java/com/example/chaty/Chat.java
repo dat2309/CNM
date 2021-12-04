@@ -69,7 +69,7 @@ public class Chat extends AppCompatActivity {
     EditText edtChat;
     TextView txtName;
     RecyclerView rcvMessage;
-    public static Bitmap bitmap;
+    public static Bitmap bitmap2 ;
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int PICK_IMAGE_REQUEST = 1;
     ItemMessageAdapter itemMessageAdapter;
@@ -298,8 +298,8 @@ public class Chat extends AppCompatActivity {
                 final Uri uri = data.getData();
 
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
-                    sendImage(bitmap);
+                    bitmap2 = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
+                    sendImage(bitmap2 );
                     long imagename = System.currentTimeMillis();
                     Log.d("iName", String.valueOf(imagename));
                 } catch (Exception e) {

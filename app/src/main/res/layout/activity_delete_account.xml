@@ -38,7 +38,7 @@
             android:inputType="textPassword"
             android:layout_height="54dp"
             android:background="@drawable/bg_edit_gray"
-            android:hint="mật khẩu" />
+            android:hint="Mật khẩu" />
 
 
     </LinearLayout>
