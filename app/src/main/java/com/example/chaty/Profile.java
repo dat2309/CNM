@@ -187,14 +187,12 @@ public class Profile extends AppCompatActivity {
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             name = respObj2.get("name").toString();
                             txtName.setText(name);
                             txtEmail.setText(email);
                             txtPhone.setText(phone);
                             dob = respObj2.get("dob").toString();
-                            Log.d("dob", dob);
                             txtDob.setText(dob);
                             if (respObj2.get("sex").equals(true)) {
                                 txtSex.setText("Nam");

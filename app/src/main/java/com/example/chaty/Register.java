@@ -105,7 +105,7 @@ public class Register extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("STring", data);
+
                             if(data.equals("Account was exists")){
                                 Toast.makeText(Register.this,"Account đã tồn tại",Toast.LENGTH_LONG).show();
                                 edtPhoneNumber.setText("");
@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity {
                             }
                             else{
                                 JSONObject respObj2 = new JSONObject(respObj.get("data").toString());
-                                Log.d("JSON", String.valueOf(respObj2));
+
                                 postIDaccount(respObj2.get("_id"));
                                 Toast.makeText(Register.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(Register.this, VetifyOTP.class);

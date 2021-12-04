@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.chaty.BuildConfig;
+import com.example.chaty.ChangePassForgot;
 import com.example.chaty.Item.ItemFriendAddToGroup;
 import com.example.chaty.Item.ItemPhoneBook;
 import com.example.chaty.MainActivity;
@@ -109,7 +111,7 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
             @Override
             public void onClick(View v) {
 
-                Log.d("ahihiighjkl", "met");
+
             }
         });
     }
@@ -144,7 +146,7 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
+
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             String a_id = respObj2.get("_id").toString();
 
@@ -152,7 +154,7 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
                             String aavatar = respObj2.get("avatar").toString();
                             itemFriendLists.add(new ItemFriendAddToGroup(aavatar, aname, a_id, false));
                             notifyDataSetChanged();
-                            Log.d("listttt",itemFriendLists.toString());
+
 
 
                         } catch (JSONException e) {
@@ -229,13 +231,14 @@ public class ChangeAdminAdapter extends RecyclerView.Adapter<ChangeAdminAdapter.
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Chuyển thành công ", response.toString());
+
+                        Toast.makeText(context,"yêu cầu thành công",Toast.LENGTH_LONG).show();
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("loi", "loicc");
+
 
             }
         }) {

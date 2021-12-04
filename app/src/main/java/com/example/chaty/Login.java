@@ -210,7 +210,6 @@ public class Login extends AppCompatActivity {
     private void postDataLogin(String phone, String password) {
 
         String url = BuildConfig.API + "site/signin";
-        Log.d("ủl", url);
         RequestQueue queue = Volley.newRequestQueue(Login.this);
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -220,7 +219,6 @@ public class Login extends AppCompatActivity {
                 try {
 
                     JSONObject respObj = new JSONObject(response);
-                    Log.d("json", response);
                     String data = new String(respObj.getString("data"));
 
                     if (data.equalsIgnoreCase("Phone or password was wrong"))
@@ -239,11 +237,7 @@ public class Login extends AppCompatActivity {
                         } else {
                             txtWrong.setText("");
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
-                            Log.d("json", String.valueOf(respObj2));
-//                        String token =new String( respObj2.getString("token"));
-//                        Log.d("string", token);
                             String profileId = new String(respObj2.getString("profileId"));
-                            Log.d("string", profileId);
                             Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                             if (profileId.equals("null")) {
                                 Intent intent = new Intent(Login.this, CreateProfile.class);
@@ -258,7 +252,6 @@ public class Login extends AppCompatActivity {
                                 // gửi dữ liệu qua acti
                                 intent.putExtra("respObj2", respObj2.toString());
                                 intent.putExtra("token", token);
-                                Log.d("token", token);
                                 intent.putExtra("profileId", respObj2.get("profileId").toString());
                                 intent.putExtra("email", respObj2.getString("email"));
                                 intent.putExtra("phone", respObj2.getString("phone"));

@@ -233,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
 //                            imgAvatar.setImageResource(Integer.parseInt(respObj2.get("avatar").toString()));
                             txtName.setText(respObj2.get("name").toString());

@@ -100,7 +100,6 @@ public class VetifyOTP extends AppCompatActivity {
         try {
             object.put("_id", _id);
             object.put("key", otp);
-            Log.d("JSON", String.valueOf(object));
         } catch (JSONException e) {
             e.printStackTrace();
         }

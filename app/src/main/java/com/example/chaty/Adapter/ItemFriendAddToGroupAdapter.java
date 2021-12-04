@@ -54,7 +54,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
         this.frID = frID;
         this.frAvatar = frAvatar;
         this.frName = frName;
-        Log.d("roomId",frID);
+
         this.member = member;
         this.admin = admin;
         getFriend(profileId);
@@ -100,7 +100,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
                         sumCreate.add(itemCreate.getTvTimeAddToGroup());
                     }
                 }
-                Log.d("listCrea", sumCreate.toString());
+
 
             }
         });
@@ -108,7 +108,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
             @Override
             public void onClick(View v) {
 
-                Log.d("ahihiighjkl", "met");
+
             }
         });
     }
@@ -144,7 +144,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("find", respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
                             if (respObj2.length() > 0) {
                                 for (int i = respObj2.length() - 1; i >= 0; i--) {
@@ -218,8 +218,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
             description.put(sumCreate.get(i));
             member.add(sumCreate.get(i));
         }
-        Log.d("me",description.toString());
-        Log.d("mem",member.toString());
+
 
 
 
@@ -232,12 +231,12 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("duma", object.toString());
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("data", response.toString());
+
                         notifyDataSetChanged();
                         Intent intent = new Intent(context, MenuChat.class);
                         intent.putExtra("frID", frID);
@@ -257,7 +256,7 @@ public class ItemFriendAddToGroupAdapter extends RecyclerView.Adapter<ItemFriend
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("loi", "loicc");
+
 
             }
         }) {

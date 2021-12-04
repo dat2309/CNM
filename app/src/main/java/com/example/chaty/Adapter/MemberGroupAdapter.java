@@ -77,7 +77,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
             @Override
             public void onClick(View v) {
 
-                Log.d("ahihiighjkl", "met");
+
             }
         });
     }
@@ -112,7 +112,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
+
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             String a_id = respObj2.get("_id").toString();
 
@@ -120,7 +120,7 @@ public class MemberGroupAdapter extends RecyclerView.Adapter<MemberGroupAdapter.
                                 String aavatar = respObj2.get("avatar").toString();
                             itemMemberGroupLists.add(new ItemFriendAddToGroup(aavatar, aname, a_id, false));
                                 notifyDataSetChanged();
-                                Log.d("listttt",itemMemberGroupLists.toString());
+
 
 
                         } catch (JSONException e) {

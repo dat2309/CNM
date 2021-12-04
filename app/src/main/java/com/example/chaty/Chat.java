@@ -105,7 +105,7 @@ public class Chat extends AppCompatActivity {
         try {
 
             JSONArray participant = new JSONArray(getIntent().getStringExtra("participant"));
-            Log.d("arrr", participant.toString());
+
             token = getIntent().getStringExtra("token");
 
             email = getIntent().getStringExtra("email");
@@ -117,19 +117,18 @@ public class Chat extends AppCompatActivity {
             if (size.equals("2")) {
                 frID = getIntent().getStringExtra("frID");
                 conveID += frID;
-                Log.d("frId", frID);
+
             } else {
                 idRoom = getIntent().getStringExtra("frID");
                 conveID += idRoom;
-                Log.d("roomId", idRoom);
+
             }
-            Log.d("con", conveID);
+
             txtName = findViewById(R.id.txtNameChatbox);
             imgAva = findViewById(R.id.imgAvatarChat);
             if (RomID != null && RomID.equals(conveID)) {
-                Log.d("rommm", RomID);
+
                 if (bitmap != null) {
-                    Log.d("bitmap", bitmap.toString());
                     imgAva.setImageBitmap(bitmap);
                 }
             } else if (frAvatar.equalsIgnoreCase(BuildConfig.API + "file/avatar/smile.png"))
@@ -142,12 +141,9 @@ public class Chat extends AppCompatActivity {
             if (frName.length() > 20) {
                 String nameS = frName;
                 String[] namel = nameS.split(",", 10);
-                Log.d("nameT",namel[0]);
-                Log.d("nameT",namel[1]);
-                Log.d("nameT",namel[2]);
-                Log.d("nameT", String.valueOf(namel.length));
+
                 String nameRoom =""+namel[namel.length-1]+","+namel[0]+","+namel[1]+"....";
-                Log.d("roomname",nameRoom);
+
                 txtName.setText(nameRoom);
 
             }else
@@ -175,7 +171,7 @@ public class Chat extends AppCompatActivity {
                         object.put("sendAt", date);
                         if (size.equals("2")) {
                             object.put("conversation", frID);
-                            Log.d("frID",frID);
+
                         } else
                             object.put("conversation", idRoom);
 
@@ -183,7 +179,7 @@ public class Chat extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.d("chat", object.toString());
+
                     mSocket.emit("client-send-mess", object);
                     itemMessageAdapter.notifyDataSetChanged();
                     edtChat.setText("");
@@ -258,7 +254,7 @@ public class Chat extends AppCompatActivity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    Log.d("datadd",data.toString());
+
                     try {
                         String cName = date;
                         String cChat = data.get("data").toString();
@@ -267,9 +263,7 @@ public class Chat extends AppCompatActivity {
 
                         itemMessageAdapter.sendnewMess(cAvatar,cChat,cName,cSender);
                         rcvMessage.scrollToPosition(itemMessageAdapter.getItemMessages().size()-1);
-                        Log.d("halo",cAvatar);
-                        Log.d("halo",cChat);
-                        Log.d("halo",cSender);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -301,9 +295,9 @@ public class Chat extends AppCompatActivity {
                     bitmap2 = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
                     sendImage(bitmap2 );
                     long imagename = System.currentTimeMillis();
-                    Log.d("iName", String.valueOf(imagename));
+
                 } catch (Exception e) {
-                    Log.e("log", "File select error", e);
+
                 }
             }
         }
@@ -352,7 +346,7 @@ public class Chat extends AppCompatActivity {
 
                                 if (size.equals("2")) {
                                     object2.put("conversation", frID);
-                                    Log.d("frID",frID);
+
                                 } else
                                     object2.put("conversation", idRoom);
 
@@ -360,10 +354,10 @@ public class Chat extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Log.d("chat2", object2.toString());
+
                             mSocket.emit("client-send-file", object2);
                             itemMessageAdapter.notifyDataSetChanged();
-                            Log.d("anhsend",respObj.getString("data"));
+
                         } catch (UnsupportedEncodingException | JSONException e) {
                             e.printStackTrace();
                         }
@@ -388,9 +382,6 @@ public class Chat extends AppCompatActivity {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 params.put("file", new DataPart("send" + ".jpeg", getFileDataFromDrawable(bitmap), "image/jpeg"));
-                Log.d("avatar", String.valueOf(new DataPart("send" + ".jpeg", getFileDataFromDrawable(bitmap), "image/jpeg")));
-
-
                 return params;
             }
 

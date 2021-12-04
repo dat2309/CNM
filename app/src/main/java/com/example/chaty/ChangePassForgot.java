@@ -101,7 +101,6 @@ public class ChangePassForgot extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("data",data);
                             if(data.equals("Your reset code expired")){
                                 edtCode.setError("Mã xác nhận không đúng");
                                 edtCode.setText("");

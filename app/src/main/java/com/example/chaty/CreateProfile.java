@@ -134,7 +134,6 @@ public class CreateProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
-                            Log.d("JSONCreate", String.valueOf(respObj2));
                             Intent intent = new Intent(CreateProfile.this, MainActivity.class);
                             intent.putExtra("respObj2",respObj2.toString());
                             intent.putExtra("token",token);

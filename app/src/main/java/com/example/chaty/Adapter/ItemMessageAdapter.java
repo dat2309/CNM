@@ -179,7 +179,7 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("chat",respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
                             for (int i = respObj2.length() - 1; i >= 0; i--) {
                                 JSONObject object = respObj2.getJSONObject(i);
@@ -188,7 +188,7 @@ public class ItemMessageAdapter extends RecyclerView.Adapter<ItemMessageAdapter.
                                 String sender = object.get("sender").toString();
                                 String avatar = object.get("avatar").toString();
                                 itemMessages.add(new ItemMessage(avatar,chat,frName,sender));
-                                Log.d("mess",itemMessages.toString());
+
                             }
 
                             notifyDataSetChanged();

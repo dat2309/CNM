@@ -155,7 +155,6 @@ public class ChangePassword extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("update",respObj.toString());
                             Toast.makeText(ChangePassword.this,"đổi mật khẩu thành công",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(ChangePassword.this, Profile.class);
                             //gửi dữ liệu

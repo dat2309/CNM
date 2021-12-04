@@ -87,7 +87,7 @@ public class FriendSenderProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             JSONObject respObj2 = new JSONObject(respObj.get("data").toString());
-                            Log.d("ahihi",respObj2.toString());
+
                             txtName.setText(respObj2.get("name").toString());
                             txtDob.setText(respObj2.get("dob").toString());
                             if(respObj2.get("sex").equals(true)){
@@ -147,7 +147,7 @@ public class FriendSenderProfile extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("delete",respObj.toString());
+
                             Intent intent = new Intent(FriendSenderProfile.this,FriendHome.class);
 
                             intent.putExtra("token",token);

@@ -65,7 +65,7 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
         this.phone = phone;
         this.name = name;
         sumCreate.add(profileId);
-        Log.d("pro",profileId);
+
         sumName.add(name);
         nameCon+=name;
         getFriend(profileId);
@@ -111,15 +111,14 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                         sumName.add(itemCreate.getTvNameFriendAddToGroup());
                     }
                 }
-            Log.d("listCrea",sumCreate.toString());
-                Log.d("listCrea",sumName.toString());
+
             }
         });
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("ahihiighjkl","met");
+
             }
         });
     }
@@ -153,7 +152,6 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("find",respObj.toString());
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
                             if(respObj2.length()>0){
                                 for (int i = respObj2.length() - 1; i >= 0; i--) {
@@ -257,12 +255,12 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("duma",object.toString());
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("data",response.toString());
+
                         Intent intent = new Intent(context, MainActivity.class);
                         intent.putExtra("token", token);
                         intent.putExtra("profileId", profileId);
@@ -274,7 +272,7 @@ public class ItemFriendCreateGroupAdapter extends RecyclerView.Adapter<ItemFrien
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("loi","loicc");
+
 
             }
         }){

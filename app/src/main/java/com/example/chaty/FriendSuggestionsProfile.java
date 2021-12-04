@@ -43,11 +43,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         phone2 = getIntent().getStringExtra("receiver");
-        Log.d("ahihi",token);
-        Log.d("ahihi",profileId);
-        Log.d("ahihi",email);
-        Log.d("ahihi",phone);
-        Log.d("ahihi",phone2);
         description = findViewById(R.id.edtDescription);
         txtDob = findViewById(R.id.tvDateFriendSuggestionsProfile);
         txtName = findViewById(R.id.tvNameFriendSuggestionsProfile);
@@ -68,7 +63,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             }
             avatar = respObj2.get("avatar").toString();
             frID=respObj2.get("_id").toString();
-            Log.d("_id",frID);
             if(avatar.equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
                 imgAvt.setImageResource(R.drawable.smile);
             else{
@@ -79,7 +73,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("hgj","hgjk");
                     sendRequestAdd(phone,phone2,description.getText().toString());
                 }
             });
@@ -119,7 +112,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
             object.put("sender", sender);
             object.put("receiver",receiver);
             object.put("description",description);
-            Log.d("obketc",object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -127,7 +119,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       Log.d("data",response.toString());
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -189,7 +180,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("chawnj",data);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -225,7 +215,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("chawnj",data);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -243,9 +232,6 @@ public class FriendSuggestionsProfile extends AppCompatActivity {
                 return headers;
             }
         };
-        Log.d("frId",profile_id);
-        Log.d("put",object.toString());
-        Log.d("",token);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(jsonObjectRequest);
 

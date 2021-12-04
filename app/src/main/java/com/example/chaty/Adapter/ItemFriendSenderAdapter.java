@@ -63,7 +63,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
     @Override
     public void onBindViewHolder(@NonNull ItemFriendSenderAdapter.MyViewHolderItemFriendSender holder, int position) {
         ItemFriendRequest itemFriendRequest = itemFriendSenders.get(position);
-        Log.d("ava",itemFriendRequest.getAvatar());
+
 
         if(itemFriendRequest.getAvatar().equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             holder.imgAvatarFriendSender.setImageResource(R.drawable.smile);
@@ -84,7 +84,6 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                 intent.putExtra("profileId",profileId);
                 intent.putExtra("email",email);
                 intent.putExtra("phone",phone);
-                intent.putExtra("phone",phone);
                 intent.putExtra("reqID",itemFriendRequest.getReqID());
                 context.startActivity(intent);
             }
@@ -94,7 +93,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
 
     @Override
     public int getItemCount() {
-        Log.d("size",String.valueOf( itemFriendSenders.size()));
+
         return itemFriendSenders.size();
     }
     public class MyViewHolderItemFriendSender extends RecyclerView.ViewHolder {
@@ -125,7 +124,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("find",respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
                             if(respObj2.length()==0){
@@ -133,7 +132,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                 Toast.makeText(context, "Chưa gửi lời mời kết bạn nào ", Toast.LENGTH_SHORT).show();
 
                             }
-//                            Log.d("find",respObj2.toString());}
+
                             else{
                                 for (int i = respObj2.length() - 1; i >= 0; i--)
                                 {
@@ -143,7 +142,7 @@ public class ItemFriendSenderAdapter extends RecyclerView.Adapter<ItemFriendSend
                                         String reqID = object.getString("_id");
                                         JSONObject sender = object.getJSONObject("sender");
                                         JSONObject receiver = object.getJSONObject("receiver");
-                                        Log.d("receiver", receiver.toString());
+
                                         String frName = receiver.get("name").toString();
                                         String frSex = receiver.get("phone").toString();
                                         String frAvatar = receiver.get("avatar").toString();

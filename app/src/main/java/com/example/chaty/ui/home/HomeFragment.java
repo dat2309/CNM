@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        Log.d("list",mobileArray.toString());
+
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
@@ -114,9 +114,6 @@ public class HomeFragment extends Fragment {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             JSONObject respObj2 = new JSONObject(respObj.get("data").toString());
-                            Log.d("find",response.toString());
-                            Log.d("find",respObj2.toString());
-                            Log.d("isF",respObj2.get("isFriend").toString());
                             if(respObj2.get("isFriend").toString().equals("false")){
                             Intent intent = new Intent(context,FriendSuggestionsProfile.class);
                             intent.putExtra("respObj2",respObj2.toString());

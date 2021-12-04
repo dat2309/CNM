@@ -54,9 +54,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
         this.token=token;
         this.email = email;
         this.phone = phone;
-//        String url=BuildConfig.API+"profile/suggestion/"+profileId;
-//        HTTPConnector httpConnector=new HTTPConnector(url,context,this,token,list);
-//        Log.d("http",httpConnector.toString());
+
         getSuggestionFr(profileId,list);
     }
 
@@ -129,7 +127,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
             types.put(a);}
 
             }
-        Log.d("type",types.toString());
+
 
         JSONObject object = new JSONObject();
         try {
@@ -146,7 +144,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("sugg",respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
                             if(respObj2.length()>0){
                                 for (int i = respObj2.length() - 1; i >= 0; i--) {
@@ -160,7 +158,7 @@ public class ItemFriendSuggestionsAdapter extends RecyclerView.Adapter<ItemFrien
                                     }
                                     String frDob = object.get("dob").toString();
                                     String frPhone = object.get("phone").toString();
-                                    Log.d("dob", frDob);
+
                                     String frAvatar = object.get("avatar").toString();
                                     itemFriendSuggestionss.add(new ItemFriendSuggestions(frAvatar,R.drawable.ic_info , frName,frDob,object.toString(),frPhone));
                                 } }

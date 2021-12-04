@@ -212,7 +212,7 @@ public class UpdateProfile extends AppCompatActivity {
                     bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
                     avt.setImageBitmap(bitmap);
                     long imagename = System.currentTimeMillis();
-                    Log.d("iName",String.valueOf(imagename));
+
                 } catch (Exception e) {
                     Log.e("log", "File select error", e);
                 }
@@ -245,7 +245,7 @@ public class UpdateProfile extends AppCompatActivity {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        Log.d("res", String.valueOf(response));
+
                         Toast.makeText(UpdateProfile.this,"Cập nhật thông tin thành công",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(UpdateProfile.this, Profile.class);
                         intent.putExtra("token",token);
@@ -282,8 +282,7 @@ public class UpdateProfile extends AppCompatActivity {
                 Map<String, VolleyMultipartRequest.DataPart> params = new HashMap<>();
                 if(bitmap != null ) {
                     params.put("avatar", new DataPart( "avatar"+".jpeg", getFileDataFromDrawable(bitmap),"image/jpeg"));
-                    Log.d("avatar", String.valueOf(new DataPart( "avatar"+".jpeg", getFileDataFromDrawable(bitmap),"image/jpeg")));
-                }
+                         }
                 else
                     params.put("avatar", new DataPart("avatar"+".jpeg",getFileDataFromDrawable2(UpdateProfile.this,avt.getDrawable()), "image/jpeg"));
 

@@ -102,7 +102,7 @@ public class FriendProfile extends AppCompatActivity {
         btnBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ahihi","ahihi");
+
                 if(btnBlock.getText().toString().equals("Chặn"))
                     blockFriend(profileId,frID);
                 else
@@ -139,13 +139,12 @@ public class FriendProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(response);
                             JSONArray data =respObj.getJSONArray("data");
-                            Log.d("datalis",data.toString());
+
                             for(int i =1; i<data.length();i++){
                                 JSONObject object = data.getJSONObject(i);
                                 blockID.add("1");
                                 if(frID.equals(object.getString("_id"))){
-                                    Log.d("frid",frID);
-                                    Log.d("frid2",object.getString("_id"));
+
                                     btnBlock.setText("Hủy chặn");}
 
                             }
@@ -192,7 +191,7 @@ public class FriendProfile extends AppCompatActivity {
 
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("chặn thành công",data);
+                            Toast.makeText(FriendProfile.this,"chặn thành công",Toast.LENGTH_LONG).show();
                             btnBlock.setText("Hủy chặn");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -230,7 +229,7 @@ public class FriendProfile extends AppCompatActivity {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
                             btnBlock.setText("Chặn");
-                            Log.d("hủy chặn thành công",data);
+                            Toast.makeText(FriendProfile.this,"hủy chặn thành công",Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -248,9 +247,6 @@ public class FriendProfile extends AppCompatActivity {
                 return headers;
             }
         };
-        Log.d("frId",profile_id);
-        Log.d("put",object.toString());
-        Log.d("",token);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(jsonObjectRequest);
 

@@ -27,7 +27,6 @@ public class FriendHome extends AppCompatActivity {
 
         token= getIntent().getStringExtra("token");
         profileId = getIntent().getStringExtra("profileId");
-        Log.d("prID",profileId);
         email= getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         binding = ActivityFriendHomeBinding.inflate(getLayoutInflater());

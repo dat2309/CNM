@@ -222,7 +222,6 @@ public class MenuChat extends AppCompatActivity {
                         public void onClick(View v) {
                             updateConAva(bitmap, idRoom);
                             RomID += idRoom;
-                            Log.d("roo", RomID);
 
                             btnChange.setVisibility(View.INVISIBLE);
                             btnhuy.setVisibility(View.INVISIBLE);
@@ -378,7 +377,7 @@ public class MenuChat extends AppCompatActivity {
                     bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
                     imgAvt.setImageBitmap(bitmap);
                     long imagename = System.currentTimeMillis();
-                    Log.d("iName", String.valueOf(imagename));
+
                 } catch (Exception e) {
                     Log.e("log", "File select error", e);
                 }
@@ -428,7 +427,6 @@ public class MenuChat extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("update", respObj.toString());
 
 
                         } catch (JSONException e) {
@@ -494,7 +492,6 @@ public class MenuChat extends AppCompatActivity {
                 Map<String, VolleyMultipartRequest.DataPart> params = new HashMap<>();
                 if (bitmap != null) {
                     params.put("avatar", new DataPart("avatar" + ".jpeg", getFileDataFromDrawable(bitmap), "image/jpeg"));
-                    Log.d("avatar", String.valueOf(new DataPart("avatar" + ".jpeg", getFileDataFromDrawable(bitmap), "image/jpeg")));
                 } else
                     params.put("avatar", new DataPart("avatar" + ".jpeg", getFileDataFromDrawable2(MenuChat.this, imgAvt.getDrawable()), "image/jpeg"));
 
@@ -519,12 +516,11 @@ public class MenuChat extends AppCompatActivity {
         String url = BuildConfig.API + "conversation/member/" + conID + "?accountId=" + deleteID;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JSONObject object = new JSONObject();
-        Log.d("duma", object.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("data", response.toString());
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -557,7 +553,6 @@ public class MenuChat extends AppCompatActivity {
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             String sex;
                             if(respObj2.get("sex").equals(true)){

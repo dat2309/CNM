@@ -63,7 +63,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderItemFriendRequest holder, int position) {
            ItemFriendRequest itemFriendRequest = itemFriendRequests.get(position);
-           Log.d("ara",itemFriendRequest.toString());
+
         if(itemFriendRequest.getAvatar().equalsIgnoreCase(BuildConfig.API+"file/avatar/smile.png"))
             holder.imgAvatarFriendRequest.setImageResource(R.drawable.smile);
         else{
@@ -92,7 +92,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
 
     @Override
     public int getItemCount() {
-        Log.d("size",String.valueOf( itemFriendRequests.size()));
+
         return itemFriendRequests.size();
     }
     public class MyViewHolderItemFriendRequest extends RecyclerView.ViewHolder {
@@ -111,7 +111,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
         //nhận
         itemFriendRequests = new ArrayList<>();
         String url =BuildConfig.API+"request/receiver/"+phone;
-        Log.d("haha", phone);
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
 
@@ -122,7 +122,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("find",respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
                             if(respObj2.length()>0)
@@ -133,7 +133,7 @@ public class ItemFriendRequestAdapter extends RecyclerView.Adapter<ItemFriendReq
                                     String description = object.getString("description");
                                     reqID = object.getString("_id");
                                     JSONObject sernderJS = object.getJSONObject("sender");
-                                    Log.d("sender",sernderJS.toString());
+
                                     String frName = sernderJS.get("name").toString();
                                     String frSex = sernderJS.get("phone").toString();
                                     String frAvatar = sernderJS.get("avatar").toString();

@@ -77,7 +77,7 @@ public class ForgotPass extends AppCompatActivity {
                             Toast.makeText(ForgotPass.this,"yêu cầu thành công",Toast.LENGTH_LONG).show();
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             String data= respObj.getString("data");
-                            Log.d("data",data);
+
                             if(data.equals("your reset password code has sent")){
                                 Intent intent = new Intent(ForgotPass.this, ChangePassForgot.class);
                                 // gửi dữ liệu qua acti

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -73,16 +74,12 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
                     .into(holder.imgAvatar);
         }
         if (itemChat.getName().length() > 20) {
-            Log.d("lenght", String.valueOf(itemChat.getName().length()));
+
             String nameS = itemChat.getName();
 
             String[] namel = nameS.split(",", 10);
-            Log.d("nameT",namel[0]);
-            Log.d("nameT",namel[1]);
-            Log.d("nameT",namel[2]);
-            Log.d("nameT", String.valueOf(namel.length));
+
             String nameRoom =""+namel[namel.length-1]+","+namel[0]+","+namel[1]+"....";
-            Log.d("roomname",nameRoom);
             holder.txtNameChat.setText(nameRoom);
 
         } else{
@@ -93,8 +90,6 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
         holder.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//            if(itemChat.getSize()!=2)
-//                deleteMem(itemChat.getId(),itemChat.getMember().getString(2));
             }
         });
         view.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +107,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
                 intent.putExtra("admin", itemChat.getAdmin());
                 intent.putExtra("participant", itemChat.getMember().toString());
                 context.startActivity(intent);
-                Log.d("ahihiighjkl", "met");
+
             }
         });
     }
@@ -152,15 +147,14 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("find", respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
 
 
-//                            Log.d("find",respObj2.toString());}
 
                             for (int i = respObj2.length() - 1; i >= 0; i--) {
                                 JSONObject object = respObj2.getJSONObject(i);
-                                Log.d("obj[" + i + "]", object.toString());
+
                                 String avatar, name;
                                 String admin = object.get("admin").toString();
                                 List list = new ArrayList();
@@ -185,7 +179,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
 
                                 LocalDate now = LocalDate.now();
                                 itemChats.add(new ItemChat(avatar, name, name, String.valueOf(now), idRoom, admin, size, arr));
-                                Log.d("chat", itemChats.toString());
+
 
                             }
                             notifyDataSetChanged();
@@ -214,97 +208,7 @@ public class ItemChatAdapter extends RecyclerView.Adapter<ItemChatAdapter.MyView
 
     }
 
-    private void deleteMem(String conID, String memID) {
-        String url = BuildConfig.API + "conversation/member/" + conID + "?accountId=" + memID;
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JSONObject object = new JSONObject();
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("xoa", respObj.toString());
-
-                            notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-            }
-        }) {
-
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("authorization", token);
-                return headers;
-            }
-        };
-
-
-        requestQueue.add(jsonObjectRequest);
-
-    }
-
-    private void updateCon1(String name, String conID) {
-        String url = BuildConfig.API + "conversation/" + conID;
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JSONObject object = new JSONObject();
-
-        try {
-            object.put("name", name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("update", respObj.toString());
-
-                            notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-            }
-        }) {
-
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("authorization", token);
-                return headers;
-            }
-        };
-
-
-        requestQueue.add(jsonObjectRequest);
-
-    }
     public void filterList(List<ItemChat> filteredList){
         itemChats = filteredList;
         notifyDataSetChanged();

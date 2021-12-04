@@ -99,7 +99,7 @@ public class FriendRequestProfile extends AppCompatActivity {
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
                             JSONObject respObj2 = new JSONObject(respObj.get("data").toString());
-                            Log.d("ahihi",respObj2.toString());
+
                             txtName.setText(respObj2.get("name").toString());
                             txtDob.setText(respObj2.get("dob").toString());
                             if(respObj2.get("sex").equals(true)){
@@ -159,7 +159,7 @@ public class FriendRequestProfile extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("accep",respObj.toString());
+
                             Intent intent = new Intent(FriendRequestProfile.this,FriendHome.class);
 
                             intent.putExtra("token",token);
@@ -212,7 +212,7 @@ public class FriendRequestProfile extends AppCompatActivity {
 
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
-                            Log.d("delete",respObj.toString());
+
                             Intent intent = new Intent(FriendRequestProfile.this,FriendHome.class);
                             intent.putExtra("token",token);
                             intent.putExtra("profileId",profileId);

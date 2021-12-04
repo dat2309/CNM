@@ -129,7 +129,7 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("find",respObj.toString());
+
                             JSONArray respObj2 = new JSONArray(respObj.getString("data"));
                             if(respObj2.length()>0){
                             for (int i = respObj2.length() - 1; i >= 0; i--) {
@@ -142,7 +142,7 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                                     frSex = "Nữ";
                                 }
                                 String frDob = object.get("dob").toString();
-                                Log.d("dob", frDob);
+
                                 String frAvatar = object.get("avatar").toString();
                                 itemPhoneBooks.add(new ItemPhoneBook(R.drawable.ic_activestatus, R.drawable.ic_info, frName, frSex, frDob, frAvatar, object.get("_id").toString()));
                             } }
@@ -197,10 +197,6 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                         try {
                             JSONObject respObj = new JSONObject(String.valueOf(response));
 
-                            Log.d("chat",respObj.toString());
-//                            respObj.getString("data").chatgetClass().getName();
-
-                            Log.d("name ",respObj.getString("data").getClass().getName());
                             try{
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             Intent intent = new Intent(context, Chat.class);
@@ -238,7 +234,7 @@ public class ItemPhoneBookAdapter extends RecyclerView.Adapter<ItemPhoneBookAdap
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("loi","loicc");
+
 
             }
         }){

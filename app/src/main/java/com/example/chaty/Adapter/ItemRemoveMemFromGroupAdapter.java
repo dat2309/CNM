@@ -37,27 +37,25 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemoveMemFromGroupAdapter.MyViewHolderItemFriendRemoveFromGroup> {
-    public static List<ItemFriendAddToGroup> itemFriendRemoveFormGroupLists ;
+    public static List<ItemFriendAddToGroup> itemFriendRemoveFormGroupLists;
     private Context context;
-    String token, profileId, email, phone, frID, admin,frAvatar, frName;
+    String token, profileId, email, phone, frID, admin, frAvatar, frName;
     View view;
     List<Object> sumCreate = new ArrayList();
     List member = new ArrayList();
 
-    public ItemRemoveMemFromGroupAdapter(Context context, String profileId, String frAvatar,String frName,String token, String frID, String admin, List member) {
+    public ItemRemoveMemFromGroupAdapter(Context context, String profileId, String frAvatar, String frName, String token, String frID, String admin, List member) {
         this.context = context;
         this.profileId = profileId;
-        Log.d("profile",profileId);
+
         this.token = token;
         this.frID = frID;
         this.frAvatar = frAvatar;
         this.frName = frName;
-        Log.d("roomId", frID);
         this.member = member;
-        Log.d("size", String.valueOf(member.size()));
         this.admin = admin;
         itemFriendRemoveFormGroupLists = new ArrayList<>();
-        for(int i = 0 ; i< member.size();i++)
+        for (int i = 0; i < member.size(); i++)
             getFriend(member.get(i).toString());
 
     }
@@ -101,7 +99,7 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
                         sumCreate.add(itemCreate.getTvTimeAddToGroup());
                     }
                 }
-                Log.d("listCrea", sumCreate.toString());
+
 
             }
         });
@@ -109,7 +107,7 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
             @Override
             public void onClick(View v) {
 
-                Log.d("ahihiighjkl", "met");
+
             }
         });
     }
@@ -144,16 +142,16 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
                         try {
                             //converting the string to json array object
                             JSONObject respObj = new JSONObject(response);
-                            Log.d("JSON", respObj.toString());
+
                             JSONObject respObj2 = new JSONObject(respObj.getString("data"));
                             String a_id = respObj2.get("_id").toString();
-                            if(!a_id.equals(profileId)){
-                            String aname= respObj2.get("name").toString();
-                            String aavatar = respObj2.get("avatar").toString();
+                            if (!a_id.equals(profileId)) {
+                                String aname = respObj2.get("name").toString();
+                                String aavatar = respObj2.get("avatar").toString();
                                 itemFriendRemoveFormGroupLists.add(new ItemFriendAddToGroup(aavatar, aname, a_id, false));
-                            notifyDataSetChanged();
-                            Log.d("listttt",itemFriendRemoveFormGroupLists.toString());
-                           }
+                                notifyDataSetChanged();
+
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -179,11 +177,11 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
     }
 
 
-    public void delete(){
-        for(int i = 0 ; i< sumCreate.size();i++){
-            deleteMemberFromGroup(sumCreate.get(i).toString(),frID);
-            for(int j = 0 ; j<member.size(); j++)
-                if(member.get(j).equals(sumCreate.get(i)))
+    public void delete() {
+        for (int i = 0; i < sumCreate.size(); i++) {
+            deleteMemberFromGroup(sumCreate.get(i).toString(), frID);
+            for (int j = 0; j < member.size(); j++)
+                if (member.get(j).equals(sumCreate.get(i)))
                     member.remove(j);
         }
         notifyDataSetChanged();
@@ -200,25 +198,23 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
         intent.putExtra("admin", admin);
         context.startActivity(intent);
     }
+
     public void deleteMemberFromGroup(String deleteID, String conID) {
         JSONArray description = new JSONArray();
-
-        String url = BuildConfig.API + "conversation/member/" +conID+"?accountId="+deleteID;
+        String url = BuildConfig.API + "conversation/member/" + conID + "?accountId=" + deleteID;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject object = new JSONObject();
-        Log.d("duma", object.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("data", response.toString());
+
                         notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("loi", "loicc");
 
             }
         }) {
@@ -229,12 +225,9 @@ public class ItemRemoveMemFromGroupAdapter extends RecyclerView.Adapter<ItemRemo
                 return headers;
             }
         };
-
-
         requestQueue.add(jsonObjectRequest);
-
     }
-    public void filterList(List<ItemFriendAddToGroup> filteredList){
+    public void filterList(List<ItemFriendAddToGroup> filteredList) {
         itemFriendRemoveFormGroupLists = filteredList;
         notifyDataSetChanged();
     }
