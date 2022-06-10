@@ -268,7 +268,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if (error.networkResponse.statusCode == 400)
+                /*-\]if (error.networkResponse.statusCode == 400)
                     txtWrong.setText("Bạn nhập sai số điện thoại hoặc mật khẩu vui lòng nhập lại");
 
 
